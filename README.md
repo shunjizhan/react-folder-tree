@@ -1,5 +1,5 @@
 # Introduction  
-This is a folder tree written in ReactJS. After feeding initial data, it will build the tree. Initially it only shows the root folder, 
+This is a folder tree written in ReactJS. After feeding initial data, it will build the tree. Initially it only display the root folder. 
 
 We can click each folder to expand it, and check (or uncheck) each folder and file. Check (or uncheck) each folder will automatically check (or uncheck) all sub-folders, including all the files in these folders. If part of the sub-folders or files in a folder are checked, this folder will display a half check.
 
