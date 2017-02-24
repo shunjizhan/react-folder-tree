@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FolderTree from './FolderTree'
+import FolderTree from './Components/FolderTree'
 
 var data = {
   "id": 1,

@@ -8,18 +8,10 @@ body {
 	white-space: pre-wrap;
 }
 
-/* .folder:hover {
-	border: 1px solid red;
-	cursor: pointer;
-} */
-
 .file ul, .folder ul {
 	margin: 0;
 }
 
-/* .node:hover {
-	border: 1px solid black;
-} */
 
 
 
