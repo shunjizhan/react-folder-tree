@@ -4,7 +4,7 @@ import Checkbox from './Checkbox'
 
 class TreeNode extends Component {
 	static propTypes = {
-  	category: React.PropTypes.string.isRequired,	
+  	category: React.PropTypes.string.isRequired,
   	filename: React.PropTypes.string.isRequired,
   	level: React.PropTypes.number.isRequired,
   	children: React.PropTypes.array.isRequired,
@@ -20,9 +20,8 @@ class TreeNode extends Component {
     this.setChildrenStatus = this.setChildrenStatus.bind(this);
 
     this.state = {
-    	children: props.children,							
+    	children: props.children,
     	level: props.level,
-    	// checked: 0,
       open: false
     };
   }
@@ -31,31 +30,28 @@ class TreeNode extends Component {
   		this.setState(prevState => ({ open: !prevState.open }));
   }
 
-  handleCheck(e) {																
+  handleCheck(e) {
   	if (e.target.checked) {
-  		// console.log('setState 1');
   		this.props.setChildrenStatus(this.props.id, 1);
   		this.setState(this.changeAllChildrenStatus(this.state.children, 1));
   	}	else {
-  		// console.log('setState 0');
   		this.props.setChildrenStatus(this.props.id, 0);										// own and parent's check
   		this.setState(this.changeAllChildrenStatus(this.state.children, 0));		// children's check
   	}
   }
 
-  setChildrenStatus(id, status) {									// recursively update all parent's children data
-  	// console.log('set childrenStatus ', status)
-
+  setChildrenStatus(id, status) {
+    // recursively update all parent's children data
   	let children = this.state.children;
   	if (children) {
 	  	for (let i = 0; i < children.length; i++) {
-	  		if (children[i].id === id) 
+	  		if (children[i].id === id)
 	  			children[i].status = status;
 	  	}
 	  }
+
   	this.setState({ children: children });
 
-  	// console.log(this.getCheckedStatus())
   	this.props.setChildrenStatus(this.props.id, this.getCheckedStatus(status));
   }
 
@@ -69,14 +65,6 @@ class TreeNode extends Component {
   		selectedChildrenSum += this.state.children[i].status;
   	}
 
-  	// const selectedChildren = this.state.children.filter(child => {
-  	// 	// return child.status === 1 && child.category === 'folder';
-  	// 	return child.status === 1;
-  	// });
-
-  	// console.log('selectedChildrenSum: ', selectedChildrenSum)
-
-  	// if (selectedChildren.length === getFolderNum(this.state.children)) {
   	if (selectedChildrenSum === this.state.children.length) {
   		return 1;
   	} else if (selectedChildrenSum === 0) {
@@ -87,27 +75,25 @@ class TreeNode extends Component {
   }
 
  	render() {
- 		// console.log('render checked = ' + this.state.checked)
  		if (this.props.category === 'folder') {
 	 		return (
-	      <div className='folder'>
+	      <div style={{ whiteSpace: 'pre-wrap' }}>
 	      	{this.getInden()}
 	      	<Checkbox status={this.props.checked} handleCheck={this.handleCheck} />
 	      	<a onClick={this.toggleFolder}>
 		        <FontAwesome name={this.state.open? 'folder-open': 'folder'}/> {this.props.filename}
 	        </a>
-	        <ul>
-	        {this.state.open && 
+	        <ul style={{ margin: 0 }}>
+	        {this.state.open &&
 	        	this.state.children.map( (child, i) => {
-	        		// console.log('child status: ', child.status)
 		        	return (
-		        		<TreeNode 
+		        		<TreeNode
 		        			className="aFolder"
 				        	id={child.id}
 				        	key={child.id}
-				        	level={this.state.level + 1} 
-				        	category={child.category} 
-				        	filename={child.filename} 				    
+				        	level={this.state.level + 1}
+				        	category={child.category}
+				        	filename={child.filename}
 				        	checked={child.status}
 				        	children={child.children? child.children : []}
 				        	setChildrenStatus={this.setChildrenStatus}
@@ -121,7 +107,7 @@ class TreeNode extends Component {
 	    )
  		} else {
  			return (
-	      <div className='file'>
+	      <div style={{ whiteSpace: 'pre-wrap' }}>
 	        {this.getInden()}
 	        <Checkbox status={this.props.checked} handleCheck={this.handleCheck} />
 		      <FontAwesome name='file-o'/> {this.props.filename}
@@ -143,7 +129,7 @@ class TreeNode extends Component {
 		// console.log('set all childrenStatus ', status)
 		for (let i = 0; i < children.length; i++) {
 			if (children[i].children) {
-				for (let j = 0; j < children[i].children.length; j++) 
+				for (let j = 0; j < children[i].children.length; j++)
 	  			children[i].children = this.changeAllChildrenStatus(children[i].children, status)
 	  	}
 	 		children[i].status = status;
