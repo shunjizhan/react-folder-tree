@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import FolderTree from './Components/FolderTree'
 
-var data = {
+const testData = {
   "id": 1,
   "filename": "All Categories",
   "category": "folder",
@@ -143,25 +143,35 @@ var data = {
   ]
 }
 
+const fileShape = PropTypes.shape({
+  id: PropTypes.number,
+  filename: PropTypes.string,
+  category: PropTypes.oneOf(['file', 'folder']),
+  children: PropTypes.arrayOf(fileShape),
+});
+
 class App extends Component {
+  static propTypes = {
+    data: PropTypes.arrayOf(fileShape),
+    onChange: PropTypes.func,
+  };
+
+  static defaultProps = {
+    data: testData,
+    onChange: selectedFolders => console.log(selectedFolders),
+  };
+
   render() {
+    const { data, onChange } = this.props;
     return (
-      <div className='folder-tree'>
-        <FolderTree data={modify(data)} onChange={selectedFolders => console.log(selectedFolders)} />
+      <div>
+        <FolderTree
+          data={data}
+          onChange={onChange}
+        />
       </div>
     )
   }
 }
 
-function modify(data) {       // set all initial status to 0, which means unchecked
-  if (data.children) {
-    for (let i = 0; i < data.children.length; i++)
-      data.children[i] = modify(data.children[i]);
-  }
-  data.status = 0;
-
-  return data;
-}
-
 export default App;
-
