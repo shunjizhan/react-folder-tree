@@ -1,9 +1,10 @@
-import React, { PropTypes, Component } from 'react';
+import React from 'react';
 import Checkbox from './Checkbox';
 import FontAwesome from 'react-fontawesome';
+import styles from './folderAndFile.css'
 
 const FileComponent = ({ level, checked, handleCheck, filename }) => (
-  <div style={{ whiteSpace: 'pre-wrap' }}>
+  <div className={styles.file}>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
     {'   '}<FontAwesome name='file-o'/> {filename}
@@ -11,7 +12,7 @@ const FileComponent = ({ level, checked, handleCheck, filename }) => (
 );
 
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
-  <div style={{ whiteSpace: 'pre-wrap' }}>
+  <div className={styles.folder}>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
     <a onClick={toggleFolder}>

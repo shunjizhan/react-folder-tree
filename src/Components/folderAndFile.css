@@ -1,0 +1,13 @@
+.folder {
+	white-space: pre-wrap;
+	border: 2px solid red;
+	color: red;
+
+/* 	:hover {
+		color: red;
+	} */
+}
+
+.file {
+	white-space: pre-wrap;
+}

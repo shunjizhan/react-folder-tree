@@ -1,18 +1,25 @@
 const path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+plugins: [
+  new ExtractTextPlugin('styles.css')
+]
+
 module.exports = {
   entry: './src/App',
 
   module: {
     loaders: [
       {
-        loader: 'babel',
         test: [/\.js$/, /\.jsx$/],
+        loader: 'babel',
         exclude: /node_modules/,
         query: {
           plugins: ['transform-decorators-legacy', 'transform-runtime'],
           presets: ['latest', 'react', 'stage-0'],
         },
       },
+
       {
         test: /\.(woff|svg|eot|ttf|woff2)$/,
         loader: 'file-loader',
@@ -20,32 +27,13 @@ module.exports = {
           name: '[sha512:hash:base64:7].[ext]',
         },
       },
+
       {
         test: /\.s?[ca]ss$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[local]__[path][name]__[hash:base64:5]',
-            },
-          },
-          {
-            loader: 'autoprefixer-loader',
-            options: {
-              browsers: 'last 2 versions',
-            },
-          },
-          {
-            loader: 'sass-loader',
-          }
-        ],
-      },
+        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' 
+      }
+
     ],
   },
 

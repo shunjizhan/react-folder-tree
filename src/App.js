@@ -148,12 +148,14 @@ const fileShape = PropTypes.shape({
   id: PropTypes.number,
   filename: PropTypes.string,
   category: PropTypes.oneOf(['file', 'folder']),
-  children: PropTypes.arrayOf(fileShape),
+  // children: PropTypes.arrayOf(fileShape),
 });
 
 class App extends Component {
   static propTypes = {
-    data: PropTypes.shape(fileShape),
+    // data: PropTypes.shape(fileShape),
+    data: fileShape,
+    // data: PropTypes.object,
     onChange: PropTypes.func,
   };
 
