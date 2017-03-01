@@ -1,5 +1,8 @@
 import React, { PropTypes, Component } from 'react';
-import FolderTree from './Components/FolderTree'
+import FolderTree from './Components/FolderTree';
+import Checkbox from './Components/Checkbox';
+import FontAwesome from 'react-fontawesome';
+
 
 const testData = {
   "id": 1,
@@ -152,7 +155,7 @@ const fileShape = PropTypes.shape({
 
 class App extends Component {
   static propTypes = {
-    data: PropTypes.arrayOf(fileShape),
+    data: PropTypes.shape(fileShape),
     onChange: PropTypes.func,
   };
 
@@ -168,10 +171,49 @@ class App extends Component {
         <FolderTree
           data={data}
           onChange={onChange}
+          fileComponent={FileComponent}
+          folderComponent={FolderComponent}
         />
       </div>
     )
   }
 }
+
+function getInden(level) {
+  let iden = '', i = 0;
+  while (i < level) {
+    iden += ' ';
+    i++;
+  }
+  return iden;
+}
+
+const FileComponent = ({ level, checked, handleCheck, filename }) => (
+  <div>
+    {getInden(level)}
+    <Checkbox status={checked} handleCheck={handleCheck} />
+    {'   '}<FontAwesome name='file-o'/>{filename}
+  </div>
+);
+
+const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
+  <div>
+    {getInden(level)}
+    <Checkbox status={checked} handleCheck={handleCheck} />
+    <a onClick={toggleFolder}>
+      <FontAwesome name={open? 'caret-down': 'caret-right'}/> <FontAwesome name={open? 'folder-open': 'folder'}/> {filename}
+    </a>
+  </div>
+);
+
+
+
+// const FileComponent = ({level, checked, handleCheck, filename}) => (
+//   <div>
+//     {getInden(level)}
+//     <Checkbox status={checked} handleCheck={handleCheck} />
+//     {'   '}<FontAwesome name='file-o'/>{filename}
+//   </div>
+// )
 
 export default App;

@@ -4,6 +4,8 @@ import TreeNode from './TreeNode'
 class FolderTree extends Component {
   static propTypes = {
   	data: React.PropTypes.object.isRequired,
+    fileComponent: React.PropTypes.func.isRequired,
+    folderComponent: React.PropTypes.func.isRequired,
 	};
 
 	constructor(props) {
@@ -41,13 +43,16 @@ class FolderTree extends Component {
 	      	setChildrenStatus={this.setRootStatus}
 	      	level={0}
 	      	checked={this.state.data.status}
+          fileComponent={this.props.fileComponent}
+          fileComponent={this.props.fileComponent}
+          folderComponent={this.props.folderComponent}
 	      />
 	    )
 	}
 }
 
 function filterAllSelected(node, rootFlag = false) {
-  if (rootFlag && !node.status) {                    // if it is root and is unchecked
+  if (rootFlag && !node.status) {                    // if it is root and is unchecked 
     return {};
   } else if (node.children != null && node.children.length > 0) {
     for (let i = 0; i < node.children.length; i++) {

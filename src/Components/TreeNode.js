@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-import Checkbox from './Checkbox'
+// import Checkbox from './Checkbox'
+
 
 class TreeNode extends Component {
 	static propTypes = {
@@ -10,8 +11,14 @@ class TreeNode extends Component {
   	children: React.PropTypes.array.isRequired,
   	checked: React.PropTypes.number.isRequired,
   	id: React.PropTypes.number.isRequired,
-  	setChildrenStatus: React.PropTypes.func.isRequired
+  	setChildrenStatus: React.PropTypes.func.isRequired,
+  	fileComponent: React.PropTypes.func.isRequired,
+    folderComponent: React.PropTypes.func.isRequired,
 	};
+
+	// static defaultProps = {
+	// 	fileComponent: FileComponent,
+	// }
 
 	constructor(props) {
     super(props);
@@ -75,55 +82,57 @@ class TreeNode extends Component {
   }
 
  	render() {
+ 		const { fileComponent: FileComponent } = this.props;
+ 		const { folderComponent: FolderComponent } = this.props;
+ 		console.log(FileComponent, FolderComponent)
+
  		if (this.props.category === 'folder') {
 	 		return (
 	      <div style={{ whiteSpace: 'pre-wrap' }}>
-	      	{this.getInden()}
-	      	<Checkbox status={this.props.checked} handleCheck={this.handleCheck} />
-	      	<a onClick={this.toggleFolder}>
-		        <FontAwesome name={this.state.open? 'folder-open': 'folder'}/> {this.props.filename}
-	        </a>
-	        <ul style={{ margin: 0 }}>
-	        {this.state.open &&
-	        	this.state.children.map( (child, i) => {
-		        	return (
-		        		<TreeNode
-		        			className="aFolder"
-				        	id={child.id}
-				        	key={child.id}
-				        	level={this.state.level + 1}
-				        	category={child.category}
-				        	filename={child.filename}
-				        	checked={child.status}
-				        	children={child.children? child.children : []}
-				        	setChildrenStatus={this.setChildrenStatus}
-			        	/>
-			        )
-	        	})
-	        }
-	        </ul>
+	      	<FolderComponent
+	      		level={this.state.level}
+	      		checked={this.props.checked}
+	      		handleCheck={this.handleCheck}
+	      		filename={this.props.filename}
+	      		toggleFolder={this.toggleFolder}
+	      		open={this.state.open}
+	      	/>
+		      <ul style={{ margin: 0 }}>
+		        {this.state.open &&
+		        	this.state.children.map( (child, i) => {
+			        	return (
+			        		<TreeNode
+			        			className="aFolder"
+					        	id={child.id}
+					        	key={child.id}
+					        	level={this.state.level + 1}
+					        	category={child.category}
+					        	filename={child.filename}
+					        	checked={child.status}
+					        	fileComponent={FileComponent}
+					        	children={child.children? child.children : []}
+					        	setChildrenStatus={this.setChildrenStatus}
+				        	/>
+				        )
+		        	})
+		        }
+		      </ul>
 
 	      </div>
 	    )
  		} else {
  			return (
 	      <div style={{ whiteSpace: 'pre-wrap' }}>
-	        {this.getInden()}
-	        <Checkbox status={this.props.checked} handleCheck={this.handleCheck} />
-		      <FontAwesome name='file-o'/> {this.props.filename}
+	      	<FileComponent
+	      		handleCheck={this.handleCheck}
+	      		checked={this.props.checked}
+	      		filename={this.props.filename}
+	      		level={this.state.level}
+	      	/>
 	      </div>
 	    )
  		}
   }
-
-  getInden() {
-		let iden = '', i = 0;
-		while (i < this.state.level) {
-			iden += ' ';
-			i++;
-		}
-		return iden;
-	}
 
 	changeAllChildrenStatus(children, status) {							// set all current and lower children's status
 		// console.log('set all childrenStatus ', status)
