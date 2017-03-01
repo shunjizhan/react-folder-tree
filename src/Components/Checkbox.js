@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './folderTree.css'
 
 class Checkbox extends React.Component {
 	static propTypes = {
@@ -32,7 +33,7 @@ class Checkbox extends React.Component {
 	}
 
 	render() {
-		return <input type="checkbox" onChange={this.handleCheck} checked={this.props.status !== 1? false : true} ref={box => this.checkBox = box}/>
+		return <input type="checkbox" onChange={this.handleCheck} checked={this.props.status !== 1? false : true} ref={box => this.checkBox = box} className={styles.checkBox}/>
 	}
 }
 

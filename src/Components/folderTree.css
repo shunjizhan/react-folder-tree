@@ -1,0 +1,13 @@
+.folder, .file {
+	white-space: pre-wrap;
+}
+
+.folder:hover, .file:hover {
+	color: #4d94ff;
+	cursor: pointer;
+}
+
+.checkBox:hover {
+	cursor: pointer;
+}
+

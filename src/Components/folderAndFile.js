@@ -1,7 +1,7 @@
 import React from 'react';
 import Checkbox from './Checkbox';
 import FontAwesome from 'react-fontawesome';
-import styles from './folderAndFile.css'
+import styles from './folderTree.css'
 
 const FileComponent = ({ level, checked, handleCheck, filename }) => (
   <div className={styles.file}>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TreeNode from './TreeNode'
+import TreeNode from './TreeNode';
+// import {FileComponent, FolderComponent} from './Components/folderAndFile'
 
 class FolderTree extends Component {
   static propTypes = {
@@ -13,7 +14,7 @@ class FolderTree extends Component {
     this.setRootStatus = this.setRootStatus.bind(this);
 
     this.state = {
-    	data: props.data,
+    	data: initialize(props.data),
     	checked: 0
     };
   }
@@ -80,6 +81,17 @@ function filterNode(node) {
   else {
     return node;
   }
+}
+
+/* set all initial status to 0, which means unchecked */
+function initialize(data) {       
+  if (data.children) {
+    for (let i = 0; i < data.children.length; i++)
+      data.children[i] = initialize(data.children[i]);
+  }
+  data.status = 0;
+
+  return data;
 }
 
 export default FolderTree;
