@@ -44,7 +44,6 @@ class FolderTree extends Component {
 	      	level={0}
 	      	checked={this.state.data.status}
           fileComponent={this.props.fileComponent}
-          fileComponent={this.props.fileComponent}
           folderComponent={this.props.folderComponent}
 	      />
 	    )

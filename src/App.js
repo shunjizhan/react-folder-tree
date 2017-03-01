@@ -3,6 +3,34 @@ import FolderTree from './Components/FolderTree';
 import Checkbox from './Components/Checkbox';
 import FontAwesome from 'react-fontawesome';
 
+function getInden(level) {
+  let iden = '', i = 0;
+  while (i < level) {
+    iden += ' ';
+    i++;
+  }
+  return iden;
+}
+
+const FileComponent = ({ level, checked, handleCheck, filename }) => {
+  return (
+    <div>
+      {getInden(level)}
+      <Checkbox status={checked} handleCheck={handleCheck} />
+      {'   '}<FontAwesome name='file-o'/> {filename}
+    </div>
+  )
+};
+
+const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
+  <div>
+    {getInden(level)}
+    <Checkbox status={checked} handleCheck={handleCheck} />
+    <a onClick={toggleFolder}>
+      <FontAwesome name={open? 'caret-down': 'caret-right'}/> <FontAwesome name={open? 'folder-open': 'folder'}/> {filename}
+    </a>
+  </div>
+);
 
 const testData = {
   "id": 1,
@@ -160,7 +188,7 @@ class App extends Component {
   };
 
   static defaultProps = {
-    data: testData,
+    data: modify(testData),
     onChange: selectedFolders => console.log(selectedFolders),
   };
 
@@ -179,41 +207,14 @@ class App extends Component {
   }
 }
 
-function getInden(level) {
-  let iden = '', i = 0;
-  while (i < level) {
-    iden += ' ';
-    i++;
+function modify(data) {       // set all initial status to 0, which means unchecked
+  if (data.children) {
+    for (let i = 0; i < data.children.length; i++)
+      data.children[i] = modify(data.children[i]);
   }
-  return iden;
+  data.status = 0;
+
+  return data;
 }
-
-const FileComponent = ({ level, checked, handleCheck, filename }) => (
-  <div>
-    {getInden(level)}
-    <Checkbox status={checked} handleCheck={handleCheck} />
-    {'   '}<FontAwesome name='file-o'/>{filename}
-  </div>
-);
-
-const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
-  <div>
-    {getInden(level)}
-    <Checkbox status={checked} handleCheck={handleCheck} />
-    <a onClick={toggleFolder}>
-      <FontAwesome name={open? 'caret-down': 'caret-right'}/> <FontAwesome name={open? 'folder-open': 'folder'}/> {filename}
-    </a>
-  </div>
-);
-
-
-
-// const FileComponent = ({level, checked, handleCheck, filename}) => (
-//   <div>
-//     {getInden(level)}
-//     <Checkbox status={checked} handleCheck={handleCheck} />
-//     {'   '}<FontAwesome name='file-o'/>{filename}
-//   </div>
-// )
 
 export default App;

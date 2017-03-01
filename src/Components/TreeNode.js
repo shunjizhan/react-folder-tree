@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome';
+// import FontAwesome from 'react-fontawesome';
 // import Checkbox from './Checkbox'
 
 
@@ -82,9 +82,8 @@ class TreeNode extends Component {
   }
 
  	render() {
- 		const { fileComponent: FileComponent } = this.props;
- 		const { folderComponent: FolderComponent } = this.props;
- 		console.log(FileComponent, FolderComponent)
+ 		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
+ 		// console.log(FileComponent, FolderComponent)
 
  		if (this.props.category === 'folder') {
 	 		return (
@@ -109,9 +108,11 @@ class TreeNode extends Component {
 					        	category={child.category}
 					        	filename={child.filename}
 					        	checked={child.status}
-					        	fileComponent={FileComponent}
 					        	children={child.children? child.children : []}
 					        	setChildrenStatus={this.setChildrenStatus}
+
+					        	fileComponent={FileComponent}
+					        	folderComponent={FolderComponent}
 				        	/>
 				        )
 		        	})
