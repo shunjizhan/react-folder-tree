@@ -6,13 +6,22 @@ We can click each folder to expand it, and check (or uncheck) each folder and fi
 Each time the checked folders/files change, console will print out the structure of the data tree (an object) that contains all the checked folders/files.
 
 
-#To Run: 
-in project root folder: 
+# To Run: 
+import FolderTree from 'react-folder-tree'
 
-npm install  
-npm start 
+then render     
+<FolderTree     
+  data={*your data*}     
+/>    
 
-project will run at: http://localhost:3000/  
+# Data Format:
+{
+	id:	string
+	filename:	string
+	catagory: 'file' or 'folder'
+	children: array of *this*
+}
+
 
 #Resources
 Testing data is from [here](http://codepen.io/anon/pen/Ftkln?editors=0010)

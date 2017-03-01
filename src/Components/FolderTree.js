@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import TreeNode from './TreeNode';
-// import {FileComponent, FolderComponent} from './Components/folderAndFile'
+import {FileComponent, FolderComponent} from './folderAndFile'
 
 class FolderTree extends Component {
   static propTypes = {
   	data: React.PropTypes.object.isRequired,
-    fileComponent: React.PropTypes.func.isRequired,
-    folderComponent: React.PropTypes.func.isRequired,
+    // fileComponent: React.PropTypes.func.isRequired,
+    // folderComponent: React.PropTypes.func.isRequired,
 	};
 
 	constructor(props) {
@@ -44,8 +44,8 @@ class FolderTree extends Component {
 	      	setChildrenStatus={this.setRootStatus}
 	      	level={0}
 	      	checked={this.state.data.status}
-          fileComponent={this.props.fileComponent}
-          folderComponent={this.props.folderComponent}
+          fileComponent={FileComponent}
+          folderComponent={FolderComponent}
 	      />
 	    )
 	}

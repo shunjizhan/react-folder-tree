@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {FileComponent, FolderComponent} from './Components/folderAndFile'
 
 // import App from './App';
 import FolderTree from './Components/FolderTree';
@@ -150,8 +149,6 @@ const testData = {
 ReactDOM.render(
   <FolderTree
     data={testData}
-    fileComponent={FileComponent}
-    folderComponent={FolderComponent}
   />,
 	document.getElementById('root')
 )
