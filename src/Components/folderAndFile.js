@@ -2,18 +2,16 @@ import React, { PropTypes, Component } from 'react';
 import Checkbox from './Checkbox';
 import FontAwesome from 'react-fontawesome';
 
-const FileComponent = ({ level, checked, handleCheck, filename }) => {
-  return (
-    <div>
-      {getInden(level)}
-      <Checkbox status={checked} handleCheck={handleCheck} />
-      {'   '}<FontAwesome name='file-o'/> {filename}
-    </div>
-  )
-};
+const FileComponent = ({ level, checked, handleCheck, filename }) => (
+  <div style={{ whiteSpace: 'pre-wrap' }}>
+    {getInden(level)}
+    <Checkbox status={checked} handleCheck={handleCheck} />
+    {'   '}<FontAwesome name='file-o'/> {filename}
+  </div>
+);
 
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
-  <div>
+  <div style={{ whiteSpace: 'pre-wrap' }}>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
     <a onClick={toggleFolder}>

@@ -1,36 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import FolderTree from './Components/FolderTree';
-import Checkbox from './Components/Checkbox';
-import FontAwesome from 'react-fontawesome';
-
-function getInden(level) {
-  let iden = '', i = 0;
-  while (i < level) {
-    iden += ' ';
-    i++;
-  }
-  return iden;
-}
-
-const FileComponent = ({ level, checked, handleCheck, filename }) => {
-  return (
-    <div>
-      {getInden(level)}
-      <Checkbox status={checked} handleCheck={handleCheck} />
-      {'   '}<FontAwesome name='file-o'/> {filename}
-    </div>
-  )
-};
-
-const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
-  <div>
-    {getInden(level)}
-    <Checkbox status={checked} handleCheck={handleCheck} />
-    <a onClick={toggleFolder}>
-      <FontAwesome name={open? 'caret-down': 'caret-right'}/> <FontAwesome name={open? 'folder-open': 'folder'}/> {filename}
-    </a>
-  </div>
-);
+import {FileComponent, FolderComponent} from './Components/folderAndFile'
 
 const testData = {
   "id": 1,
@@ -188,7 +158,7 @@ class App extends Component {
   };
 
   static defaultProps = {
-    data: modify(testData),
+    data: initialize(testData),
     onChange: selectedFolders => console.log(selectedFolders),
   };
 
@@ -207,10 +177,11 @@ class App extends Component {
   }
 }
 
-function modify(data) {       // set all initial status to 0, which means unchecked
+/* set all initial status to 0, which means unchecked */
+function initialize(data) {       
   if (data.children) {
     for (let i = 0; i < data.children.length; i++)
-      data.children[i] = modify(data.children[i]);
+      data.children[i] = initialize(data.children[i]);
   }
   data.status = 0;
 

@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-// import FontAwesome from 'react-fontawesome';
-// import Checkbox from './Checkbox'
-
 
 class TreeNode extends Component {
 	static propTypes = {
@@ -15,10 +12,6 @@ class TreeNode extends Component {
   	fileComponent: React.PropTypes.func.isRequired,
     folderComponent: React.PropTypes.func.isRequired,
 	};
-
-	// static defaultProps = {
-	// 	fileComponent: FileComponent,
-	// }
 
 	constructor(props) {
     super(props);
@@ -47,8 +40,8 @@ class TreeNode extends Component {
   	}
   }
 
+  /* recursively update all parent's children data */
   setChildrenStatus(id, status) {
-    // recursively update all parent's children data
   	let children = this.state.children;
   	if (children) {
 	  	for (let i = 0; i < children.length; i++) {
@@ -87,7 +80,8 @@ class TreeNode extends Component {
 
  		if (this.props.category === 'folder') {
 	 		return (
-	      <div style={{ whiteSpace: 'pre-wrap' }}>
+	      <div>
+
 	      	<FolderComponent
 	      		level={this.state.level}
 	      		checked={this.props.checked}
@@ -96,6 +90,7 @@ class TreeNode extends Component {
 	      		toggleFolder={this.toggleFolder}
 	      		open={this.state.open}
 	      	/>
+
 		      <ul style={{ margin: 0 }}>
 		        {this.state.open &&
 		        	this.state.children.map( (child, i) => {
@@ -110,7 +105,6 @@ class TreeNode extends Component {
 					        	checked={child.status}
 					        	children={child.children? child.children : []}
 					        	setChildrenStatus={this.setChildrenStatus}
-
 					        	fileComponent={FileComponent}
 					        	folderComponent={FolderComponent}
 				        	/>
@@ -123,19 +117,18 @@ class TreeNode extends Component {
 	    )
  		} else {
  			return (
-	      <div style={{ whiteSpace: 'pre-wrap' }}>
-	      	<FileComponent
-	      		handleCheck={this.handleCheck}
-	      		checked={this.props.checked}
-	      		filename={this.props.filename}
-	      		level={this.state.level}
-	      	/>
-	      </div>
+	      <FileComponent
+	    		handleCheck={this.handleCheck}
+	     		checked={this.props.checked}
+	     		filename={this.props.filename}
+	     		level={this.state.level}
+	     	/>
 	    )
  		}
   }
 
-	changeAllChildrenStatus(children, status) {							// set all current and lower children's status
+	/* set all current and lower children's status */
+	changeAllChildrenStatus(children, status) {							
 		// console.log('set all childrenStatus ', status)
 		for (let i = 0; i < children.length; i++) {
 			if (children[i].children) {
