@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/App',
+  entry: './src/Components/FolderTree',
 
   module: {
     loaders: [

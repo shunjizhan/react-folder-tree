@@ -5,6 +5,9 @@ We can click each folder to expand it, and check (or uncheck) each folder and fi
 
 Each time the checked folders/files change, console will print out the structure of the data tree (an object) that contains all the checked folders/files.
 
+# To Run: 
+npm install react-folder-tree
+
 
 # To Run: 
 import React from 'react';
@@ -19,6 +22,13 @@ ReactDOM.render(
   />,        
 	document.getElementById('root')      
 )      
+
+at this point remember to include
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+in your html page
 
 # Data Format:				 
 {				
@@ -172,7 +182,10 @@ const testData = {
 }		
 
 
-#Resources
+# Resources
 Testing data is from [here](http://codepen.io/anon/pen/Ftkln?editors=0010)
 
 Icons are from [here](https://www.npmjs.com/package/react-fontawesome)
+
+# Issues:
+Need to figure out how to make font awesome works
