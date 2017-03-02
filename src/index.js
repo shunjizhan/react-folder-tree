@@ -148,7 +148,7 @@ const testData = {
 
 ReactDOM.render(
   <FolderTree
-    data={testData}
+  	data={testData}
   />,
 	document.getElementById('root')
 )

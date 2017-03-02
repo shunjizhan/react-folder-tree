@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './folderTree.css'
+import styles from './folderTreeCSS.css'
 
 class Checkbox extends React.Component {
 	static propTypes = {

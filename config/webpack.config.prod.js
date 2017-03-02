@@ -1,9 +1,4 @@
 const path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-plugins: [
-  new ExtractTextPlugin('styles.css')
-]
 
 module.exports = {
   entry: './src/App',
@@ -29,10 +24,22 @@ module.exports = {
       },
 
       {
-        test: /\.s?[ca]ss$/,
+        // test: /\.s?[ca]ss$/,
+        test: /\.css$/,
         exclude: /node_modules/,
         loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' 
-      }
+      },
+
+      // {
+      //   loader: 'autoprefixer-loader',
+      //   options: {
+      //     browsers: 'last 2 versions',
+      //   },
+      // },
+
+      // {
+      //   loader: 'sass-loader',
+      // }
 
     ],
   },
@@ -43,14 +50,15 @@ module.exports = {
     libraryTarget: 'umd',
   },
 
-  resolve: {
-    extensions: ['.js', '.jsx', '.scss'],
-    alias: {
-      react: path.resolve('./node_modules/react'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
-      'react-fontawesome': path.resolve('./node_modules/react-fontawesome/lib/index'),
-    },
-  },
+  // resolve: {
+  //   // extensions: ['.js', '.jsx', '.css'],
+  //   extensions: ['.js', '.jsx', '.css'],
+  //   alias: {
+  //     'react': path.resolve('./node_modules/react'),
+  //     'react-dom': path.resolve('./node_modules/react-dom'),
+  //     'react-fontawesome': path.resolve('./node_modules/react-fontawesome/lib/index'),
+  //   },
+  // },
 
   externals: {
     react: 'umd react',
