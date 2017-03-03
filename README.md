@@ -12,7 +12,7 @@ Each time the checked folders/files change, console will print out the structure
 
 
 # To Install: 
-npm install react-folder-tree
+	npm install react-folder-tree
 
 # To Run: 
 
@@ -28,13 +28,6 @@ npm install react-folder-tree
 	  />,        
 		document.getElementById('root')      
 	)     
-
-
-at this point remember to include
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-in your html page
 
 # Data Format:	
 
@@ -188,10 +181,6 @@ in your html page
 	    }
 	  ]
 	}		
-
-# Issues:
-
-Need to add font awesome to CSS modules so don't need to include style sheet after installation
 
 # Resources
 

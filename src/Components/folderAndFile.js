@@ -1,13 +1,12 @@
 import React from 'react';
 import Checkbox from './Checkbox';
-import FontAwesome from 'react-fontawesome';
 import styles from './folderTreeCSS.css'
 
 const FileComponent = ({ level, checked, handleCheck, filename }) => (
   <div className={styles.file}>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
-    {'   '}<FontAwesome name='file-o'/> {filename}
+    {'   '}<i className={styles.fileIcon} /> {filename}
   </div>
 );
 
@@ -16,7 +15,7 @@ const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, 
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
     <a onClick={toggleFolder}>
-      <FontAwesome name={open? 'caret-down': 'caret-right'}/> <FontAwesome name={open? 'folder-open': 'folder'}/> {filename}
+      <i className={open? styles.arrowDown : styles.arrowRight} /> <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> {filename}
     </a>
   </div>
 );
