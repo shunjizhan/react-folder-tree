@@ -5,187 +5,190 @@ We can click each folder to expand it, and check (or uncheck) each folder and fi
 
 Each time the checked folders/files change, console will print out the structure of the data tree (an object) that contains all the checked folders/files.
 
-# To Run: 
+# To Install: 
 npm install react-folder-tree
 
-
 # To Run: 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FolderTree from 'react-folder-tree';
 
-const data = *YOUR DATA*
+	import React from 'react';
+	import ReactDOM from 'react-dom';
+	import FolderTree from 'react-folder-tree';
 
-ReactDOM.render(		 	
-  <FolderTree      
-    data={testData}       
-  />,        
-	document.getElementById('root')      
-)      
+	const testData = YOUR DATA
+
+	ReactDOM.render(		 	
+	  <FolderTree      
+	    data={testData}       
+	  />,        
+		document.getElementById('root')      
+	)     
+
 
 at this point remember to include
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 in your html page
 
-# Data Format:				 
-{				
-	id:	string			
-	filename:	string			
-	catagory: 'file' or 'folder'			
-	children: array of *this*					
-}		
+# Data Format:	
+
+	{				 
+		id: number,    			
+		filename: string,	     		
+		catagory: 'file' or 'folder',	    		
+		children: array of *this*	       				
+	}		
 
 # Sample Data:
-const testData = {
-  "id": 1,
-  "filename": "All Categories",
-  "category": "folder",
-  "children": [
-    {
-      "id": 2,
-      "filename": "For Sale",
-      "category": "folder",
-      "children": [
-        {
-          "id": 3,
-          "filename": "Audio & Stereo",
-          "category": "folder",
-          "children": [
-    {
-      "id": 4,
-      "filename": "For Sale",
-      "category": "folder",
-      "children": [
-        {
-          "id": 5,
-          "filename": "Audio & Stereo",
-          "category": "file"
-        },
-        {
-          "id": 6,
-          "filename": "Baby & Kids Stuff",
-          "category": "file"
-        },
-        {
-          "id": 7,
-          "filename": "Music, Films, Books & Games",
-          "category": "file"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "filename": "Motors",
-      "category": "folder",
-      "children": [
-        {
-          "id": 9,
-          "filename": "Car Parts & Accessories",
-          "category": "file"
-        },
-        {
-          "id": 10,
-          "filename": "Cars",
-          "category": "file"
-        },
-        {
-          "id": 11,
-          "filename": "Motorbike Parts & Accessories",
-          "category": "file"
-        }
-      ]
-    },
-    {
-      "id": 12,
-      "filename": "Jobs",
-      "category": "folder",
-      "children": [
-        {
-          "id": 13,
-          "filename": "Accountancy",
-          "category": "file"
-        },
-        {
-          "id": 14,
-          "filename": "Financial Services & Insurance",
-          "category": "file"
-        },
-        {
-          "id": 15,
-          "filename": "Bar Staff & Management",
-          "category": "file"
-        }
-      ]
-    }
-  ]
-        },
-        {
-          "id": 16,
-          "filename": "Baby & Kids Stuff",
-          "category": "file"
-        },
-        {
-          "id": 17,
-          "filename": "Music, Films, Books & Games",
-          "category": "file"
-        }
-      ]
-    },
-    {
-      "id": 18,
-      "filename": "Motors",
-      "category": "folder",
-      "children": [
-        {
-          "id": 19,
-          "filename": "Car Parts & Accessories",
-          "category": "file"
-        },
-        {
-          "id": 20,
-          "filename": "Cars",
-          "category": "file"
-        },
-        {
-          "id": 21,
-          "filename": "Motorbike Parts & Accessories",
-          "category": "file"
-        }
-      ]
-    },
-    {
-      "id": 22,
-      "filename": "Jobs",
-      "category": "folder",
-      "children": [
-        {
-          "id": 23,
-          "filename": "Accountancy",
-          "category": "file"
-        },
-        {
-          "id": 24,
-          "filename": "Financial Services & Insurance",
-          "category": "file"
-        },
-        {
-          "id": 25,
-          "filename": "Bar Staff & Management",
-          "category": "file"
-        }
-      ]
-    }
-  ]
-}		
 
+	const testData = {
+	  "id": 1,
+	  "filename": "All Categories",
+	  "category": "folder",
+	  "children": [
+	    {
+	      "id": 2,
+	      "filename": "For Sale",
+	      "category": "folder",
+	      "children": [
+	        {
+	          "id": 3,
+	          "filename": "Audio & Stereo",
+	          "category": "folder",
+	          "children": [
+	    {
+	      "id": 4,
+	      "filename": "For Sale",
+	      "category": "folder",
+	      "children": [
+	        {
+	          "id": 5,
+	          "filename": "Audio & Stereo",
+	          "category": "file"
+	        },
+	        {
+	          "id": 6,
+	          "filename": "Baby & Kids Stuff",
+	          "category": "file"
+	        },
+	        {
+	          "id": 7,
+	          "filename": "Music, Films, Books & Games",
+	          "category": "file"
+	        }
+	      ]
+	    },
+	    {
+	      "id": 8,
+	      "filename": "Motors",
+	      "category": "folder",
+	      "children": [
+	        {
+	          "id": 9,
+	          "filename": "Car Parts & Accessories",
+	          "category": "file"
+	        },
+	        {
+	          "id": 10,
+	          "filename": "Cars",
+	          "category": "file"
+	        },
+	        {
+	          "id": 11,
+	          "filename": "Motorbike Parts & Accessories",
+	          "category": "file"
+	        }
+	      ]
+	    },
+	    {
+	      "id": 12,
+	      "filename": "Jobs",
+	      "category": "folder",
+	      "children": [
+	        {
+	          "id": 13,
+	          "filename": "Accountancy",
+	          "category": "file"
+	        },
+	        {
+	          "id": 14,
+	          "filename": "Financial Services & Insurance",
+	          "category": "file"
+	        },
+	        {
+	          "id": 15,
+	          "filename": "Bar Staff & Management",
+	          "category": "file"
+	        }
+	      ]
+	    }
+	  ]
+	        },
+	        {
+	          "id": 16,
+	          "filename": "Baby & Kids Stuff",
+	          "category": "file"
+	        },
+	        {
+	          "id": 17,
+	          "filename": "Music, Films, Books & Games",
+	          "category": "file"
+	        }
+	      ]
+	    },
+	    {
+	      "id": 18,
+	      "filename": "Motors",
+	      "category": "folder",
+	      "children": [
+	        {
+	          "id": 19,
+	          "filename": "Car Parts & Accessories",
+	          "category": "file"
+	        },
+	        {
+	          "id": 20,
+	          "filename": "Cars",
+	          "category": "file"
+	        },
+	        {
+	          "id": 21,
+	          "filename": "Motorbike Parts & Accessories",
+	          "category": "file"
+	        }
+	      ]
+	    },
+	    {
+	      "id": 22,
+	      "filename": "Jobs",
+	      "category": "folder",
+	      "children": [
+	        {
+	          "id": 23,
+	          "filename": "Accountancy",
+	          "category": "file"
+	        },
+	        {
+	          "id": 24,
+	          "filename": "Financial Services & Insurance",
+	          "category": "file"
+	        },
+	        {
+	          "id": 25,
+	          "filename": "Bar Staff & Management",
+	          "category": "file"
+	        }
+	      ]
+	    }
+	  ]
+	}		
+
+# Issues:
+
+Need to add font awesome to CSS modules so don't need to include style sheet after installation
 
 # Resources
+
 Testing data is from [here](http://codepen.io/anon/pen/Ftkln?editors=0010)
 
 Icons are from [here](https://www.npmjs.com/package/react-fontawesome)
-
-# Issues:
-Need to figure out how to make font awesome works
