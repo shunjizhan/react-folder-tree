@@ -6,7 +6,14 @@ import FileComponent from './FileComponent';
 class FolderTree extends Component {
   static propTypes = {
   	data: React.PropTypes.object.isRequired,
+    fileComponent: React.PropTypes.func,
+    folderComponent: React.PropTypes.func, 
 	};
+
+  static defaultProps = {
+    folderComponent: FolderComponent,
+    fileComponent: FileComponent,
+  };
 
 	constructor(props) {
     super(props);
@@ -43,8 +50,9 @@ class FolderTree extends Component {
 	      	setChildrenStatus={this.setRootStatus}
 	      	level={0}
 	      	checked={this.state.data.status}
-          fileComponent={FileComponent}
-          folderComponent={FolderComponent}
+
+          fileComponent={this.props.fileComponent}
+          folderComponent={this.props.folderComponent}
 	      />
 	    )
 	}

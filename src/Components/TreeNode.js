@@ -9,8 +9,8 @@ class TreeNode extends Component {
   	checked: React.PropTypes.number.isRequired,
   	id: React.PropTypes.number.isRequired,
   	setChildrenStatus: React.PropTypes.func.isRequired,
-  	fileComponent: React.PropTypes.func,
-    folderComponent: React.PropTypes.func, 
+  	fileComponent: React.PropTypes.func.isRequired,
+    folderComponent: React.PropTypes.func.isRequired, 
 	};
 
 	constructor(props) {
