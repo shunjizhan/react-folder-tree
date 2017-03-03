@@ -7,11 +7,6 @@ class Checkbox extends React.Component {
   	status: React.PropTypes.number.isRequired
 	};
 
-	constructor(props) {
-    super(props);
-    this.handleCheck = this.handleCheck.bind(this);
-  }
-
 	componentDidUpdate(prevProps, prevState) {
 		// console.log('Checking indeterminate status', this.props.status);
 		if (this.props.status === 0.5) 
@@ -28,12 +23,16 @@ class Checkbox extends React.Component {
 			this.checkBox.indeterminate = false;
 	}
 
-	handleCheck(e) {
-		this.props.handleCheck(e);
-	}
-
 	render() {
-		return <input type="checkbox" onChange={this.handleCheck} checked={this.props.status !== 1? false : true} ref={box => this.checkBox = box} className={styles.checkBox}/>
+		return (
+			<input 
+				type="checkbox" 
+				onChange={this.props.handleCheck} 
+				checked={this.props.status !== 1? false : true} 
+				ref={box => this.checkBox = box} 
+				className={styles.checkBox}
+			/>
+		)
 	}
 }
 

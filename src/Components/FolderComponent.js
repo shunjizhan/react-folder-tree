@@ -2,14 +2,6 @@ import React from 'react';
 import Checkbox from './Checkbox';
 import styles from './folderTreeCSS.css'
 
-const FileComponent = ({ level, checked, handleCheck, filename }) => (
-  <div className={styles.file}>
-    {getInden(level)}
-    <Checkbox status={checked} handleCheck={handleCheck} />
-    {'   '}<i className={styles.fileIcon} /> {filename}
-  </div>
-);
-
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
   <div className={styles.folder}>
     {getInden(level)}
@@ -20,6 +12,15 @@ const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, 
   </div>
 );
 
+FolderComponent.propTypes = {
+  level: React.PropTypes.number.isRequired,
+  checked: React.PropTypes.number.isRequired,
+  handleCheck: React.PropTypes.func.isRequired,
+  filename: React.PropTypes.string.isRequired,
+  toggleFolder: React.PropTypes.func.isRequired,
+  open: React.PropTypes.bool.isRequired
+}
+
 function getInden(level) {
   let iden = '', i = 0;
   while (i < level) {
@@ -29,4 +30,4 @@ function getInden(level) {
   return iden;
 }
 
-export {FileComponent, FolderComponent};
+export default FolderComponent;
