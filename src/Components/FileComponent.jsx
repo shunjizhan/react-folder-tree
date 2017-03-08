@@ -10,7 +10,7 @@ const FileComponent = ({ level, checked, handleCheck, filename, setMyName }) => 
 
     {filename}
     <button onClick={() => { setMyName('*' + filename + '*') }}>change</button>
-    
+
   </div>
 );
 

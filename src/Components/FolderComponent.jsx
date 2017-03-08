@@ -3,7 +3,7 @@ import Checkbox from './Checkbox';
 import styles from './folderTreeCSS.css'
 
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open, setMyName }) => (
-  <div>
+  <div className={styles.folder}>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
 
