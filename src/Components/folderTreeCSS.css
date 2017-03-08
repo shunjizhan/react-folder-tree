@@ -29,7 +29,11 @@
 }
 
 .carat:hover {
-  color: red;
+  color: green;
+}
+
+.pencilIcon:hover {
+  color: yellow;
 }
 
 .folderIcon::before { content: '\f114'; }

@@ -22,6 +22,7 @@ class TreeNode extends Component {
     this.handleCheck = this.handleCheck.bind(this);
     this.setChildrenStatus = this.setChildrenStatus.bind(this);
     this.setMyPath = this.setMyPath.bind(this);
+    this.setMyName = this.setMyName.bind(this);
 
     this.state = {
     	children: props.children,
@@ -79,10 +80,13 @@ class TreeNode extends Component {
   }
 
   setMyName(name) {
+  	console.log('set my name')
   	this.props.setName(this.props.path, name);
   }
 
   setMyPath(path) {
+  	  	console.log('set my path')
+
   	this.props.setPath(this.props.path);
   }
 
