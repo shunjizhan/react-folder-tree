@@ -18,6 +18,7 @@ class TreeNode extends Component {
     this.toggleFolder = this.toggleFolder.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.setChildrenStatus = this.setChildrenStatus.bind(this);
+    this.setName = this.setName.bind(this);
 
     this.state = {
     	children: props.children,
@@ -74,6 +75,10 @@ class TreeNode extends Component {
   	}
   }
 
+  setName(path, name) {
+  	this.props.setName([0,0,0,1], "ttttttttttttt");
+  }
+
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
  		// console.log(FileComponent, FolderComponent)
@@ -81,6 +86,8 @@ class TreeNode extends Component {
  		if (this.props.category === 'folder') {
 	 		return (
 	      <div>
+
+	      	<button onClick={this.setName}>click me</button>
 
 	      	<FolderComponent
 	      		level={this.state.level}
@@ -107,6 +114,8 @@ class TreeNode extends Component {
 					        	setChildrenStatus={this.setChildrenStatus}
 					        	fileComponent={FileComponent}
 					        	folderComponent={FolderComponent}
+
+					        	setName={this.props.setChildName}
 				        	/>
 				        )
 		        	})

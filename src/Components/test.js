@@ -10,8 +10,9 @@ describe('test <CheckBox />', () => {
     const wrapper = shallow(<CheckBox handleCheck={()=>{}} status={0}/>);
     // expect(wrapper.find(Foo)).to.have.length(3);
     // console.log(wrapper.prop('type'));
-    // expect(wrapper.prop('type')).to.equal("checkbox");
-    expect(wrapper.prop('type'));
+    console.log(wrapper.prop('type'));
+    expect(wrapper.prop('type')).to.equal("checkbox");
+    // expect(wrapper.prop('type'));
   });
 
   // it('should render an `.icon-star`', () => {
@@ -36,6 +37,8 @@ describe('test <CheckBox />', () => {
   //   wrapper.find('button').simulate('click');
   //   expect(onButtonClick.calledOnce).to.equal(true);
   // });
+
+
 
 });
 

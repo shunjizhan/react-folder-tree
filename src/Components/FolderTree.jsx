@@ -18,6 +18,10 @@ class FolderTree extends Component {
 	constructor(props) {
     super(props);
     this.setRootStatus = this.setRootStatus.bind(this);
+    this.setChildName = this.setChildName.bind(this);
+    // this.setRootName = this.setRootName.bind(this);
+    // this.setName = this.setName.bind(this);
+
     this.state = {
       data: initialize(props.data),
     	checked: 0
@@ -38,6 +42,45 @@ class FolderTree extends Component {
  		console.log(selectedTree);
   }
 
+  // setChildName(path, name) {
+  //   let newData = this.state.data;
+  //   let ref = newData;
+  //   let i = 0;                      
+  //   while (i < path.length) {
+  //     ref = ref.children.path[i];
+  //     i++;
+  //   }
+  //   ref.filename = name;
+  //   this.setState({data: newData});
+
+  // }
+
+  setChildName(path, name) {
+    let newData = this.state.data;
+    let ref = newData;
+    let i = 0;                      
+    while (i < path.length) {
+      ref = ref.children[path[i]];  // childre
+      i++;
+    }
+    ref.filename = name;
+    this.setState({data: newData});
+
+  }
+
+  // setRootName(name) {
+  //   let newData = this.state.data;
+  //   newData.filename = name;
+  //   this.setState({data: newData}); 
+  // }
+
+  // setName(path, name) {
+  //   if (path.length === 0) 
+  //     this.setRootName(name);
+  //   else 
+  //     this.setChildName(path, name);
+  // }
+
  	render() {
  			this.printSelectedFileTree();
  			return (
@@ -53,6 +96,8 @@ class FolderTree extends Component {
 
           fileComponent={this.props.fileComponent}
           folderComponent={this.props.folderComponent}
+
+          setName={this.setChildName}
 	      />
 	    )
 	}

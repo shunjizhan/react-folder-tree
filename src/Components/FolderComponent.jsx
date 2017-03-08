@@ -7,7 +7,8 @@ const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, 
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
     <a onClick={toggleFolder}>
-      <i className={open? styles.arrowDown : styles.arrowRight} /> <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> {filename}
+      <i className={open? styles.arrowDown : styles.arrowRight} /> <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> 
+      {filename}
     </a>
   </div>
 );
