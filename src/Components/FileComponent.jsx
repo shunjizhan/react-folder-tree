@@ -6,10 +6,12 @@ const FileComponent = ({ level, checked, handleCheck, filename, setMyName }) => 
   <div className={styles.file}>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
-    {'   '}<i className={styles.fileIcon} /> 
 
-    {filename}
-    <button onClick={() => { setMyName('*' + filename + '*') }}>change</button>
+    <span className={styles.fileText}>
+      {'   '}<i className={styles.fileIcon} /> 
+      {' ' + filename + ' '}
+    </span>
+    <i className={styles.pencilIcon} onClick={() => { setMyName('*' + filename + '*') }} />
 
   </div>
 );

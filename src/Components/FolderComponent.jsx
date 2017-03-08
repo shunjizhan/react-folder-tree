@@ -9,11 +9,11 @@ const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, 
 
     <a onClick={toggleFolder}><i className={open? [styles.arrowDown, styles.carat].join(' ')  : [styles.arrowRight, styles.carat].join(' ') } /> </a>
 
-    <span className={styles.folder}>
+    <span className={styles.folderText}>
       <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> 
-      {filename + ' '}   
+      {' ' + filename + ' '}   
     </span>
-    <button onClick={() => { setMyName('*' + filename + '*') }}>change</button>
+    <i className={styles.pencilIcon} onClick={() => { setMyName('*' + filename + '*') }} />
 
   </div>
 );
