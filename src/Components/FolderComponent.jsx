@@ -3,14 +3,18 @@ import Checkbox from './Checkbox';
 import styles from './folderTreeCSS.css'
 
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open, setMyName }) => (
-  <div className={styles.folder}>
+  <div>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
-    <a onClick={toggleFolder}>
-      <i className={open? styles.arrowDown : styles.arrowRight} /> <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> 
-    </a>
-    {filename}
+
+    <a onClick={toggleFolder}><i className={open? [styles.arrowDown, styles.carat].join(' ')  : [styles.arrowRight, styles.carat].join(' ') } /> </a>
+
+    <span className={styles.folder}>
+      <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> 
+      {filename + ' '}   
+    </span>
     <button onClick={() => { setMyName('*' + filename + '*') }}>change</button>
+
   </div>
 );
 

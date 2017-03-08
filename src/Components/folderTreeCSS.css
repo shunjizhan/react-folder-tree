@@ -28,6 +28,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.carat:hover {
+  color: red;
+}
+
 .folderIcon::before { content: '\f114'; }
 .foldeOpenIcon::before { content: "\f115"; }
 .arrowRight::before { content: "\f0da"; }
