@@ -19,13 +19,18 @@ class FolderTree extends Component {
     super(props);
     this.setRootStatus = this.setRootStatus.bind(this);
     this.setChildName = this.setChildName.bind(this);
-    // this.setRootName = this.setRootName.bind(this);
-    // this.setName = this.setName.bind(this);
+    this.setSelectedPath = this.setSelectedPath.bind(this);
 
     this.state = {
       data: initialize(props.data),
-    	checked: 0
+    	checked: 0,
+      selectedPath: [],   // path to selected file or folder
     };
+  }
+
+  setSelectedPath(path) {
+    console.log('setSelectedPath: ' + path)
+    this.setState({selectedPath: path});
   }
 
   setRootStatus(id, status) {
@@ -74,7 +79,8 @@ class FolderTree extends Component {
           fileComponent={this.props.fileComponent}
           folderComponent={this.props.folderComponent}
 
-          setName={ (path, name) => { this.setChildName(path, name); }}
+          setName={ (path, name) => { this.setChildName(path, name); } }
+          setPath={ path => { this.setSelectedPath(path) } }
           path={[]}
 	      />
 	    )

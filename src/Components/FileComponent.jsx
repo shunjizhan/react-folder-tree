@@ -2,12 +2,12 @@ import React from 'react';
 import Checkbox from './Checkbox';
 import styles from './folderTreeCSS.css'
 
-const FileComponent = ({ level, checked, handleCheck, filename, setMyName }) => (
+const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selectMe }) => (
   <div className={styles.file}>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
 
-    <span className={styles.fileText}>
+    <span className={styles.fileText} onClick={selectMe}>
       {'   '}<i className={styles.fileIcon} /> 
       {' ' + filename + ' '}
     </span>
@@ -23,6 +23,7 @@ FileComponent.propTypes = {
   filename: React.PropTypes.string.isRequired,
   path: React.PropTypes.array.isRequired, 
   setMyName: React.PropTypes.func.isRequired,
+  selectMe: React.PropTypes.func.isRequired,
 };
 
 function getInden(level) {

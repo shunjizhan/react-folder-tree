@@ -12,6 +12,8 @@ class TreeNode extends Component {
   	fileComponent: React.PropTypes.func.isRequired,
     folderComponent: React.PropTypes.func.isRequired, 
     path: React.PropTypes.array.isRequired, 
+  	setName: React.PropTypes.func.isRequired,
+  	setPath: React.PropTypes.func.isRequired,
 	};
 
 	constructor(props) {
@@ -19,7 +21,7 @@ class TreeNode extends Component {
     this.toggleFolder = this.toggleFolder.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.setChildrenStatus = this.setChildrenStatus.bind(this);
-    this.setMyName = this.setMyName.bind(this);
+    this.setMyPath = this.setMyPath.bind(this);
 
     this.state = {
     	children: props.children,
@@ -80,6 +82,10 @@ class TreeNode extends Component {
   	this.props.setName(this.props.path, name);
   }
 
+  setMyPath(path) {
+  	this.props.setPath(this.props.path);
+  }
+
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
  		// console.log(FileComponent, FolderComponent)
@@ -98,6 +104,7 @@ class TreeNode extends Component {
 
 	      		path={this.props.path}
 	      		setMyName={this.setMyName}
+	      		selectMe={this.setMyPath}
 	      	/>
 
 		      <ul style={{ margin: 0 }}>
@@ -118,6 +125,7 @@ class TreeNode extends Component {
 					        	folderComponent={FolderComponent}
 
 					        	setName={(path, name) => { this.props.setName(path, name); } }
+					        	setPath={ path => { this.props.setPath(path) } }
 					        	path={this.props.path.concat(index)}
 				        	/>
 				        )
@@ -137,6 +145,7 @@ class TreeNode extends Component {
 
 	     	  path={this.props.path}
 	      	setMyName={this.setMyName}
+	      	selectMe={this.setMyPath}
 	     	/>
 	    )
  		}

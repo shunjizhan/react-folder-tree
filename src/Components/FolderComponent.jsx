@@ -2,14 +2,14 @@ import React from 'react';
 import Checkbox from './Checkbox';
 import styles from './folderTreeCSS.css'
 
-const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open, setMyName }) => (
+const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open, setMyName, selectMe }) => (
   <div className={styles.folder}>
     {getInden(level)}
     <Checkbox status={checked} handleCheck={handleCheck} />
 
     <a onClick={toggleFolder}><i className={open? [styles.arrowDown, styles.carat].join(' ')  : [styles.arrowRight, styles.carat].join(' ') } /> </a>
 
-    <span className={styles.folderText}>
+    <span className={styles.folderText} onClick={selectMe}>
       <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> 
       {' ' + filename + ' '}   
     </span>
@@ -27,6 +27,7 @@ FolderComponent.propTypes = {
   open: React.PropTypes.bool.isRequired,
   path: React.PropTypes.array.isRequired, 
   setMyName: React.PropTypes.func.isRequired,
+  selectMe: React.PropTypes.func.isRequired,
 }
 
 function getInden(level) {
