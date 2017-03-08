@@ -56,6 +56,8 @@ class FolderTree extends Component {
   // }
 
   setChildName(path, name) {
+    console.log('path: ', path)
+
     let newData = this.state.data;
     let ref = newData;
     let i = 0;                      
@@ -86,6 +88,7 @@ class FolderTree extends Component {
  			return (
 	      <TreeNode
 	      	key={this.state.data.id}
+
 	      	category={this.state.data.category}
 	      	filename={this.state.data.filename}
 	      	children={this.state.data.children? this.state.data.children : []}
@@ -97,7 +100,8 @@ class FolderTree extends Component {
           fileComponent={this.props.fileComponent}
           folderComponent={this.props.folderComponent}
 
-          setName={this.setChildName}
+          setName={ (path, name) => { this.setChildName(path, name); }}
+          path={[]}
 	      />
 	    )
 	}

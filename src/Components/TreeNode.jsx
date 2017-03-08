@@ -18,12 +18,12 @@ class TreeNode extends Component {
     this.toggleFolder = this.toggleFolder.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.setChildrenStatus = this.setChildrenStatus.bind(this);
-    this.setName = this.setName.bind(this);
+    this.setMyName = this.setMyName.bind(this);
 
     this.state = {
     	children: props.children,
     	level: props.level,
-      open: false
+      open: false,
     };
   }
 
@@ -75,8 +75,8 @@ class TreeNode extends Component {
   	}
   }
 
-  setName(path, name) {
-  	this.props.setName([0,0,0,1], "ttttttttttttt");
+  setMyName(name) {
+  	this.props.setName(this.props.path, name);
   }
 
  	render() {
@@ -87,7 +87,7 @@ class TreeNode extends Component {
 	 		return (
 	      <div>
 
-	      	<button onClick={this.setName}>click me</button>
+	      	<button onClick={() => { this.setMyName("this.props.filename + 'llllllllll'") }}>click me</button>
 
 	      	<FolderComponent
 	      		level={this.state.level}
@@ -100,7 +100,7 @@ class TreeNode extends Component {
 
 		      <ul style={{ margin: 0 }}>
 		        {this.state.open &&
-		        	this.state.children.map( (child, i) => {
+		        	this.state.children.map( (child, index) => {
 			        	return (
 			        		<TreeNode
 			        			className="aFolder"
@@ -115,7 +115,8 @@ class TreeNode extends Component {
 					        	fileComponent={FileComponent}
 					        	folderComponent={FolderComponent}
 
-					        	setName={this.props.setChildName}
+					        	setName={(path, name) => { this.props.setName(path, name); } }
+					        	path={this.props.path.concat(index)}
 				        	/>
 				        )
 		        	})
