@@ -11,6 +11,7 @@ class TreeNode extends Component {
   	setChildrenStatus: React.PropTypes.func.isRequired,
   	fileComponent: React.PropTypes.func.isRequired,
     folderComponent: React.PropTypes.func.isRequired, 
+    path: React.PropTypes.array.isRequired, 
 	};
 
 	constructor(props) {
@@ -87,8 +88,6 @@ class TreeNode extends Component {
 	 		return (
 	      <div>
 
-	      	<button onClick={() => { this.setMyName("this.props.filename + 'llllllllll'") }}>click me</button>
-
 	      	<FolderComponent
 	      		level={this.state.level}
 	      		checked={this.props.checked}
@@ -96,6 +95,9 @@ class TreeNode extends Component {
 	      		filename={this.props.filename}
 	      		toggleFolder={this.toggleFolder}
 	      		open={this.state.open}
+
+	      		path={this.props.path}
+	      		setMyName={this.setMyName}
 	      	/>
 
 		      <ul style={{ margin: 0 }}>
@@ -132,6 +134,9 @@ class TreeNode extends Component {
 	     		checked={this.props.checked}
 	     		filename={this.props.filename}
 	     		level={this.state.level}
+
+	     	  path={this.props.path}
+	      	setMyName={this.setMyName}
 	     	/>
 	    )
  		}

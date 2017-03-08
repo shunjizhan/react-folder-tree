@@ -42,19 +42,6 @@ class FolderTree extends Component {
  		console.log(selectedTree);
   }
 
-  // setChildName(path, name) {
-  //   let newData = this.state.data;
-  //   let ref = newData;
-  //   let i = 0;                      
-  //   while (i < path.length) {
-  //     ref = ref.children.path[i];
-  //     i++;
-  //   }
-  //   ref.filename = name;
-  //   this.setState({data: newData});
-
-  // }
-
   setChildName(path, name) {
     console.log('path: ', path)
 
@@ -69,19 +56,6 @@ class FolderTree extends Component {
     this.setState({data: newData});
 
   }
-
-  // setRootName(name) {
-  //   let newData = this.state.data;
-  //   newData.filename = name;
-  //   this.setState({data: newData}); 
-  // }
-
-  // setName(path, name) {
-  //   if (path.length === 0) 
-  //     this.setRootName(name);
-  //   else 
-  //     this.setChildName(path, name);
-  // }
 
  	render() {
  			this.printSelectedFileTree();
