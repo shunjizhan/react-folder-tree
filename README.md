@@ -16,6 +16,11 @@ Each time the checked folders/files change, console will print out the structure
 
 # To Run: 
 
+at this point remember to include
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+in your html page
+
 	import React from 'react';
 	import ReactDOM from 'react-dom';
 	import FolderTree from 'react-folder-tree';
