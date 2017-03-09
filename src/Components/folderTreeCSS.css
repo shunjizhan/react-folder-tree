@@ -43,6 +43,10 @@
 .fileIcon::before { content: "\f016"; }
 .pencilIcon::before { content:  "\f040"; }
 
+.selected {
+  background-color: #ccebff;
+}
+
 
 
 

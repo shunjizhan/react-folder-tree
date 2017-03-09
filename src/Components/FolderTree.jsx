@@ -20,6 +20,7 @@ class FolderTree extends Component {
     this.setRootStatus = this.setRootStatus.bind(this);
     this.setChildName = this.setChildName.bind(this);
     this.setSelectedPath = this.setSelectedPath.bind(this);
+    this.setSelected = this.setSelected.bind(this);
 
     this.state = {
       data: initialize(props.data),
@@ -30,7 +31,9 @@ class FolderTree extends Component {
 
   setSelectedPath(path) {
     console.log('setSelectedPath: ' + path)
-    this.setState({selectedPath: path});
+    this.setSelected(this.state.selectedPath, 0);     // remove CSS from previously selected
+    this.setState({selectedPath: path});              // set new path to selected
+    this.setSelected(path, 1);                        // add CSS to new selected
   }
 
   setRootStatus(id, status) {
@@ -44,11 +47,11 @@ class FolderTree extends Component {
     // should exist better way to clone, right now data is const, this might be extra step. i.e. can filter this.state.data directly.
   	let dataCopy = JSON.parse(JSON.stringify(this.state.data));			
  		let selectedTree = JSON.stringify(filterAllSelected(dataCopy, true));
- 		console.log(selectedTree);
+ 		console.log('selected tree: ' + selectedTree);
   }
 
   setChildName(path, name) {
-    console.log('path: ', path)
+    console.log('setChildName: ', path)
 
     let newData = this.state.data;
     let ref = newData;
@@ -59,7 +62,18 @@ class FolderTree extends Component {
     }
     ref.filename = name;
     this.setState({data: newData});
+  }
 
+  setSelected(path, status) {
+    let newData = this.state.data;
+    let ref = newData;
+    let i = 0;   
+    while (i < path.length) {
+      ref = ref.children[path[i]];  // childre
+      i++;
+    }
+    ref.selected = status;
+    this.setState({data: newData});
   }
 
  	render() {
@@ -75,6 +89,7 @@ class FolderTree extends Component {
 	      	setChildrenStatus={this.setRootStatus}
 	      	level={0}
 	      	checked={this.state.data.status}
+          selected={this.state.data.selected}
 
           fileComponent={this.props.fileComponent}
           folderComponent={this.props.folderComponent}
@@ -126,6 +141,7 @@ function initialize(data) {
       data.children[i] = initialize(data.children[i]);
   }
   data.status = 0;
+  data.selected = 0;
 
   return data;
 }

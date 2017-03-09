@@ -80,13 +80,10 @@ class TreeNode extends Component {
   }
 
   setMyName(name) {
-  	console.log('set my name')
   	this.props.setName(this.props.path, name);
   }
 
   setMyPath(path) {
-  	  	console.log('set my path')
-
   	this.props.setPath(this.props.path);
   }
 
@@ -95,6 +92,7 @@ class TreeNode extends Component {
  		// console.log(FileComponent, FolderComponent)
 
  		if (this.props.category === 'folder') {
+ 			// console.log(this.props.selectedHightlight);
 	 		return (
 	      <div>
 
@@ -109,6 +107,8 @@ class TreeNode extends Component {
 	      		path={this.props.path}
 	      		setMyName={this.setMyName}
 	      		selectMe={this.setMyPath}
+
+	      		selected={this.props.selected}
 	      	/>
 
 		      <ul style={{ margin: 0 }}>
@@ -116,13 +116,14 @@ class TreeNode extends Component {
 		        	this.state.children.map( (child, index) => {
 			        	return (
 			        		<TreeNode
-			        			className="aFolder"
 					        	id={child.id}
 					        	key={child.id}
 					        	level={this.state.level + 1}
 					        	category={child.category}
 					        	filename={child.filename}
 					        	checked={child.status}
+					        	selected={child.selected}
+
 					        	children={child.children? child.children : []}
 					        	setChildrenStatus={this.setChildrenStatus}
 					        	fileComponent={FileComponent}
@@ -131,6 +132,8 @@ class TreeNode extends Component {
 					        	setName={(path, name) => { this.props.setName(path, name); } }
 					        	setPath={ path => { this.props.setPath(path) } }
 					        	path={this.props.path.concat(index)}
+
+					        	
 				        	/>
 				        )
 		        	})
@@ -150,6 +153,8 @@ class TreeNode extends Component {
 	     	  path={this.props.path}
 	      	setMyName={this.setMyName}
 	      	selectMe={this.setMyPath}
+
+	      	selected={this.props.selected}
 	     	/>
 	    )
  		}
