@@ -23,7 +23,7 @@ class EditableName extends React.Component {
   		this.textInput.focus();
   }
 
-  handleChangeName(e) {
+  handleChangeName() {
   	this.props.setMyName(this.textInput.value);
   	this.toggleEditing();
   }
