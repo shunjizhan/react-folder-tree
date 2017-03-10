@@ -1,6 +1,7 @@
 import React from 'react';
 import Checkbox from './Checkbox';
-import styles from './folderTreeCSS.css'
+import EditableName from './EditableName';
+import styles from './folderTreeCSS.css';
 
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open, setMyName, selectMe, selected }) => (
   <div className={styles.folder}>
@@ -10,10 +11,9 @@ const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, 
     <a onClick={toggleFolder}><i className={open? [styles.arrowDown, styles.carat].join(' ')  : [styles.arrowRight, styles.carat].join(' ') } /> </a>
 
     <span className={selected ? [styles.folderText, styles.selected].join(' ') : styles.folderText} onClick={selectMe}>
-      <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> 
-      {' ' + filename + ' '}   
+      <i className={open? styles.foldeOpenIcon : styles.folderIcon} />   
+      <EditableName filename={filename} setMyName={setMyName} />
     </span>
-    <i className={styles.pencilIcon} onClick={() => { setMyName('*' + filename + '*') }} />
 
   </div>
 );

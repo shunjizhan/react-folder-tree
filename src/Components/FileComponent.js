@@ -1,5 +1,6 @@
 import React from 'react';
 import Checkbox from './Checkbox';
+import EditableName from './EditableName';
 import styles from './folderTreeCSS.css'
 
 const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selectMe, selected }) => (
@@ -9,9 +10,8 @@ const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selec
 
     <span className={selected ? [styles.fileText, styles.selected].join(' ') : styles.fileText} onClick={selectMe}>
       {'   '}<i className={styles.fileIcon} /> 
-      {' ' + filename + ' '}
+      <EditableName filename={filename} setMyName={setMyName} />
     </span>
-    <i className={styles.pencilIcon} onClick={() => { setMyName('*' + filename + '*') }} />
 
   </div>
 );
