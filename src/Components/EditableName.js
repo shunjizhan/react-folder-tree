@@ -27,7 +27,13 @@ class EditableName extends React.Component {
 
 	render() { 
 		// this.props.setMyName('*' + this.props.filename + '*')
-		let input = <input type="text" defaultValue={this.props.filename} onChange={this.handleChangeName} / >;
+		let input = (
+			<span>
+				<input type="text" defaultValue={this.props.filename} />
+				<i className={styles.OKIcon} />
+				<i className={styles.NoIcon} />
+			</span>
+		);
 
 		return (	
 			<span>
