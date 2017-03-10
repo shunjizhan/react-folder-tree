@@ -10,6 +10,7 @@ class EditableName extends React.Component {
 	constructor(props) {
     super(props);
     this.toggleEditing = this.toggleEditing.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
 
     this.state = {
     	editing: false,
@@ -20,9 +21,13 @@ class EditableName extends React.Component {
   	this.setState(prevState => ({editing: !prevState.editing}));
   }
 
+  handleChangeName(e) {
+  	this.props.setMyName(e.target.value);
+  }
+
 	render() { 
 		// this.props.setMyName('*' + this.props.filename + '*')
-		let input = <input type="text" name="newName" / >;
+		let input = <input type="text" defaultValue={this.props.filename} onChange={this.handleChangeName} / >;
 
 		return (	
 			<span>
