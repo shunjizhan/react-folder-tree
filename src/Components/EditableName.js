@@ -9,20 +9,26 @@ class EditableName extends React.Component {
 
 	constructor(props) {
     super(props);
+    this.toggleEditing = this.toggleEditing.bind(this);
 
     this.state = {
-    	children: props.children,
-    	level: props.level,
-      open: false,
+    	editing: false,
     };
   }
 
+  toggleEditing() {
+  	this.setState(prevState => ({editing: !prevState.editing}));
+  }
+
 	render() { 
+		// this.props.setMyName('*' + this.props.filename + '*')
+		let input = <input type="text" name="newName" / >;
+
 		return (	
 			<span>
 
-    		{' ' + this.props.filename + ' '}
-    		<i className={styles.pencilIcon} onClick={() => { this.props.setMyName('*' + this.props.filename + '*') }} />
+    		{this.state.editing? input : ' ' + this.props.filename + ' '}
+    		<i className={styles.pencilIcon} onClick={this.toggleEditing} />
 
   		</span>
 		);
