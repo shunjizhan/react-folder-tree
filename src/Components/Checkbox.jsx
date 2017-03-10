@@ -22,11 +22,12 @@ class Checkbox extends React.Component {
 	}
 
 	render() {
+		const isChecked = this.props.status === 1;
 		return (
 			<input 
 				type="checkbox" 
 				onChange={this.props.handleCheck} 
-				checked={this.props.status !== 1? false : true} 
+				checked={isChecked ? true : false} 
 				ref={box => this.checkBox = box} 
 				className={styles.checkBox}
 			/>

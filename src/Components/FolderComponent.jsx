@@ -3,7 +3,7 @@ import Checkbox from './Checkbox';
 import styles from './folderTreeCSS.css'
 
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
-  <div className={styles.folder} style={{'margin-left': getInden(level) }}>
+  <div className={styles.folder} style={{marginLeft: getInden(level)}}>
     <Checkbox status={checked} handleCheck={handleCheck} />
     <a onClick={toggleFolder}>
       <i className={open? styles.arrowDown : styles.arrowRight} /> <i className={open? styles.foldeOpenIcon : styles.folderIcon} /> {filename}
@@ -21,8 +21,7 @@ FolderComponent.propTypes = {
 }
 
 function getInden(level) {
-  const margin = 5 * level;
-  return margin + 'px';
+  return `${5 * level}px`;
 }
 
 export default FolderComponent;

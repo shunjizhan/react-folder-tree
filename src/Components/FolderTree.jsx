@@ -25,14 +25,14 @@ class FolderTree extends Component {
   }
 
   setRootStatus(id, status) {
-  	let newData = this.state.data;
+  	const newData = {...this.state.data}
   	newData.status = status;
   	this.setState({data: newData});
   }
 
   printSelectedFileTree() {
-  	let dataDeepClone = JSON.parse(JSON.stringify(this.state.data));			
- 		let selectedTree = JSON.stringify(filterAllSelected(dataDeepClone, true));
+  	const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));			
+ 		const selectedTree = JSON.stringify(filterAllSelected(dataDeepClone, true));
  		console.log(selectedTree);
   }
 
@@ -43,7 +43,7 @@ class FolderTree extends Component {
 	      	key={this.state.data.id}
 	      	category={this.state.data.category}
 	      	filename={this.state.data.filename}
-	      	children={this.state.data.children? this.state.data.children : []}
+	      	children={this.state.data.children || []}
 	      	id={this.state.data.id}
 	      	setChildrenStatus={this.setRootStatus}
 	      	level={0}
