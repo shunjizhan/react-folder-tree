@@ -4,8 +4,7 @@ import EditableName from './EditableName';
 import styles from './folderTreeCSS.css';
 
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open, setMyName, selectMe, selected }) => (
-  <div className={styles.folder}>
-    {getInden(level)}
+  <div className={styles.folder} style={{marginLeft: getInden(level)}}>
     <Checkbox status={checked} handleCheck={handleCheck} />
 
     <a onClick={toggleFolder}><i className={open? [styles.arrowDown, styles.carat].join(' ')  : [styles.arrowRight, styles.carat].join(' ') } /> </a>
@@ -32,12 +31,7 @@ FolderComponent.propTypes = {
 }
 
 function getInden(level) {
-  let iden = '', i = 0;
-  while (i < level) {
-    iden += ' ';
-    i++;
-  }
-  return iden;
+  return `${5 * level}px`;
 }
 
 export default FolderComponent;

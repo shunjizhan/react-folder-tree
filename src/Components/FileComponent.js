@@ -4,12 +4,11 @@ import EditableName from './EditableName';
 import styles from './folderTreeCSS.css'
 
 const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selectMe, selected }) => (
-  <div className={styles.file}>
-    {getInden(level)}
+  <div className={styles.file} style={{marginLeft: getInden(level)}}>
     <Checkbox status={checked} handleCheck={handleCheck} />
 
     <span className={selected ? [styles.fileText, styles.selected].join(' ') : styles.fileText} onClick={selectMe}>
-      {'   '}<i className={styles.fileIcon} /> 
+      <i className={styles.fileIcon} style={{marginLeft: '10px'}} /> 
       <EditableName filename={filename} setMyName={setMyName} />
     </span>
 
@@ -28,12 +27,7 @@ FileComponent.propTypes = {
 };
 
 function getInden(level) {
-  let iden = '', i = 0;
-  while (i < level) {
-    iden += ' ';
-    i++;
-  }
-  return iden;
+  return `${5 * level}px`;
 }
 
 export default FileComponent;

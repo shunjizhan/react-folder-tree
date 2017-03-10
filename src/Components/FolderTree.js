@@ -37,17 +37,15 @@ class FolderTree extends Component {
   }
 
   setRootStatus(id, status) {
-  	// console.log('set rootStatus ', status)
-  	let newData = this.state.data;
+  	const newData = {...this.state.data}
   	newData.status = status;
   	this.setState({data: newData});
   }
 
   printSelectedFileTree() {
-    // should exist better way to clone, right now data is const, this might be extra step. i.e. can filter this.state.data directly.
-  	let dataCopy = JSON.parse(JSON.stringify(this.state.data));			
- 		let selectedTree = JSON.stringify(filterAllSelected(dataCopy, true));
- 		console.log('selected tree: ' + selectedTree);
+    const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));      
+    const selectedTree = JSON.stringify(filterAllSelected(dataDeepClone, true));
+    console.log(selectedTree);
   }
 
   setChildName(path, name) {
@@ -84,7 +82,7 @@ class FolderTree extends Component {
 
 	      	category={this.state.data.category}
 	      	filename={this.state.data.filename}
-	      	children={this.state.data.children? this.state.data.children : []}
+	      	children={this.state.data.children || []}
 	      	id={this.state.data.id}
 	      	setChildrenStatus={this.setRootStatus}
 	      	level={0}
@@ -103,11 +101,15 @@ class FolderTree extends Component {
 }
 
 function filterAllSelected(node, rootFlag = false) {
-  if (rootFlag && !node.status) {                    // if it is root and is unchecked 
+  const children = node.children;
+  const uncheckedRoot = rootFlag && !node.status;
+  const hasChildren = children && children.length > 0;                       
+
+  if (uncheckedRoot) {                    
     return {};
-  } else if (node.children != null && node.children.length > 0) {
-    for (let i = 0; i < node.children.length; i++) {
-      node.children[i] = filterAllSelected(node.children[i]);
+  } else if (hasChildren) {
+    for (let i = 0; i < children.length; i++) {
+      children[i] = filterAllSelected(children[i]);
     }
     return filterNode(node);
   } else {
@@ -116,16 +118,16 @@ function filterAllSelected(node, rootFlag = false) {
 }
 
 function filterNode(node) {
-  let children = node.children;                            // current node doesn't change, only filter children
-  if (children != null && children.length > 0) {
+  const children = node.children;      
+  const hasChildren = children && children.length > 0; 
+
+  if (hasChildren) {
     let filteredChildren = [];
     for (let i = 0; i < children.length; i++) {
       if (children[i].status) {
-        // console.log('children ', children[i].id, ' is checked!')
         filteredChildren.push(children[i]);
       }
     }
-
     node.children = filteredChildren;
     return node;
   }
@@ -134,7 +136,6 @@ function filterNode(node) {
   }
 }
 
-/* set all initial status to 0, which means unchecked */
 function initialize(data) {       
   if (data.children) {
     for (let i = 0; i < data.children.length; i++)

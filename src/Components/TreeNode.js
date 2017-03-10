@@ -40,12 +40,11 @@ class TreeNode extends Component {
   		this.props.setChildrenStatus(this.props.id, 1);
   		this.setState(this.changeAllChildrenStatus(this.state.children, 1));
   	}	else {
-  		this.props.setChildrenStatus(this.props.id, 0);										// own and parent's check
-  		this.setState(this.changeAllChildrenStatus(this.state.children, 0));		// children's check
+  		this.props.setChildrenStatus(this.props.id, 0);										
+  		this.setState(this.changeAllChildrenStatus(this.state.children, 0));		
   	}
   }
 
-  /* recursively update all parent's children data */
   setChildrenStatus(id, status) {
   	let children = this.state.children;
   	if (children) {
@@ -89,7 +88,6 @@ class TreeNode extends Component {
 
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
- 		// console.log(FileComponent, FolderComponent)
 
  		if (this.props.category === 'folder') {
  			// console.log(this.props.selectedHightlight);
@@ -158,9 +156,7 @@ class TreeNode extends Component {
  		}
   }
 
-	/* set all current and lower children's status */
 	changeAllChildrenStatus(children, status) {							
-		// console.log('set all childrenStatus ', status)
 		for (let i = 0; i < children.length; i++) {
 			if (children[i].children) {
 				for (let j = 0; j < children[i].children.length; j++)
