@@ -1,46 +1,32 @@
 import React from 'react'
+import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import CheckBox from './CheckBox';
 import FolderComponent from './FolderComponent';
 import FileComponent from './FileComponent';
+import TreeNode from './TreeNode';
 import FolderTree from './FolderTree';
 
+import styles from './folderTreeCSS.css'
+
+
 describe('test <CheckBox />', () => {
-  it('should render a checkbox', () => {
+  it('should render a no-checked checkbox', () => {
     const wrapper = shallow(<CheckBox handleCheck={()=>{}} status={0}/>);
-    // expect(wrapper.find(Foo)).to.have.length(3);
-    // console.log(wrapper.prop('type'));
-    // expect(wrapper.prop('type')).to.equal("checkbox");
-    expect(wrapper.prop('type'));
+    expect(wrapper.prop('type')).to.equal("checkbox");
+    expect(wrapper.prop('checked')).to.equal(false);
   });
 
-  // it('should render an `.icon-star`', () => {
-  //   const wrapper = shallow(<CheckBox />);
-  //   expect(wrapper.find('.icon-star')).to.have.length(1);
-  // });
-
-  // it('should render children when passed in', () => {
-  //   const wrapper = shallow(
-  //     <CheckBox>
-  //       <div className="unique" />
-  //     </CheckBox>
-  //   );
-  //   expect(wrapper.contains(<div className="unique" />)).to.equal(true);
-  // });
-
-  // it('simulates click events', () => {
-  //   const onButtonClick = sinon.spy();
-  //   const wrapper = shallow(
-  //     <Foo onButtonClick={onButtonClick} />
-  //   );
-  //   wrapper.find('button').simulate('click');
-  //   expect(onButtonClick.calledOnce).to.equal(true);
-  // });
+  it('should render a checked checkbox', () => {
+    const wrapper = shallow(<CheckBox handleCheck={()=>{}} status={1}/>);
+    expect(wrapper.prop('type')).to.equal("checkbox");
+    expect(wrapper.prop('checked')).to.equal(true);
+  });
 
 });
 
 describe('test <FolderComponent />', () => {
-  it('should render a folder', () => {
+  it('should render a FolderComponent with 1 checkbox, 1 <a> and 2 <i>', () => {
     const wrapper = shallow(
       <FolderComponent 
         level={0}
@@ -52,13 +38,17 @@ describe('test <FolderComponent />', () => {
       />
     );
 
-    // console.log(wrapper);
+    expect(wrapper.containsMatchingElement(CheckBox)).to.equal(true);
+    expect(wrapper.find('a')).to.have.length(1);
+    expect(wrapper.find('a i')).to.have.length(2);
 
   });
+
+
 });
 
 describe('test <FileComponent />', () => {
-  it('should render a file', () => {
+  it('should render a FileComponent with 1 checkbox and 1 i', () => {
     const wrapper = shallow(
       <FileComponent 
         level={0}
@@ -68,7 +58,50 @@ describe('test <FileComponent />', () => {
       />
     );
 
-    // console.log(wrapper);
+    expect(wrapper.containsMatchingElement(CheckBox)).to.equal(true);
+    expect(wrapper.find('i')).to.have.length(1);
+
+  });
+});
+
+describe('test <TreeNode />', () => {
+  it('should render a TreeNode with 1 FolderComponent and 1 ul', () => {
+    const wrapper = shallow(
+      <TreeNode
+        id={0}
+        level={0}
+        category={"folder"}
+        filename={"testfilename"}
+        checked={0}
+        children={[]}
+        setChildrenStatus={() => {}}
+        fileComponent={FileComponent}
+        folderComponent={FolderComponent}
+      />
+    );
+
+    expect(wrapper.containsMatchingElement(FolderComponent)).to.equal(true);
+    expect(wrapper.find('ul')).to.have.length(1);
+
+  });
+
+  it('should render a TreeNode with 1 FileComponent', () => {
+    const wrapper = shallow(
+      <TreeNode
+        id={0}
+        level={0}
+        category={"file"}
+        filename={"testfilename"}
+        checked={0}
+        children={[]}
+        setChildrenStatus={() => {}}
+        fileComponent={FileComponent}
+        folderComponent={FolderComponent}
+      />
+    );
+
+    expect(wrapper.containsMatchingElement(FileComponent)).to.equal(true);
+    // expect(wrapper.find('div')).to.have.length(1);
 
   });
 });
@@ -224,7 +257,7 @@ describe('test <FolderTree />', () => {
       />
     );
 
-    // console.log(wrapper);
+    expect(wrapper.containsMatchingElement(TreeNode)).to.equal(true);
 
   });
 });
