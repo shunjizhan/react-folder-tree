@@ -3,10 +3,9 @@ import Checkbox from './Checkbox';
 import styles from './folderTreeCSS.css'
 
 const FileComponent = ({ level, checked, handleCheck, filename }) => (
-  <div className={styles.file}>
-    {getInden(level)}
+  <div className={styles.file} style={{'margin-left': getInden(level)}}>
     <Checkbox status={checked} handleCheck={handleCheck} />
-    {'   '}<i className={styles.fileIcon} /> {filename}
+    <i className={styles.fileIcon} style={{'margin-left': '10px'}} /> {filename}
   </div>
 );
 
@@ -18,12 +17,8 @@ FileComponent.propTypes = {
 };
 
 function getInden(level) {
-  let iden = '', i = 0;
-  while (i < level) {
-    iden += ' ';
-    i++;
-  }
-  return iden;
+  const margin = 5 * level;
+  return margin + 'px';
 }
 
 export default FileComponent;

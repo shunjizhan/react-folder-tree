@@ -1,14 +1,11 @@
 import React from 'react'
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import CheckBox from './CheckBox';
 import FolderComponent from './FolderComponent';
 import FileComponent from './FileComponent';
 import TreeNode from './TreeNode';
 import FolderTree from './FolderTree';
-
-import styles from './folderTreeCSS.css'
-
 
 describe('test <CheckBox />', () => {
   it('should render a no-checked checkbox', () => {
@@ -66,7 +63,7 @@ describe('test <FileComponent />', () => {
 
 describe('test <TreeNode />', () => {
   it('should render a TreeNode with 1 FolderComponent and 1 ul', () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <TreeNode
         id={0}
         level={0}
@@ -79,10 +76,8 @@ describe('test <TreeNode />', () => {
         folderComponent={FolderComponent}
       />
     );
-
-    // expect(wrapper.containsMatchingElement(FolderComponent)).to.equal(true);
     expect(wrapper.find('ul')).to.have.length(1);
-
+    expect(wrapper.find('div')).to.have.length(2);
   });
 
   it('should render a TreeNode with 1 FileComponent', () => {
