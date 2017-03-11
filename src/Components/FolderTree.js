@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import TreeNode from './TreeNode';
 import FolderComponent from './FolderComponent'; 
 import FileComponent from './FileComponent';
+import FolderToolbar from './FolderToolbar';
+import FilePane from './FilePane';
 
 class FolderTree extends Component {
   static propTypes = {
-  	data: React.PropTypes.object.isRequired,
+    data: React.PropTypes.object.isRequired,
     fileComponent: React.PropTypes.func,
-    folderComponent: React.PropTypes.func, 
-	};
+    folderComponent: React.PropTypes.func,
+  };
 
   static defaultProps = {
     folderComponent: FolderComponent,
     fileComponent: FileComponent,
   };
 
-	constructor(props) {
+  constructor(props) {
     super(props);
     this.setRootStatus = this.setRootStatus.bind(this);
     this.setChildName = this.setChildName.bind(this);
@@ -24,8 +26,9 @@ class FolderTree extends Component {
 
     this.state = {
       data: initialize(props.data),
-    	checked: 0,
+      checked: 0,
       selectedPath: [],   // path to selected file or folder
+      showPane: true,
     };
   }
 
@@ -37,9 +40,9 @@ class FolderTree extends Component {
   }
 
   setRootStatus(id, status) {
-  	const newData = {...this.state.data}
-  	newData.status = status;
-  	this.setState({data: newData});
+    const newData = {...this.state.data}
+    newData.status = status;
+    this.setState({data: newData});
   }
 
   printSelectedFileTree() {
@@ -74,30 +77,36 @@ class FolderTree extends Component {
     this.setState({data: newData});
   }
 
- 	render() {
- 			this.printSelectedFileTree();
- 			return (
-	      <TreeNode
-	      	key={this.state.data.id}
+  render() {
+      this.printSelectedFileTree();
+      return (
+        <div>
+          <TreeNode
+            key={this.state.data.id}
 
-	      	category={this.state.data.category}
-	      	filename={this.state.data.filename}
-	      	children={this.state.data.children || []}
-	      	id={this.state.data.id}
-	      	setChildrenStatus={this.setRootStatus}
-	      	level={0}
-	      	checked={this.state.data.status}
-          selected={this.state.data.selected}
+            category={this.state.data.category}
+            filename={this.state.data.filename}
+            children={this.state.data.children || []}
+            id={this.state.data.id}
+            setChildrenStatus={this.setRootStatus}
+            level={0}
+            checked={this.state.data.status}
+            selected={this.state.data.selected}
+            fileComponent={this.props.fileComponent}
+            folderComponent={this.props.folderComponent}
 
-          fileComponent={this.props.fileComponent}
-          folderComponent={this.props.folderComponent}
+            setName={ (path, name) => { this.setChildName(path, name); } }
+            setPath={ path => { this.setSelectedPath(path) } }
+            path={[]}
+          />
 
-          setName={ (path, name) => { this.setChildName(path, name); } }
-          setPath={ path => { this.setSelectedPath(path) } }
-          path={[]}
-	      />
-	    )
-	}
+          <FolderToolbar onAdd={()=>{}} onDelete={()=>{}} />
+
+          {this.state.showPane && <FilePane onConfirm={()=>{}} onCancel={()=>{}} />}
+          
+        </div>
+      )
+  }
 }
 
 function filterAllSelected(node, rootFlag = false) {
