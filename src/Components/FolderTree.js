@@ -23,6 +23,7 @@ class FolderTree extends Component {
     this.setChildName = this.setChildName.bind(this);
     this.setSelectedPath = this.setSelectedPath.bind(this);
     this.setSelected = this.setSelected.bind(this);
+    this.deleteSeletedObj = this.deleteSeletedObj.bind(this);
 
     this.state = {
       data: initialize(props.data),
@@ -58,7 +59,7 @@ class FolderTree extends Component {
     let ref = newData;
     let i = 0;                      
     while (i < path.length) {
-      ref = ref.children[path[i]];  // childre
+      ref = ref.children[path[i]];  
       i++;
     }
     ref.filename = name;
@@ -70,11 +71,29 @@ class FolderTree extends Component {
     let ref = newData;
     let i = 0;   
     while (i < path.length) {
-      ref = ref.children[path[i]];  // childre
+      ref = ref.children[path[i]];  
       i++;
     }
     ref.selected = status;
     this.setState({data: newData});
+  }
+
+  deleteSeletedObj() {
+    let path = this.state.selectedPath;
+    let newData = this.state.data;
+    let ref = newData;
+    let i = 0;   
+    while (i < path.length - 1) {
+      ref = ref.children[path[i]];  
+      i++;
+    }
+    // delete ref.[path[0]]
+    console.log("deleting: " + JSON.stringify(ref.children[path[i]]));
+    ref.children.splice(path[i], 1);
+    this.setState({
+      data: newData,
+      selectedPath: [],
+    });
   }
 
   render() {
@@ -100,10 +119,10 @@ class FolderTree extends Component {
             path={[]}
           />
 
-          <FolderToolbar onAdd={()=>{}} onDelete={()=>{}} />
+          <FolderToolbar addObj={()=>{}} deleteObj={this.deleteSeletedObj} />
 
           {this.state.showPane && <FilePane onConfirm={()=>{}} onCancel={()=>{}} />}
-          
+
         </div>
       )
   }

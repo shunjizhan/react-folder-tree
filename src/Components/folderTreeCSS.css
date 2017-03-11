@@ -23,13 +23,13 @@
 	cursor: pointer;
 }
 
-.carat:hover { color: green; }
+.carat:hover { color: #00b359; }
 .pencilIcon:hover { color: yellow; }
-.OKIcon:hover { color: green; }
-.NoIcon:hover { color: red; }
+.OKIcon:hover { color: #00b359; }
+.NoIcon:hover { color: #ff5c33; }
 
-.addButton:hover { color: green; }
-.deleteButton:hover { color: red; }
+.addButton:hover { color: #00b359; }
+.deleteButton:hover { color: #ff5c33; }
 
 
 /*** font awesome setup ***/
@@ -50,11 +50,8 @@
 .arrowDown::before { content: "\f0d7"; }
 .fileIcon::before { content: "\f016"; }
 .pencilIcon::before { content:  "\f040"; }
-.addIcon::before { content: "\f055"; }
-.deleteIcon::before { content: "\f056"; }
-
-
-
+.addIcon::before { content: "\f055"; color: #00b359; }
+.deleteIcon::before { content: "\f056"; color: #ff5c33; }
 
 
 /*** folder toolbar ***/
