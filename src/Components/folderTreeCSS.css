@@ -6,32 +6,41 @@
   font-style: normal;
 }
 
+.selected {
+  background-color: #ccebff;
+}
+
 .folder, .file {
 	white-space: pre-wrap;
 }
 
+/*** all the hover stuff ***/
 .folderText:hover, .fileText:hover {
 	color: #4d94ff;
-	cursor: pointer;
 }
 
-.checkBox:hover {
+.checkBox:hover, .addButton:hover, .deleteButton:hover, .folderText:hover, .fileText:hover {
 	cursor: pointer;
-}
-
-.folderIcon, .foldeOpenIcon, .arrowRight, .arrowDown, .fileIcon, .pencilIcon, .OKIcon, .NoIcon {
-	display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .carat:hover { color: green; }
 .pencilIcon:hover { color: yellow; }
 .OKIcon:hover { color: green; }
 .NoIcon:hover { color: red; }
+
+.addButton:hover { color: green; }
+.deleteButton:hover { color: red; }
+
+
+/*** font awesome setup ***/
+.folderIcon, .foldeOpenIcon, .arrowRight, .arrowDown, .fileIcon, .pencilIcon, .OKIcon, .NoIcon, .addIcon, .deleteIcon {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .OKIcon::before { content: "\f00c"; }
 .NoIcon::before { content: "\f00d"; }
@@ -41,11 +50,28 @@
 .arrowDown::before { content: "\f0d7"; }
 .fileIcon::before { content: "\f016"; }
 .pencilIcon::before { content:  "\f040"; }
+.addIcon::before { content: "\f055"; }
+.deleteIcon::before { content: "\f056"; }
 
-.selected {
-  background-color: #ccebff;
+
+
+
+
+/*** folder toolbar ***/
+.folderToolbar, .filePane {
+  padding: 5px;
+  margin-top: 50px;
+  width: 200px;
+  height: 100px;
 }
 
+.folderToolbar {
+  border: 1px solid black;
+}
+
+.filePane {
+  border: 1px dotted black;
+}
 
 
 
