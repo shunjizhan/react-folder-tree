@@ -177,3 +177,4 @@ Icons are from [here](https://www.npmjs.com/package/react-fontawesome)
 - press enter to confirm (now must click the confirm icon)
 - fully test all funtionalities
 - change structure: since now each Treenode has path, there should exist more concise way to handle check
+- remove excessive dependencies
