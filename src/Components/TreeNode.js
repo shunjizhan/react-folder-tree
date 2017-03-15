@@ -24,7 +24,6 @@ class TreeNode extends Component {
     this.setMyName = this.setMyName.bind(this);
 
     this.state = {
-    	children: props.children,
     	level: props.level,
       open: false,
     };
@@ -88,7 +87,7 @@ class TreeNode extends Component {
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
 
- 		if (this.state.children.length > 0) {
+ 		if (this.props.children.length > 0) {
  			// console.log(this.props.selectedHightlight);
 	 		return (
 	      <div>
@@ -110,7 +109,7 @@ class TreeNode extends Component {
 
 		      <ul style={{ margin: 0 }}>
 		        {this.state.open &&
-		        	this.state.children.map( (child, index) => {
+		        	this.props.children.map( (child, index) => {
 			        	return (
 			        		<TreeNode
 					        	id={child.id}

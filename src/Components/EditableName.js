@@ -30,7 +30,7 @@ class EditableName extends React.Component {
   }
 
 	render() { 
-		let input = (
+		const input = (
 			<span>
 				<input type="text" defaultValue={this.props.filename} ref={ input => { this.textInput = input; } } />
 				<i className={styles.OKIcon} onClick={this.handleChangeName} />
@@ -38,7 +38,7 @@ class EditableName extends React.Component {
 			</span>
 		);
 
-		let name = (
+		const name = (
 			<span>
 				{' ' + this.props.filename + ' '}
 				<i className={styles.pencilIcon} onClick={this.toggleEditing} />

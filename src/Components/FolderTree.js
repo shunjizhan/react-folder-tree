@@ -50,9 +50,9 @@ class FolderTree extends Component {
 
   setSelectedPath(path) {
     console.log('setSelectedPath: ' + path)
-    this.setSelected(this.state.selectedPath, 0);     // remove CSS from previously selected
-    this.setState({selectedPath: path});              // set new path to selected
-    this.setSelected(path, 1);                        // add CSS to new selected
+    this.setSelected(this.state.selectedPath, 0);     
+    this.setState({selectedPath: path});              
+    this.setSelected(path, 1);                        
   }
 
   setRootStatus(id, status) {
@@ -125,10 +125,13 @@ class FolderTree extends Component {
     const newfile = {
       id: this.state.numOfFiles + 1,           
       filename: filename,
-      category: 'file',
       status: 0,
       selected: 0,
     };
+
+    if (!ref.children) {
+      ref.children = [];
+    }
 
     ref.children.push(newfile);
     this.setState(prevState => ({
