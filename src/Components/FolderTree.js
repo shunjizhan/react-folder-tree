@@ -97,20 +97,24 @@ class FolderTree extends Component {
   }
 
   deleteSeletedObj() {
-    let path = this.state.selectedPath;
+    let selectedPath = this.state.selectedPath;
     let newData = this.state.data;
     let ref = newData;
     let i = 0;   
 
-    while (i < path.length - 1) {
-      ref = ref.children[path[i]];  
+    while (i < selectedPath.length - 1) {
+      ref = ref.children[selectedPath[i]];  
       i++;
     }
 
-    ref.children.splice(path[i], 1);
+    ref.children.splice(selectedPath[i], 1);
 
     let parentCheckStatus = getCheckStatus(ref);
-    ref.status = parentCheckStatus;
+    if (ref.status !== parentCheckStatus) {
+      console.log('!!!!!!!!!!!')
+      ref.status = parentCheckStatus;
+      newData = updateAllCheckStatus(newData, selectedPath)
+    }
 
     this.setState(prevState => ({
       data: newData,
@@ -192,6 +196,29 @@ class FolderTree extends Component {
   }
 }
 
+function updateAllCheckStatus(data, path) {
+  console.log('current path = ' + path);
+  if (path.length < 1) {
+    console.log('error! path.length should be at least 1!');
+    return {};
+  }
+
+  if (path.length === 1) {
+    const status = getCheckStatus(data);
+    data.status = status;
+  } else {
+    const childrenIndexToBeUpdated = path[0];
+    path.splice(0, 1);
+
+    const newChildren = updateAllCheckStatus(data.children[childrenIndexToBeUpdated], path);
+    data.children[childrenIndexToBeUpdated] = newChildren;  
+  }
+
+  data.status = getCheckStatus(data);
+
+  return data;
+}
+
 function filterAllSelected(node, rootFlag = false) {
   const children = node.children;
   const uncheckedRoot = rootFlag && !node.status;
@@ -251,7 +278,7 @@ function getCheckStatus(obj) {
 
   if (sum === 0 ) {
     return 0;
-  } else if (sum === 1) {
+  } else if (sum === length) {
     return 1;
   } else {
     return 0.5;

@@ -13,7 +13,7 @@ We can do:
 
 # Sample Tree:
 
-![](https://raw.githubusercontent.com/shunjizhan/React-Folder-Tree/add-file-functionality/sample.png?raw=true)
+![](https://github.com/shunjizhan/React-Folder-Tree/blob/add-file-functionality/folder-tree-demo.gif?raw=true)
 
 
 # To Install: 
