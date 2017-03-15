@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class TreeNode extends Component {
 	static propTypes = {
-  	category: React.PropTypes.string.isRequired,
   	filename: React.PropTypes.string.isRequired,
   	level: React.PropTypes.number.isRequired,
   	children: React.PropTypes.array.isRequired,
@@ -89,7 +88,7 @@ class TreeNode extends Component {
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
 
- 		if (this.props.category === 'folder') {
+ 		if (this.state.children.length > 0) {
  			// console.log(this.props.selectedHightlight);
 	 		return (
 	      <div>
@@ -117,7 +116,6 @@ class TreeNode extends Component {
 					        	id={child.id}
 					        	key={child.id}
 					        	level={this.state.level + 1}
-					        	category={child.category}
 					        	filename={child.filename}
 					        	checked={child.status}
 					        	selected={child.selected}

@@ -98,17 +98,18 @@ class FolderTree extends Component {
     let newData = this.state.data;
     let ref = newData;
     let i = 0;   
+
     while (i < path.length - 1) {
       ref = ref.children[path[i]];  
       i++;
     }
-    // delete ref.[path[0]]
-    console.log("deleting: " + JSON.stringify(ref.children[path[i]]));
+
     ref.children.splice(path[i], 1);
-    this.setState({
+    this.setState(prevState => ({
       data: newData,
       selectedPath: [],
-    });
+      numOfFiles: this.getNumOfFiles(newData),
+    }));
   }
 
   addNewFileInSelectedObj(filename) {
@@ -142,8 +143,6 @@ class FolderTree extends Component {
         <div>
           <TreeNode
             key={this.state.data.id}
-
-            category={this.state.data.category}
             filename={this.state.data.filename}
             children={this.state.data.children || []}
             id={this.state.data.id}
