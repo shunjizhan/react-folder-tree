@@ -126,8 +126,12 @@ class FolderTree extends Component {
       ref = ref.children[path[i]];  
       i++;
     }
+
+    if (ref.status === 1) 
+      parentStatus = 1;
+    else 
+      parentStatus = 0;
     
-    parentStatus = ref.status;
     const newfile = {
       id: this.state.numOfFiles + 1,           
       filename: filename,
