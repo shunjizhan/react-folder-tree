@@ -1,29 +1,29 @@
 # Introduction  
 
-This is a folder tree written in ReactJS. It will build the tree after feeding data.
+This is a folder tree written in ReactJS. 
 
 We can do:
 
-- click each carat to expand the folder
-- check (or uncheck) each folder and file. Check (or uncheck) each folder will automatically check (or uncheck) all sub-folders, including all the files in these folders. If part of the sub-folders or files in a folder are checked, this folder will display a half check. Each time the checked folders/files change, console will print out the structure of the data tree that contains all the checked folders/files.
-- click the folder/file name to select this, and it will be hightlighted
-- click the pencil to rename is (under construction)
-- add or delete file/folder in the selected folder (under construction)
+- click each carat to expand/collapse the folder
+- click the checkbox to (un)check each folder and file. [(un)check each folder will automatically (un)check all sub-folders, including all the files in these folders. If part of the sub-folders or files in a folder are checked, this folder will display a half check. Each time the checked folders/files change, console will print out the structure of the data tree that contains all the checked folders/files.]
+- click the folder/file name to select it, and it will be hightlighted in blue
+- click the pencil beside the folder/file to rename it
+- click the delete button to delete the selected folder/file
+- click the Add button to add new file in the selected folder/file. [Adding a file-2 to a file-1 will change file-1 to a folder; if all sub folder/files of a folder are deleted, this folder will become a file.]
 
 # Sample Tree:
 
-![](https://github.com/shunjizhan/React-Folder-Tree/blob/more-functionalities/sample.png?raw=true)
+![](https://raw.githubusercontent.com/shunjizhan/React-Folder-Tree/add-file-functionality/sample.png?raw=true)
 
 
 # To Install: 
-	npm install react-folder-tree
+	npm install --save react-folder-tree
 
 # To Run: 
 
-at this point remember to include
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-in your html page
+
+Remember to include the above link in your html page. Otherwise the icons won't show up. (Currently working on CSS modules so that in the future we don't need to include this link anymore)
 
 	import React from 'react';
 	import ReactDOM from 'react-dom';
@@ -43,8 +43,7 @@ in your html page
 	{				 
 		id: number,    			
 		filename: string,	     		
-		catagory: 'file' or 'folder',	    		
-		children: array of *this*	       				
+		children: array of *this*	  [optional]    				
 	}		
 
 # Sample Data:
@@ -52,81 +51,66 @@ in your html page
 	const testData = {
 	  "id": 1,
 	  "filename": "All Categories",
-	  "category": "folder",
 	  "children": [
 	    {
 	      "id": 2,
 	      "filename": "For Sale",
-	      "category": "folder",
 	      "children": [
 	        {
 	          "id": 3,
 	          "filename": "Audio & Stereo",
-	          "category": "folder",
 	          "children": [
 	    {
 	      "id": 4,
 	      "filename": "For Sale",
-	      "category": "folder",
 	      "children": [
 	        {
 	          "id": 5,
 	          "filename": "Audio & Stereo",
-	          "category": "file"
 	        },
 	        {
 	          "id": 6,
 	          "filename": "Baby & Kids Stuff",
-	          "category": "file"
 	        },
 	        {
 	          "id": 7,
 	          "filename": "Music, Films, Books & Games",
-	          "category": "file"
 	        }
 	      ]
 	    },
 	    {
 	      "id": 8,
 	      "filename": "Motors",
-	      "category": "folder",
 	      "children": [
 	        {
 	          "id": 9,
 	          "filename": "Car Parts & Accessories",
-	          "category": "file"
 	        },
 	        {
 	          "id": 10,
 	          "filename": "Cars",
-	          "category": "file"
 	        },
 	        {
 	          "id": 11,
 	          "filename": "Motorbike Parts & Accessories",
-	          "category": "file"
 	        }
 	      ]
 	    },
 	    {
 	      "id": 12,
 	      "filename": "Jobs",
-	      "category": "folder",
 	      "children": [
 	        {
 	          "id": 13,
 	          "filename": "Accountancy",
-	          "category": "file"
 	        },
 	        {
 	          "id": 14,
 	          "filename": "Financial Services & Insurance",
-	          "category": "file"
 	        },
 	        {
 	          "id": 15,
-	          "filename": "Bar Staff & Management",
-	          "category": "file"
+	          "filename": "Bar Staff & Management", 
 	        }
 	      ]
 	    }
@@ -135,61 +119,51 @@ in your html page
 	        {
 	          "id": 16,
 	          "filename": "Baby & Kids Stuff",
-	          "category": "file"
 	        },
 	        {
 	          "id": 17,
 	          "filename": "Music, Films, Books & Games",
-	          "category": "file"
 	        }
 	      ]
 	    },
 	    {
 	      "id": 18,
 	      "filename": "Motors",
-	      "category": "folder",
 	      "children": [
 	        {
 	          "id": 19,
 	          "filename": "Car Parts & Accessories",
-	          "category": "file"
 	        },
 	        {
 	          "id": 20,
 	          "filename": "Cars",
-	          "category": "file"
 	        },
 	        {
 	          "id": 21,
 	          "filename": "Motorbike Parts & Accessories",
-	          "category": "file"
 	        }
 	      ]
 	    },
 	    {
 	      "id": 22,
 	      "filename": "Jobs",
-	      "category": "folder",
 	      "children": [
 	        {
 	          "id": 23,
 	          "filename": "Accountancy",
-	          "category": "file"
 	        },
 	        {
 	          "id": 24,
 	          "filename": "Financial Services & Insurance",
-	          "category": "file"
 	        },
 	        {
 	          "id": 25,
-	          "filename": "Bar Staff & Management",
-	          "category": "file"
+	          "filename": "Bar Staff & Management", 
 	        }
 	      ]
 	    }
 	  ]
-	}		
+	}
 
 # Resources
 
