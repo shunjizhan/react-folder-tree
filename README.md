@@ -170,3 +170,9 @@ Remember to include the above link in your html page. Otherwise the icons won't 
 Testing data is from [here](http://codepen.io/anon/pen/Ftkln?editors=0010)
 
 Icons are from [here](https://www.npmjs.com/package/react-fontawesome)
+
+# TODO
+- when add or delete a file, new to update it's parents selected status
+- css modules of font awesome
+- pencil only show on hover
+- fully test all funtionalities
