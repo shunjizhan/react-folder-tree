@@ -4,6 +4,7 @@ import FolderComponent from './FolderComponent';
 import FileComponent from './FileComponent';
 import FolderToolbar from './FolderToolbar';
 import FilePane from './FilePane';
+import styles from './folderTreeCSS.css'
 
 class FolderTree extends Component {
   static propTypes = {
@@ -144,6 +145,11 @@ class FolderTree extends Component {
       this.printSelectedFileTree();
       return (
         <div>
+          <FolderToolbar addObj={()=>{}} deleteObj={this.deleteSeletedObj} />
+
+          {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} onCancel={()=>{}} />}
+
+          <div className={styles.folderTree}>
           <TreeNode
             key={this.state.data.id}
             filename={this.state.data.filename}
@@ -160,10 +166,7 @@ class FolderTree extends Component {
             setPath={ path => { this.setSelectedPath(path) } }
             path={[]}
           />
-
-          <FolderToolbar addObj={()=>{}} deleteObj={this.deleteSeletedObj} />
-
-          {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} onCancel={()=>{}} />}
+          </div>
 
         </div>
       )

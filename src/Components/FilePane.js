@@ -32,7 +32,6 @@ class FilePane extends Component {
 		return (
 			<div className={styles.filePane}>
 				<span>
-					<p>New File Name:</p>
 					<input type="text" defaultValue={""} ref={ input => { this.textInput = input; } } />
 					<i className={styles.OKIcon} onClick={this.handleNewFile} />
 					<i className={styles.NoIcon} onClick={this.toggleEditing} />
