@@ -108,6 +108,10 @@ class FolderTree extends Component {
     }
 
     ref.children.splice(path[i], 1);
+
+    let parentCheckStatus = getCheckStatus(ref);
+    ref.status = parentCheckStatus;
+
     this.setState(prevState => ({
       data: newData,
       selectedPath: [],
@@ -233,6 +237,25 @@ function initialize(data) {
   data.selected = 0;
 
   return data;
+}
+
+function getCheckStatus(obj) {
+  const children = obj.children;
+  const length = children.length;
+  let sum = 0;
+  if (children) {
+    for (let i = 0; i < length; i++) {
+      sum += children[i].status;
+    }
+  }
+
+  if (sum === 0 ) {
+    return 0;
+  } else if (sum === 1) {
+    return 1;
+  } else {
+    return 0.5;
+  }
 }
 
 export default FolderTree;

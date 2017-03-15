@@ -9,7 +9,7 @@ We can do:
 - click the folder/file name to select it, and it will be hightlighted in blue
 - click the pencil beside the folder/file to rename it
 - click the delete button to delete the selected folder/file
-- click the Add button to add new file in the selected folder/file. [Adding a file-2 to a file-1 will change file-1 to a folder; if all sub folder/files of a folder are deleted, this folder will become a file.]
+- click the Add button to add new file in the selected folder/file. [Adding a file-2 to a file-1 will change file-1 to a folder; if all sub folder/files of a folder are deleted, this folder will become a file. The new file's check status is same as its parent]
 
 # Sample Tree:
 
@@ -172,7 +172,7 @@ Testing data is from [here](http://codepen.io/anon/pen/Ftkln?editors=0010)
 Icons are from [here](https://www.npmjs.com/package/react-fontawesome)
 
 # TODO
-- when add or delete a file, new to update it's parents selected status
 - css modules of font awesome
 - pencil only show on hover
 - fully test all funtionalities
+- change structure: since now each Treenode has path, there should exist more concise way to handle check

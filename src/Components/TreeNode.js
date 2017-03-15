@@ -52,7 +52,8 @@ class TreeNode extends Component {
 	  	}
 	  }
 
-  	this.setState({ children: children });
+	  /*** this is wired, comment out this line didn't break anything, leave it here for a while in case ***/
+  	// this.setState({ children: children });
 
   	this.props.setChildrenStatus(this.props.id, this.getCheckedStatus(status));
   }
