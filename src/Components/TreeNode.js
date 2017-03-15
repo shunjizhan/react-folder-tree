@@ -36,15 +36,15 @@ class TreeNode extends Component {
   handleCheck(e) {
   	if (e.target.checked) {
   		this.props.setChildrenStatus(this.props.id, 1);
-  		this.setState(this.changeAllChildrenStatus(this.state.children, 1));
+  		this.setState(this.changeAllChildrenStatus(this.props.children, 1));
   	}	else {
   		this.props.setChildrenStatus(this.props.id, 0);										
-  		this.setState(this.changeAllChildrenStatus(this.state.children, 0));		
+  		this.setState(this.changeAllChildrenStatus(this.props.children, 0));		
   	}
   }
 
   setChildrenStatus(id, status) {
-  	let children = this.state.children;
+  	let children = this.props.children;
   	if (children) {
 	  	for (let i = 0; i < children.length; i++) {
 	  		if (children[i].id === id)
@@ -63,11 +63,11 @@ class TreeNode extends Component {
   	}
 
   	let selectedChildrenSum = 0;
-  	for (let i = 0; i < this.state.children.length; i++) {
-  		selectedChildrenSum += this.state.children[i].status;
+  	for (let i = 0; i < this.props.children.length; i++) {
+  		selectedChildrenSum += this.props.children[i].status;
   	}
 
-  	if (selectedChildrenSum === this.state.children.length) {
+  	if (selectedChildrenSum === this.props.children.length) {
   		return 1;
   	} else if (selectedChildrenSum === 0) {
   		return 0;

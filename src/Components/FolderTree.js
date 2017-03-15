@@ -27,6 +27,7 @@ class FolderTree extends Component {
     this.deleteSeletedObj = this.deleteSeletedObj.bind(this);
     this.addNewFileInSelectedObj = this.addNewFileInSelectedObj.bind(this);
     this.getNumOfFiles = this.getNumOfFiles.bind(this);
+    this.toggleAddingNewFile = this.toggleAddingNewFile.bind(this);
 
     this.state = {
       data: initialize(props.data),
@@ -34,6 +35,7 @@ class FolderTree extends Component {
       selectedPath: [],   // path to selected file or folder
       showPane: true,
       numOfFiles: this.getNumOfFiles(props.data),
+      addingNewFile: false,
     };
   }
 
@@ -141,13 +143,19 @@ class FolderTree extends Component {
     }));
   }
 
+  toggleAddingNewFile() {
+    this.setState(prevState => ({
+      addingNewFile: !prevState.addingNewFile,
+    }));
+  }
+
   render() {
       this.printSelectedFileTree();
       return (
         <div>
-          <FolderToolbar addObj={()=>{}} deleteObj={this.deleteSeletedObj} />
+          <FolderToolbar toggleAddingNewFile={this.toggleAddingNewFile} deleteObj={this.deleteSeletedObj} />
 
-          {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} onCancel={()=>{}} />}
+          {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} addingNewFile={this.state.addingNewFile} toggleAddingNewFile={this.toggleAddingNewFile} />}
 
           <div className={styles.folderTree}>
           <TreeNode
