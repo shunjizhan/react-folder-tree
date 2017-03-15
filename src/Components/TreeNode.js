@@ -129,7 +129,7 @@ class TreeNode extends Component {
 
 					        	setName={(path, name) => { this.props.setName(path, name); } }
 					        	setPath={ path => { this.props.setPath(path) } }
-					        	path={this.props.path.concat(index)}					        	
+					        	path={this.props.path.concat(index)}			
 				        	/>
 				        )
 		        	})

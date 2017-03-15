@@ -24,13 +24,27 @@ class FolderTree extends Component {
     this.setSelectedPath = this.setSelectedPath.bind(this);
     this.setSelected = this.setSelected.bind(this);
     this.deleteSeletedObj = this.deleteSeletedObj.bind(this);
+    this.addNewFileInSelectedObj = this.addNewFileInSelectedObj.bind(this);
+    this.getNumOfFiles = this.getNumOfFiles.bind(this);
 
     this.state = {
       data: initialize(props.data),
       checked: 0,
       selectedPath: [],   // path to selected file or folder
       showPane: true,
+      numOfFiles: this.getNumOfFiles(props.data),
     };
+  }
+
+  getNumOfFiles(data) {
+    let sum = 0;
+    if (data.children) {
+      data.children.forEach(subData => {
+        sum += this.getNumOfFiles(subData);
+      });     
+    } else {
+      return 1;
+    }
   }
 
   setSelectedPath(path) {
@@ -96,6 +110,29 @@ class FolderTree extends Component {
     });
   }
 
+  addNewFileInSelectedObj(filename) {
+    console.log('add new file!!!!' + filename);
+    let path = this.state.selectedPath;
+    let newData = this.state.data;
+    let ref = newData;
+    let i = 0;   
+    while (i < path.length) {
+      ref = ref.children[path[i]];  
+      i++;
+    }
+
+    const newfile = {
+      id: 99,           // TODO: how to set unique id, maybe keep track of number of files
+      filename: filename,
+      category: 'file',
+    };
+
+    ref.children.push(newfile);
+    this.setState({
+      data: newData,
+    });
+  }
+
   render() {
       this.printSelectedFileTree();
       return (
@@ -121,7 +158,7 @@ class FolderTree extends Component {
 
           <FolderToolbar addObj={()=>{}} deleteObj={this.deleteSeletedObj} />
 
-          {this.state.showPane && <FilePane onConfirm={()=>{}} onCancel={()=>{}} />}
+          {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} onCancel={()=>{}} />}
 
         </div>
       )

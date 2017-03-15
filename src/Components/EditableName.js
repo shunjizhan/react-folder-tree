@@ -3,9 +3,9 @@ import styles from './folderTreeCSS.css'
 
 class EditableName extends React.Component {
 	static propTypes = {
-  filename: React.PropTypes.string.isRequired,
-  setMyName: React.PropTypes.func.isRequired,
-};
+	  filename: React.PropTypes.string.isRequired,
+	  setMyName: React.PropTypes.func.isRequired,
+	};
 
 	constructor(props) {
     super(props);
@@ -19,8 +19,9 @@ class EditableName extends React.Component {
 
   toggleEditing() {
   	this.setState(prevState => ({editing: !prevState.editing}));
-  	if (this.state.editing)
+  	if (this.state.editing) {						// TODO: this doesn't work 
   		this.textInput.focus();
+  	}
   }
 
   handleChangeName() {
@@ -29,7 +30,6 @@ class EditableName extends React.Component {
   }
 
 	render() { 
-		// this.props.setMyName('*' + this.props.filename + '*')
 		let input = (
 			<span>
 				<input type="text" defaultValue={this.props.filename} ref={ input => { this.textInput = input; } } />
@@ -47,10 +47,7 @@ class EditableName extends React.Component {
 
 		return (	
 			<span>
-
     		{ this.state.editing? input : name }
-
-
   		</span>
 		);
 	}
