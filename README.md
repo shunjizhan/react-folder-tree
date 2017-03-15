@@ -173,6 +173,7 @@ Icons are from [here](https://www.npmjs.com/package/react-fontawesome)
 
 # TODO
 - css modules of font awesome
-- pencil only show on hover
+- in editing mode the inputbox doesn't hover automatically
+- press enter to confirm (now must click the confirm icon)
 - fully test all funtionalities
 - change structure: since now each Treenode has path, there should exist more concise way to handle check

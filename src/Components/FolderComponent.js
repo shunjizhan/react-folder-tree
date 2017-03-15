@@ -11,7 +11,7 @@ const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, 
 
     <span className={selected ? [styles.folderText, styles.selected].join(' ') : styles.folderText} onClick={selectMe}>
       <i className={open? styles.foldeOpenIcon : styles.folderIcon} />   
-      <EditableName filename={filename} setMyName={setMyName} />
+      <EditableName filename={filename} setMyName={setMyName} selected={selected} />
     </span>
 
   </div>

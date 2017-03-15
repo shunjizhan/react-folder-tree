@@ -5,6 +5,7 @@ class EditableName extends React.Component {
 	static propTypes = {
 	  filename: React.PropTypes.string.isRequired,
 	  setMyName: React.PropTypes.func.isRequired,
+	  selected: React.PropTypes.number.isRequired,
 	};
 
 	constructor(props) {
@@ -14,7 +15,15 @@ class EditableName extends React.Component {
 
     this.state = {
     	editing: false,
+    	selected: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	if (nextProps.selected === 1)
+  		this.setState({selected: 1});
+  	else 
+  		this.setState({selected: 0});
   }
 
   toggleEditing() {
@@ -41,7 +50,7 @@ class EditableName extends React.Component {
 		const name = (
 			<span>
 				{' ' + this.props.filename + ' '}
-				<i className={styles.pencilIcon} onClick={this.toggleEditing} />
+				{ this.state.selected === 1 && <i className={styles.pencilIcon} onClick={this.toggleEditing} /> }
 			</span>
 		);
 

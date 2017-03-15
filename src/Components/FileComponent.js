@@ -9,7 +9,7 @@ const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selec
 
     <span className={selected ? [styles.fileText, styles.selected].join(' ') : styles.fileText} onClick={selectMe}>
       <i className={styles.fileIcon} style={{marginLeft: '10px'}} /> 
-      <EditableName filename={filename} setMyName={setMyName} />
+      <EditableName filename={filename} setMyName={setMyName} selected={selected} />
     </span>
 
   </div>
