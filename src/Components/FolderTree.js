@@ -120,15 +120,18 @@ class FolderTree extends Component {
     let newData = this.state.data;
     let ref = newData;
     let i = 0;   
+    let parentStatus = 0;
+
     while (i < path.length) {
       ref = ref.children[path[i]];  
       i++;
     }
-
+    
+    parentStatus = ref.status;
     const newfile = {
       id: this.state.numOfFiles + 1,           
       filename: filename,
-      status: 0,
+      status: parentStatus,
       selected: 0,
     };
 
