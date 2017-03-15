@@ -45,6 +45,7 @@ class FolderTree extends Component {
     } else {
       return 1;
     }
+    return sum + 1;
   }
 
   setSelectedPath(path) {
@@ -111,7 +112,6 @@ class FolderTree extends Component {
   }
 
   addNewFileInSelectedObj(filename) {
-    console.log('add new file!!!!' + filename);
     let path = this.state.selectedPath;
     let newData = this.state.data;
     let ref = newData;
@@ -122,15 +122,18 @@ class FolderTree extends Component {
     }
 
     const newfile = {
-      id: 99,           // TODO: how to set unique id, maybe keep track of number of files
+      id: this.state.numOfFiles + 1,           
       filename: filename,
       category: 'file',
+      status: 0,
+      selected: 0,
     };
 
     ref.children.push(newfile);
-    this.setState({
+    this.setState(prevState => ({
       data: newData,
-    });
+      numOfFiles: prevState.numOfFiles + 1,
+    }));
   }
 
   render() {
