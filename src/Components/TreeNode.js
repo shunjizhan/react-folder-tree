@@ -89,7 +89,6 @@ class TreeNode extends Component {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
 
  		if (this.props.children.length > 0) {
- 			// console.log(this.props.selectedHightlight);
 	 		return (
 	      <div>
 

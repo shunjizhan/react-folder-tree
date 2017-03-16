@@ -52,7 +52,6 @@ class FolderTree extends Component {
   }
 
   setSelectedPath(path) {
-    console.log('setSelectedPath: ' + path)
     this.setSelected(this.state.selectedPath, 0);     
     this.setState({selectedPath: path});              
     this.setSelected(path, 1);                        
@@ -71,8 +70,6 @@ class FolderTree extends Component {
   }
 
   setChildName(path, name) {
-    console.log('setChildName: ', path)
-
     let newData = this.state.data;
     let ref = newData;
     let i = 0;                      
@@ -111,7 +108,6 @@ class FolderTree extends Component {
 
     let parentCheckStatus = getCheckStatus(ref);
     if (ref.status !== parentCheckStatus) {
-      console.log('!!!!!!!!!!!')
       ref.status = parentCheckStatus;
       newData = updateAllCheckStatus(newData, selectedPath)
     }
@@ -197,7 +193,6 @@ class FolderTree extends Component {
 }
 
 function updateAllCheckStatus(data, path) {
-  console.log('current path = ' + path);
   if (path.length < 1) {
     console.log('error! path.length should be at least 1!');
     return {};
