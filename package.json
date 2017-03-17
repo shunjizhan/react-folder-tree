@@ -3,7 +3,7 @@
   "author": "Shunji Zhan",
   "description": "React Foder Tree",
   "repository" : { "type" : "git" , "url" : "https://github.com/shunjizhan/React-Folder-Tree" },
-  "version": "2.8.0",
+  "version": "2.9.0",
   "private": false,
   "main": "build/index.js",
   "devDependencies": {

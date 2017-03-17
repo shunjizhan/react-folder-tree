@@ -83,6 +83,11 @@
   top: 60px;
 }
 
+.sandboxButton {
+  position: fixed;
+  bottom: 300px;
+}
+
 
 
 
