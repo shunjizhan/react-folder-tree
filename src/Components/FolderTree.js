@@ -41,7 +41,7 @@ class FolderTree extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.state.data)
-      this.setState({data: nextProps.data});
+      this.setState({data: initialize(nextProps.data)});
   }
 
   getNumOfFiles(data) {

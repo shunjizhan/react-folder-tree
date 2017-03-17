@@ -189,7 +189,7 @@ export default class Sandbox extends Component {
     console.log('change data!')
     let newTestData = {};
     let newData = this.state.data * (-1);
-    if (this.state.data === 1) 
+    if (newData === 1) 
       newTestData = testData;
     else 
       newTestData = testData2;
