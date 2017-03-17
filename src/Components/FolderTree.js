@@ -21,7 +21,6 @@ class FolderTree extends Component {
 
   constructor(props) {
     super(props);
-    this.setRootStatus = this.setRootStatus.bind(this);
     this.setChildName = this.setChildName.bind(this);
     this.setSelectedPath = this.setSelectedPath.bind(this);
     this.setSelected = this.setSelected.bind(this);
@@ -62,12 +61,6 @@ class FolderTree extends Component {
     this.setSelected(this.state.selectedPath, 0);     
     this.setState({selectedPath: path});              
     this.setSelected(path, 1);                        
-  }
-
-  setRootStatus(id, status) {
-    const newData = {...this.state.data}
-    newData.status = status;
-    this.setState({data: newData}, () => this.onChange());
   }
 
   onChange() {
@@ -125,15 +118,6 @@ class FolderTree extends Component {
       numOfFiles: this.getNumOfFiles(newData),
     }), () => this.onChange());
   }
-
-  handleClick = (pathString) => {
-    let path = [];
-    for (let i = 0; i < pathString.length; i++) {
-      path.push(parseInt(pathString[i], 10));
-    }
-    this.handleCheck(path, 1);
-  }
-
 
   handleCheck(path, status) {
     console.log("handle check: " + path + ' (' + status + ')');
@@ -220,27 +204,24 @@ class FolderTree extends Component {
         {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} addingNewFile={this.state.addingNewFile} toggleAddingNewFile={this.toggleAddingNewFile} />}
 
         <div className={styles.folderTree}>
-        <TreeNode
-          key={this.state.data.id}
-          filename={this.state.data.filename}
-          children={this.state.data.children || []}
-          id={this.state.data.id}
-          handleCheck={this.handleCheck}
-          level={0}
-          checked={this.state.data.status}
-          selected={this.state.data.selected}
-          fileComponent={this.props.fileComponent}
-          folderComponent={this.props.folderComponent}
+          <TreeNode
+            path={[]}
+            level={0}
+            id={this.state.data.id}
+            key={this.state.data.id}
+            checked={this.state.data.status}
+            selected={this.state.data.selected}
+            filename={this.state.data.filename}
+            children={this.state.data.children || []}
+            
+            fileComponent={this.props.fileComponent}
+            folderComponent={this.props.folderComponent}
 
-          setName={ (path, name) => { this.setChildName(path, name); } }
-          setPath={ path => { this.setSelectedPath(path) } }
-          path={[]}
-        />
-        </div>
-
-        <div className={styles.test}>
-          <input type="text" defaultValue={""} ref={ input => { this.textInput = input; } } />
-          <button onClick={() => this.handleClick(this.textInput.value)} > check </button>
+            handleCheck={this.handleCheck}
+            setPath={ path => { this.setSelectedPath(path) } }
+            setName={ (path, name) => { this.setChildName(path, name); } }
+            
+          />
         </div>
 
       </div>

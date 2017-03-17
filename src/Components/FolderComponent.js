@@ -18,16 +18,17 @@ const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, 
 );
 
 FolderComponent.propTypes = {
-  level: React.PropTypes.number.isRequired,
-  checked: React.PropTypes.number.isRequired,
-  handleCheck: React.PropTypes.func.isRequired,
-  filename: React.PropTypes.string.isRequired,
-  toggleFolder: React.PropTypes.func.isRequired,
   open: React.PropTypes.bool.isRequired,
   path: React.PropTypes.array.isRequired, 
-  setMyName: React.PropTypes.func.isRequired,
-  selectMe: React.PropTypes.func.isRequired,
+  level: React.PropTypes.number.isRequired,
+  checked: React.PropTypes.number.isRequired,
+  filename: React.PropTypes.string.isRequired,
   selected: React.PropTypes.number.isRequired,
+
+  selectMe: React.PropTypes.func.isRequired,
+  setMyName: React.PropTypes.func.isRequired,
+  handleCheck: React.PropTypes.func.isRequired,
+  toggleFolder: React.PropTypes.func.isRequired,
 }
 
 function getInden(level) {
