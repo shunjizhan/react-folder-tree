@@ -166,6 +166,14 @@ class FolderTree extends Component {
     }));
   }
 
+  handleClick = (pathString) => {
+    let path = [];
+    for (let i = 0; i < pathString.length; i++) {
+      path.push(parseInt(pathString[i], 10));
+    }
+    console.log("setcheck: " + path);
+  }
+
   render() {
     return (
       <div>
@@ -187,9 +195,14 @@ class FolderTree extends Component {
           folderComponent={this.props.folderComponent}
 
           setName={ (path, name) => { this.setChildName(path, name); } }
-          setPath={ path => { this.setSelectedPath(path) } }
+          setPath={ path => { this.handleCheck(path) } }
           path={[]}
         />
+        </div>
+
+        <div className={styles.test}>
+          <input type="text" defaultValue={""} ref={ input => { this.textInput = input; } } />
+          <button onClick={() => this.handleClick(this.textInput.value)} > check </button>
         </div>
 
       </div>
