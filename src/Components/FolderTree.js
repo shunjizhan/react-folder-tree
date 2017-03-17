@@ -101,7 +101,11 @@ class FolderTree extends Component {
 
     ref.children.splice(selectedPath[i], 1);
 
-    let parentCheckStatus = getCheckStatus(ref);
+    let parentCheckStatus = ref.status;
+    if (ref.children && ref.children.length !== 0) {
+      parentCheckStatus = getCheckStatus(ref);
+    }
+
     if (ref.status !== parentCheckStatus) {
       ref.status = parentCheckStatus;
       newData = updateAllCheckStatusUp(newData, selectedPath)
