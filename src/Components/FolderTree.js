@@ -39,6 +39,11 @@ class FolderTree extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.state.data)
+      this.setState({data: nextProps.data});
+  }
+
   getNumOfFiles(data) {
     let sum = 0;
     if (data.children) {
@@ -61,6 +66,7 @@ class FolderTree extends Component {
     const newData = {...this.state.data}
     newData.status = status;
     this.setState({data: newData});
+    this.onChange();
   }
 
   onChange() {
@@ -79,6 +85,7 @@ class FolderTree extends Component {
     }
     ref.filename = name;
     this.setState({data: newData});
+    this.onChange();
   }
 
   setSelected(path, status) {
@@ -117,6 +124,8 @@ class FolderTree extends Component {
       selectedPath: [],
       numOfFiles: this.getNumOfFiles(newData),
     }));
+
+    this.onChange();
   }
 
   addNewFileInSelectedObj(filename) {
@@ -152,6 +161,8 @@ class FolderTree extends Component {
       data: newData,
       numOfFiles: prevState.numOfFiles + 1,
     }));
+
+    this.onChange();
   }
 
   toggleAddingNewFile() {
@@ -161,34 +172,33 @@ class FolderTree extends Component {
   }
 
   render() {
-      this.onChange();
-      return (
-        <div>
-          <FolderToolbar toggleAddingNewFile={this.toggleAddingNewFile} deleteObj={this.deleteSeletedObj} />
+    return (
+      <div>
+        <FolderToolbar toggleAddingNewFile={this.toggleAddingNewFile} deleteObj={this.deleteSeletedObj} />
 
-          {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} addingNewFile={this.state.addingNewFile} toggleAddingNewFile={this.toggleAddingNewFile} />}
+        {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} addingNewFile={this.state.addingNewFile} toggleAddingNewFile={this.toggleAddingNewFile} />}
 
-          <div className={styles.folderTree}>
-          <TreeNode
-            key={this.state.data.id}
-            filename={this.state.data.filename}
-            children={this.state.data.children || []}
-            id={this.state.data.id}
-            setChildrenStatus={this.setRootStatus}
-            level={0}
-            checked={this.state.data.status}
-            selected={this.state.data.selected}
-            fileComponent={this.props.fileComponent}
-            folderComponent={this.props.folderComponent}
+        <div className={styles.folderTree}>
+        <TreeNode
+          key={this.state.data.id}
+          filename={this.state.data.filename}
+          children={this.state.data.children || []}
+          id={this.state.data.id}
+          setChildrenStatus={this.setRootStatus}
+          level={0}
+          checked={this.state.data.status}
+          selected={this.state.data.selected}
+          fileComponent={this.props.fileComponent}
+          folderComponent={this.props.folderComponent}
 
-            setName={ (path, name) => { this.setChildName(path, name); } }
-            setPath={ path => { this.setSelectedPath(path) } }
-            path={[]}
-          />
-          </div>
-
+          setName={ (path, name) => { this.setChildName(path, name); } }
+          setPath={ path => { this.setSelectedPath(path) } }
+          path={[]}
+        />
         </div>
-      )
+
+      </div>
+    )
   }
 }
 
