@@ -65,8 +65,7 @@ class FolderTree extends Component {
   setRootStatus(id, status) {
     const newData = {...this.state.data}
     newData.status = status;
-    this.setState({data: newData});
-    this.onChange();
+    this.setState({data: newData}, () => this.onChange());
   }
 
   onChange() {
@@ -84,8 +83,7 @@ class FolderTree extends Component {
       i++;
     }
     ref.filename = name;
-    this.setState({data: newData});
-    this.onChange();
+    this.setState({data: newData}, () => this.onChange());
   }
 
   setSelected(path, status) {
@@ -123,9 +121,7 @@ class FolderTree extends Component {
       data: newData,
       selectedPath: [],
       numOfFiles: this.getNumOfFiles(newData),
-    }));
-
-    this.onChange();
+    }), () => this.onChange());
   }
 
   addNewFileInSelectedObj(filename) {
@@ -160,9 +156,7 @@ class FolderTree extends Component {
     this.setState(prevState => ({
       data: newData,
       numOfFiles: prevState.numOfFiles + 1,
-    }));
-
-    this.onChange();
+    }), () => this.onChange());
   }
 
   toggleAddingNewFile() {
