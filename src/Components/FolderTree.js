@@ -26,7 +26,6 @@ class FolderTree extends Component {
     this.setSelected = this.setSelected.bind(this);
     this.deleteSeletedObj = this.deleteSeletedObj.bind(this);
     this.addNewFileInSelectedObj = this.addNewFileInSelectedObj.bind(this);
-    this.getNumOfFiles = this.getNumOfFiles.bind(this);
     this.toggleAddingNewFile = this.toggleAddingNewFile.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
 
@@ -35,7 +34,7 @@ class FolderTree extends Component {
       checked: 0,
       selectedPath: [],   // path to selected file or folder
       showPane: true,
-      numOfFiles: this.getNumOfFiles(props.data),
+      numOfFiles: getNumOfFiles(props.data),
       addingNewFile: false,
     };
   }
@@ -43,18 +42,6 @@ class FolderTree extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.state.data)
       this.setState({data: initialize(nextProps.data)});
-  }
-
-  getNumOfFiles(data) {
-    let sum = 0;
-    if (data.children) {
-      data.children.forEach(subData => {
-        sum += this.getNumOfFiles(subData);
-      });     
-    } else {
-      return 1;
-    }
-    return sum + 1;
   }
 
   setSelectedPath(path) {
@@ -115,7 +102,7 @@ class FolderTree extends Component {
     this.setState(prevState => ({
       data: newData,
       selectedPath: [],
-      numOfFiles: this.getNumOfFiles(newData),
+      numOfFiles: getNumOfFiles(newData),
     }), () => this.onChange());
   }
 
@@ -126,32 +113,31 @@ class FolderTree extends Component {
     let ref = newData;
     let i = 0; 
 
+    while (i < path.length - 1) {
+      ref = ref.children[path[i]];  
+      i++;
+    }
+
+    let thisNode;
     if (path.length === 0) {
-      newData.status = status;
+      thisNode = ref;
     } else {
-      while (i < path.length - 1) {
-        ref = ref.children[path[i]];  
-        i++;
-      }
+      thisNode = ref.children[path[i]];
+    }
 
-      let thisNode = ref.children[path[i]];
+    ref.children[path[i]] = updateAllCheckStatusDown(thisNode, status);
 
-      // set this level and go down
-      thisNode = updateAllCheckStatusDown(thisNode, status);
-
-      // go up
-      let parentCheckStatus = getCheckStatus(ref);
-      if (ref.status !== parentCheckStatus) {
-        ref.status = parentCheckStatus;
-        newData = updateAllCheckStatusUp(newData, path)
-      }
+    let parentCheckStatus = getCheckStatus(ref);
+    if (ref.status !== parentCheckStatus) {
+      ref.status = parentCheckStatus;
+      newData = updateAllCheckStatusUp(newData, path)
 
     }
 
     this.setState(prevState => ({
       data: newData,
       selectedPath: [],
-      numOfFiles: this.getNumOfFiles(newData),
+      numOfFiles: getNumOfFiles(newData),
     }), () => this.onChange());
   }
 
@@ -220,7 +206,6 @@ class FolderTree extends Component {
             handleCheck={this.handleCheck}
             setPath={ path => { this.setSelectedPath(path) } }
             setName={ (path, name) => { this.setChildName(path, name); } }
-            
           />
         </div>
 
@@ -328,6 +313,18 @@ function getCheckStatus(obj) {
   } else {
     return 0.5;
   }
+}
+
+function getNumOfFiles(data) {
+  let sum = 0;
+  if (data.children) {
+    data.children.forEach(subData => {
+      sum += getNumOfFiles(subData);
+    });     
+  } else {
+    return 1;
+  }
+  return sum + 1;
 }
 
 export default FolderTree; 
