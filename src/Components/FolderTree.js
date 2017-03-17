@@ -23,7 +23,6 @@ class FolderTree extends Component {
     super(props);
     this.setChildName = this.setChildName.bind(this);
     this.setSelectedPath = this.setSelectedPath.bind(this);
-    this.setSelected = this.setSelected.bind(this);
     this.deleteSeletedObj = this.deleteSeletedObj.bind(this);
     this.addNewFileInSelectedObj = this.addNewFileInSelectedObj.bind(this);
     this.toggleAddingNewFile = this.toggleAddingNewFile.bind(this);
@@ -45,9 +44,30 @@ class FolderTree extends Component {
   }
 
   setSelectedPath(path) {
-    this.setSelected(this.state.selectedPath, 0);     
-    this.setState({selectedPath: path});              
-    this.setSelected(path, 1);                        
+    let newData = this.state.data
+    let ref = newData;
+    let i = 0;   
+    let currentPath = this.state.selectedPath;
+
+    // console.log('currentPath: ' + currentPath);
+    while (i < currentPath.length) {
+      ref = ref.children[currentPath[i]];  
+      i++;
+    }
+    ref.selected = 0;
+
+    i = 0;
+    ref = newData;
+    while (i < path.length) {
+      ref = ref.children[path[i]];  
+      i++;
+    }
+    ref.selected = 1;
+
+    this.setState({
+      data: newData,
+      selectedPath: path,
+    }, );                        
   }
 
   onChange() {
@@ -66,18 +86,6 @@ class FolderTree extends Component {
     }
     ref.filename = name;
     this.setState({data: newData}, () => this.onChange());
-  }
-
-  setSelected(path, status) {
-    let newData = this.state.data;
-    let ref = newData;
-    let i = 0;   
-    while (i < path.length) {
-      ref = ref.children[path[i]];  
-      i++;
-    }
-    ref.selected = status;
-    this.setState({data: newData});
   }
 
   deleteSeletedObj() {
@@ -107,8 +115,6 @@ class FolderTree extends Component {
   }
 
   handleCheck(path, status) {
-    console.log("handle check: " + path + ' (' + status + ')');
-
     let newData = this.state.data;
     let ref = newData;
     let i = 0; 
@@ -131,14 +137,13 @@ class FolderTree extends Component {
     if (ref.status !== parentCheckStatus) {
       ref.status = parentCheckStatus;
       newData = updateAllCheckStatusUp(newData, path)
-
     }
 
     this.setState(prevState => ({
       data: newData,
-      selectedPath: [],
       numOfFiles: getNumOfFiles(newData),
     }), () => this.onChange());
+
   }
 
   addNewFileInSelectedObj(filename) {
