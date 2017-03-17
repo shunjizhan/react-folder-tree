@@ -5,11 +5,16 @@ This is a folder tree written in ReactJS.
 We can do:
 
 - click each carat to expand/collapse the folder
-- click the checkbox to (un)check each folder and file. [(un)check each folder will automatically (un)check all sub-folders, including all the files in these folders. If part of the sub-folders or files in a folder are checked, this folder will display a half check. Each time the checked folders/files change, console will print out the structure of the data tree that contains all the checked folders/files.]
+- click the checkbox to (un)check each folder and file. (un)check each folder will automatically (un)check all sub-folders, including all the files in these folders. If part of the sub-folders or files in a folder are checked, this folder will display a half check. 
 - click the folder/file name to select it, and it will be hightlighted in blue
 - click the pencil beside the folder/file to rename it
 - click the delete button to delete the selected folder/file
-- click the Add button to add new file in the selected folder/file. [Adding a file-2 to a file-1 will change file-1 to a folder; if all sub folder/files of a folder are deleted, this folder will become a file. The new file's check status is same as its parent]
+- click the Add button to add new file in the selected folder/file. Adding a file-2 to a file-1 will change file-1 to a folder; if all sub folder/files of a folder are deleted, this folder will become a file. The new file's check status is same as its parent
+
+# Props
+- data: initial data to construct the tree. Sample data can be found [below](#sample-data)
+- onChange(data): It will call this function after any of these four actions: (un)check, add, delete, or rename. Where data is the object representing the tree of all selected files/folders (filtered out all unchecked files/folders).
+- FileComponent & FolderComponent: you can inject your own components here. Default file/folder component is already provided.
 
 # Sample Tree:
 
@@ -29,7 +34,7 @@ Remember to include the above link in your html page. Otherwise the icons won't 
 	import ReactDOM from 'react-dom';
 	import FolderTree from 'react-folder-tree';
 
-	const testData = YOUR DATA
+	const testData = YOUR DATA;
 
 	ReactDOM.render(		 	
 	  <FolderTree      

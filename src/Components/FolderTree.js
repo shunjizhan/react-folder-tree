@@ -11,6 +11,7 @@ class FolderTree extends Component {
     data: React.PropTypes.object.isRequired,
     fileComponent: React.PropTypes.func,
     folderComponent: React.PropTypes.func,
+    onChange: React.PropTypes.func,
   };
 
   static defaultProps = {
