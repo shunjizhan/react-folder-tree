@@ -33,8 +33,8 @@ class TreeNode extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.state.data)
-      this.setState({data: nextProps.data});
+    if (nextProps.children !== this.state.children)
+      this.setState({children: nextProps.children});
   }
 
   toggleFolder() {
@@ -52,7 +52,7 @@ class TreeNode extends Component {
   	this.props.setName(this.props.path, name);
   }
 
-  setMyPath(path) {
+  setMyPath() {
   	this.props.setPath(this.props.path);
   }
 
@@ -117,7 +117,7 @@ class TreeNode extends Component {
 	      	selectMe={this.setMyPath}
           setMyName={this.setMyName}
           handleCheck={this.handleCheck}
-	      	
+
 	     	/>
 	    )
  		}
