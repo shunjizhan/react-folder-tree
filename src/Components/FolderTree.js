@@ -63,10 +63,10 @@ class FolderTree extends Component {
     this.setState({data: newData});
   }
 
-  printSelectedFileTree() {
+  onChange() {
     const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));      
     const selectedTree = JSON.stringify(filterAllSelected(dataDeepClone, true));
-    console.log(selectedTree);
+    this.props.onChange(selectedTree);
   }
 
   setChildName(path, name) {
@@ -161,7 +161,7 @@ class FolderTree extends Component {
   }
 
   render() {
-      this.printSelectedFileTree();
+      this.onChange();
       return (
         <div>
           <FolderToolbar toggleAddingNewFile={this.toggleAddingNewFile} deleteObj={this.deleteSeletedObj} />

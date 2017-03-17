@@ -127,6 +127,12 @@ ReactDOM.render(
   	data={testData}
     fileComponent={FileComponent}
     folderComponent={FolderComponent}
+    onChange={onChange}
   />,
 	document.getElementById('root')
 )
+
+function onChange(data) {
+  console.log(data);
+}
+
