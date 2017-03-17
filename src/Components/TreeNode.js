@@ -25,8 +25,14 @@ class TreeNode extends Component {
 
     this.state = {
     	level: props.level,
-      open: false,
+      open: true,
+      children: this.props.children,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.state.data)
+      this.setState({data: nextProps.data});
   }
 
   toggleFolder() {
@@ -36,15 +42,15 @@ class TreeNode extends Component {
   handleCheck(e) {
   	if (e.target.checked) {
   		this.props.setChildrenStatus(this.props.id, 1);
-  		this.setState(this.changeAllChildrenStatus(this.props.children, 1));
+  		this.setState(this.changeAllChildrenStatus(this.state.children, 1));
   	}	else {
   		this.props.setChildrenStatus(this.props.id, 0);										
-  		this.setState(this.changeAllChildrenStatus(this.props.children, 0));		
+  		this.setState(this.changeAllChildrenStatus(this.state.children, 0));		
   	}
   }
 
   setChildrenStatus(id, status) {
-  	let children = this.props.children;
+  	let children = this.state.children;
   	if (children) {
 	  	for (let i = 0; i < children.length; i++) {
 	  		if (children[i].id === id)
@@ -64,11 +70,11 @@ class TreeNode extends Component {
   	}
 
   	let selectedChildrenSum = 0;
-  	for (let i = 0; i < this.props.children.length; i++) {
-  		selectedChildrenSum += this.props.children[i].status;
+  	for (let i = 0; i < this.state.children.length; i++) {
+  		selectedChildrenSum += this.state.children[i].status;
   	}
 
-  	if (selectedChildrenSum === this.props.children.length) {
+  	if (selectedChildrenSum === this.state.children.length) {
   		return 1;
   	} else if (selectedChildrenSum === 0) {
   		return 0;
@@ -88,7 +94,7 @@ class TreeNode extends Component {
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
 
- 		if (this.props.children.length > 0) {
+ 		if (this.state.children.length > 0) {
 	 		return (
 	      <div>
 
@@ -109,7 +115,7 @@ class TreeNode extends Component {
 
 		      <ul style={{ margin: 0 }}>
 		        {this.state.open &&
-		        	this.props.children.map( (child, index) => {
+		        	this.state.children.map( (child, index) => {
 			        	return (
 			        		<TreeNode
 					        	id={child.id}

@@ -29,6 +29,7 @@ class FolderTree extends Component {
     this.addNewFileInSelectedObj = this.addNewFileInSelectedObj.bind(this);
     this.getNumOfFiles = this.getNumOfFiles.bind(this);
     this.toggleAddingNewFile = this.toggleAddingNewFile.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
 
     this.state = {
       data: initialize(props.data),
@@ -115,7 +116,59 @@ class FolderTree extends Component {
     let parentCheckStatus = getCheckStatus(ref);
     if (ref.status !== parentCheckStatus) {
       ref.status = parentCheckStatus;
-      newData = updateAllCheckStatus(newData, selectedPath)
+      newData = updateAllCheckStatusUp(newData, selectedPath)
+    }
+
+    this.setState(prevState => ({
+      data: newData,
+      selectedPath: [],
+      numOfFiles: this.getNumOfFiles(newData),
+    }), () => this.onChange());
+  }
+
+  handleClick = (pathString) => {
+    let path = [];
+    for (let i = 0; i < pathString.length; i++) {
+      path.push(parseInt(pathString[i], 10));
+    }
+    this.handleCheck(path);
+  }
+
+
+  handleCheck(path) {
+    console.log("handle check: " + path + ' (' + status + ')');
+
+    let newData = this.state.data;
+    let ref = newData;
+    let i = 0; 
+
+    if (path.length === 0) {
+      newData.status = status;
+    } else {
+      while (i < path.length - 1) {
+        ref = ref.children[path[i]];  
+        i++;
+      }
+
+      let thisNode = ref.children[path[i]];
+      let newStatus;
+
+      if (thisNode.status === 1) {
+        newStatus = 0;
+      } else {
+        newStatus = 1;
+      }
+
+      // set this level and go down
+      thisNode = updateAllCheckStatusDown(thisNode, newStatus);
+
+      // go up
+      let parentCheckStatus = getCheckStatus(ref);
+      if (ref.status !== parentCheckStatus) {
+        ref.status = parentCheckStatus;
+        newData = updateAllCheckStatusUp(newData, path)
+      }
+
     }
 
     this.setState(prevState => ({
@@ -166,14 +219,6 @@ class FolderTree extends Component {
     }));
   }
 
-  handleClick = (pathString) => {
-    let path = [];
-    for (let i = 0; i < pathString.length; i++) {
-      path.push(parseInt(pathString[i], 10));
-    }
-    console.log("setcheck: " + path);
-  }
-
   render() {
     return (
       <div>
@@ -195,7 +240,7 @@ class FolderTree extends Component {
           folderComponent={this.props.folderComponent}
 
           setName={ (path, name) => { this.setChildName(path, name); } }
-          setPath={ path => { this.handleCheck(path) } }
+          setPath={ path => { this.setSelectedPath(path) } }
           path={[]}
         />
         </div>
@@ -208,28 +253,6 @@ class FolderTree extends Component {
       </div>
     )
   }
-}
-
-function updateAllCheckStatus(data, path) {
-  if (path.length < 1) {
-    console.log('error! path.length should be at least 1!');
-    return {};
-  }
-
-  if (path.length === 1) {
-    const status = getCheckStatus(data);
-    data.status = status;
-  } else {
-    const childrenIndexToBeUpdated = path[0];
-    path.splice(0, 1);
-
-    const newChildren = updateAllCheckStatus(data.children[childrenIndexToBeUpdated], path);
-    data.children[childrenIndexToBeUpdated] = newChildren;  
-  }
-
-  data.status = getCheckStatus(data);
-
-  return data;
 }
 
 function filterAllSelected(node, rootFlag = false) {
@@ -275,6 +298,41 @@ function initialize(data) {
   }
   data.status = 0;
   data.selected = 0;
+
+  return data;
+}
+
+function updateAllCheckStatusDown(data, status) {
+  const newData = data;
+  const children = newData.children;
+
+  if (children) {
+    for (let i = 0; i < children.length; i++) {
+      children[i] = updateAllCheckStatusDown(children[i], status);
+    }
+  }
+  newData.status = status;
+  return newData;
+}
+
+function updateAllCheckStatusUp(data, path) {
+  if (path.length < 1) {
+    console.log('error! path.length should be at least 1!');
+    return {};
+  }
+
+  if (path.length === 1) {
+    const status = getCheckStatus(data);
+    data.status = status;
+  } else {
+    const childrenIndexToBeUpdated = path[0];
+    path.splice(0, 1);
+
+    const newChildren = updateAllCheckStatusUp(data.children[childrenIndexToBeUpdated], path);
+    data.children[childrenIndexToBeUpdated] = newChildren;  
+  }
+
+  data.status = getCheckStatus(data);
 
   return data;
 }
