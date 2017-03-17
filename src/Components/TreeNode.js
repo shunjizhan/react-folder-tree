@@ -7,7 +7,7 @@ class TreeNode extends Component {
   	children: React.PropTypes.array.isRequired,
   	checked: React.PropTypes.number.isRequired,
   	id: React.PropTypes.number.isRequired,
-  	setChildrenStatus: React.PropTypes.func.isRequired,
+  	handleCheck: React.PropTypes.func.isRequired,
   	fileComponent: React.PropTypes.func.isRequired,
     folderComponent: React.PropTypes.func.isRequired, 
     path: React.PropTypes.array.isRequired, 
@@ -19,7 +19,6 @@ class TreeNode extends Component {
     super(props);
     this.toggleFolder = this.toggleFolder.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
-    this.setChildrenStatus = this.setChildrenStatus.bind(this);
     this.setMyPath = this.setMyPath.bind(this);
     this.setMyName = this.setMyName.bind(this);
 
@@ -41,11 +40,9 @@ class TreeNode extends Component {
 
   handleCheck(e) {
   	if (e.target.checked) {
-  		this.props.setChildrenStatus(this.props.id, 1);
-  		this.setState(this.changeAllChildrenStatus(this.state.children, 1));
+  		this.props.handleCheck(this.props.path, 1);
   	}	else {
-  		this.props.setChildrenStatus(this.props.id, 0);										
-  		this.setState(this.changeAllChildrenStatus(this.state.children, 0));		
+  		this.props.handleCheck(this.props.path, 0);									
   	}
   }
 
@@ -126,7 +123,7 @@ class TreeNode extends Component {
 					        	selected={child.selected}
 
 					        	children={child.children? child.children : []}
-					        	setChildrenStatus={this.setChildrenStatus}
+					        	handleCheck={this.props.handleCheck}
 					        	fileComponent={FileComponent}
 					        	folderComponent={FolderComponent}
 

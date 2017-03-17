@@ -131,11 +131,11 @@ class FolderTree extends Component {
     for (let i = 0; i < pathString.length; i++) {
       path.push(parseInt(pathString[i], 10));
     }
-    this.handleCheck(path);
+    this.handleCheck(path, 1);
   }
 
 
-  handleCheck(path) {
+  handleCheck(path, status) {
     console.log("handle check: " + path + ' (' + status + ')');
 
     let newData = this.state.data;
@@ -151,16 +151,9 @@ class FolderTree extends Component {
       }
 
       let thisNode = ref.children[path[i]];
-      let newStatus;
-
-      if (thisNode.status === 1) {
-        newStatus = 0;
-      } else {
-        newStatus = 1;
-      }
 
       // set this level and go down
-      thisNode = updateAllCheckStatusDown(thisNode, newStatus);
+      thisNode = updateAllCheckStatusDown(thisNode, status);
 
       // go up
       let parentCheckStatus = getCheckStatus(ref);
@@ -232,7 +225,7 @@ class FolderTree extends Component {
           filename={this.state.data.filename}
           children={this.state.data.children || []}
           id={this.state.data.id}
-          setChildrenStatus={this.setRootStatus}
+          handleCheck={this.handleCheck}
           level={0}
           checked={this.state.data.status}
           selected={this.state.data.selected}
