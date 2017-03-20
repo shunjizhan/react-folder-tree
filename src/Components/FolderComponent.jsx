@@ -1,6 +1,6 @@
 import React from 'react';
 import Checkbox from './Checkbox';
-import styles from './folderTreeCSS.css'
+import styles from './folderTreeCSS';
 
 const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open }) => (
   <div className={styles.folder} style={{marginLeft: getInden(level)}}>
