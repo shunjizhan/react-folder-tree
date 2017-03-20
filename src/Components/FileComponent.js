@@ -16,14 +16,15 @@ const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selec
 );
 
 FileComponent.propTypes = {
+  path: React.PropTypes.array.isRequired, 
   level: React.PropTypes.number.isRequired,
   checked: React.PropTypes.number.isRequired,
-  handleCheck: React.PropTypes.func.isRequired,
   filename: React.PropTypes.string.isRequired,
-  path: React.PropTypes.array.isRequired, 
-  setMyName: React.PropTypes.func.isRequired,
-  selectMe: React.PropTypes.func.isRequired,
   selected: React.PropTypes.number.isRequired,
+  
+  selectMe: React.PropTypes.func.isRequired,
+  setMyName: React.PropTypes.func.isRequired,
+  handleCheck: React.PropTypes.func.isRequired,
 };
 
 function getInden(level) {

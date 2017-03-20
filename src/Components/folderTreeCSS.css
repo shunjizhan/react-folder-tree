@@ -86,6 +86,12 @@
 .sandboxButton {
   position: fixed;
   bottom: 300px;
+  display: none;
+}
+
+.test {
+  position: fixed;
+  bottom: 200px;
 }
 
 
