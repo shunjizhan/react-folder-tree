@@ -6,21 +6,35 @@
   font-style: normal;
 }
 
+.selected {
+  background-color: #ccebff;
+}
+
 .folder, .file {
 	white-space: pre-wrap;
 }
 
-.folder:hover, .file:hover {
+/*** all the hover stuff ***/
+.folderText:hover, .fileText:hover {
 	color: #4d94ff;
+}
+
+.checkBox:hover, .addButton:hover, .deleteButton:hover, .folderText:hover, .fileText:hover {
 	cursor: pointer;
 }
 
-.checkBox:hover {
-	cursor: pointer;
-}
+.carat:hover { color: #00b359; }
+.pencilIcon:hover { color: yellow; }
+.OKIcon:hover { color: #00b359; }
+.NoIcon:hover { color: #ff5c33; }
 
-.folderIcon, .foldeOpenIcon, .arrowRight, .arrowDown, .fileIcon {
-	display: inline-block;
+.addButton:hover { color: #00b359; }
+.deleteButton:hover { color: #ff5c33; }
+
+
+/*** font awesome setup ***/
+.folderIcon, .foldeOpenIcon, .arrowRight, .arrowDown, .fileIcon, .pencilIcon, .OKIcon, .NoIcon, .addIcon, .deleteIcon {
+  display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
   text-rendering: auto;
@@ -28,11 +42,51 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.OKIcon::before { content: "\f00c"; }
+.NoIcon::before { content: "\f00d"; }
 .folderIcon::before { content: '\f114'; }
 .foldeOpenIcon::before { content: "\f115"; }
 .arrowRight::before { content: "\f0da"; }
 .arrowDown::before { content: "\f0d7"; }
 .fileIcon::before { content: "\f016"; }
+.pencilIcon::before { content:  "\f040"; }
+.addIcon::before { content: "\f055"; color: #00b359; }
+.deleteIcon::before { content: "\f056"; color: #ff5c33; }
+
+
+/*** folder toolbar ***/
+.folderToolbar {
+  padding: 10px;
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* border: 1px solid black; */
+}
+
+.filePane {
+  padding: 10px;
+  width: 200px;
+  height: 50px;
+  position: absolute;
+  left: 100px;
+  top: 0;
+  /* border: 1px solid black; */
+  font-size: 70%;
+
+}
+
+/*** folder tree ***/
+.folderTree {
+  position: absolute;
+  top: 60px;
+}
+
+.sandboxButton {
+  position: fixed;
+  bottom: 300px;
+}
 
 
 

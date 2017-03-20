@@ -10,6 +10,7 @@ import FolderTree from './FolderTree';
 describe('test <CheckBox />', () => {
   it('should render a no-checked checkbox', () => {
     const wrapper = shallow(<CheckBox handleCheck={()=>{}} status={0}/>);
+
     expect(wrapper.prop('type')).to.equal("checkbox");
     expect(wrapper.prop('checked')).to.equal(false);
   });
@@ -19,6 +20,8 @@ describe('test <CheckBox />', () => {
     expect(wrapper.prop('type')).to.equal("checkbox");
     expect(wrapper.prop('checked')).to.equal(true);
   });
+
+
 
 });
 

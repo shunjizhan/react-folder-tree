@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class TreeNode extends Component {
 	static propTypes = {
-  	category: React.PropTypes.string.isRequired,
   	filename: React.PropTypes.string.isRequired,
   	level: React.PropTypes.number.isRequired,
   	children: React.PropTypes.array.isRequired,
@@ -11,6 +10,9 @@ class TreeNode extends Component {
   	setChildrenStatus: React.PropTypes.func.isRequired,
   	fileComponent: React.PropTypes.func.isRequired,
     folderComponent: React.PropTypes.func.isRequired, 
+    path: React.PropTypes.array.isRequired, 
+  	setName: React.PropTypes.func.isRequired,
+  	setPath: React.PropTypes.func.isRequired,
 	};
 
 	constructor(props) {
@@ -18,11 +20,12 @@ class TreeNode extends Component {
     this.toggleFolder = this.toggleFolder.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.setChildrenStatus = this.setChildrenStatus.bind(this);
+    this.setMyPath = this.setMyPath.bind(this);
+    this.setMyName = this.setMyName.bind(this);
 
     this.state = {
-    	children: props.children,
     	level: props.level,
-      open: false
+      open: false,
     };
   }
 
@@ -33,15 +36,15 @@ class TreeNode extends Component {
   handleCheck(e) {
   	if (e.target.checked) {
   		this.props.setChildrenStatus(this.props.id, 1);
-  		this.setState(this.changeAllChildrenStatus(this.state.children, 1));
+  		this.setState(this.changeAllChildrenStatus(this.props.children, 1));
   	}	else {
   		this.props.setChildrenStatus(this.props.id, 0);										
-  		this.setState(this.changeAllChildrenStatus(this.state.children, 0));		
+  		this.setState(this.changeAllChildrenStatus(this.props.children, 0));		
   	}
   }
 
   setChildrenStatus(id, status) {
-  	let children = this.state.children;
+  	let children = this.props.children;
   	if (children) {
 	  	for (let i = 0; i < children.length; i++) {
 	  		if (children[i].id === id)
@@ -49,7 +52,8 @@ class TreeNode extends Component {
 	  	}
 	  }
 
-  	this.setState({ children: children });
+	  /*** this is wired, comment out this line didn't break anything, leave it here for a while in case ***/
+  	// this.setState({ children: children });
 
   	this.props.setChildrenStatus(this.props.id, this.getCheckedStatus(status));
   }
@@ -60,11 +64,11 @@ class TreeNode extends Component {
   	}
 
   	let selectedChildrenSum = 0;
-  	for (let i = 0; i < this.state.children.length; i++) {
-  		selectedChildrenSum += this.state.children[i].status;
+  	for (let i = 0; i < this.props.children.length; i++) {
+  		selectedChildrenSum += this.props.children[i].status;
   	}
 
-  	if (selectedChildrenSum === this.state.children.length) {
+  	if (selectedChildrenSum === this.props.children.length) {
   		return 1;
   	} else if (selectedChildrenSum === 0) {
   		return 0;
@@ -73,10 +77,18 @@ class TreeNode extends Component {
   	}
   }
 
+  setMyName(name) {
+  	this.props.setName(this.props.path, name);
+  }
+
+  setMyPath(path) {
+  	this.props.setPath(this.props.path);
+  }
+
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
 
- 		if (this.props.category === 'folder') {
+ 		if (this.props.children.length > 0) {
 	 		return (
 	      <div>
 
@@ -87,24 +99,34 @@ class TreeNode extends Component {
 	      		filename={this.props.filename}
 	      		toggleFolder={this.toggleFolder}
 	      		open={this.state.open}
+
+	      		path={this.props.path}
+	      		setMyName={this.setMyName}
+	      		selectMe={this.setMyPath}
+
+	      		selected={this.props.selected}
 	      	/>
 
 		      <ul style={{ margin: 0 }}>
 		        {this.state.open &&
-		        	this.state.children.map( (child, i) => {
+		        	this.props.children.map( (child, index) => {
 			        	return (
 			        		<TreeNode
-			        			className="aFolder"
 					        	id={child.id}
 					        	key={child.id}
 					        	level={this.state.level + 1}
-					        	category={child.category}
 					        	filename={child.filename}
 					        	checked={child.status}
+					        	selected={child.selected}
+
 					        	children={child.children? child.children : []}
 					        	setChildrenStatus={this.setChildrenStatus}
 					        	fileComponent={FileComponent}
 					        	folderComponent={FolderComponent}
+
+					        	setName={(path, name) => { this.props.setName(path, name); } }
+					        	setPath={ path => { this.props.setPath(path) } }
+					        	path={this.props.path.concat(index)}			
 				        	/>
 				        )
 		        	})
@@ -120,6 +142,12 @@ class TreeNode extends Component {
 	     		checked={this.props.checked}
 	     		filename={this.props.filename}
 	     		level={this.state.level}
+
+	     	  path={this.props.path}
+	      	setMyName={this.setMyName}
+	      	selectMe={this.setMyPath}
+
+	      	selected={this.props.selected}
 	     	/>
 	    )
  		}

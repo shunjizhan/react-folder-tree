@@ -6,8 +6,13 @@ module.exports = {
   module: {
     loaders: [
       {
+<<<<<<< HEAD
         test: [/\.js$/, /\.jsx$/],
         loader: 'babel-loader',
+=======
+        test: [/\.jsx$/, /\.js$/],
+        loader: 'babel',
+>>>>>>> origin/solve-two-issues
         exclude: /node_modules/,
         query: {
           plugins: ['transform-decorators-legacy', 'transform-runtime'],
