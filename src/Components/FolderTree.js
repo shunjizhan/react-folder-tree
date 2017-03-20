@@ -12,11 +12,13 @@ class FolderTree extends Component {
     fileComponent: React.PropTypes.func,
     folderComponent: React.PropTypes.func,
     onChange: React.PropTypes.func,
+    showToolbar: React.PropTypes.bool,
   };
 
   static defaultProps = {
     folderComponent: FolderComponent,
     fileComponent: FileComponent,
+    showToolbar: false,
   };
 
   constructor(props) {
@@ -194,9 +196,9 @@ class FolderTree extends Component {
   render() {
     return (
       <div>
-        <FolderToolbar toggleAddingNewFile={this.toggleAddingNewFile} deleteObj={this.deleteSeletedObj} />
+        {this.props.showToolbar && <FolderToolbar toggleAddingNewFile={this.toggleAddingNewFile} deleteObj={this.deleteSeletedObj} />}
 
-        {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} addingNewFile={this.state.addingNewFile} toggleAddingNewFile={this.toggleAddingNewFile} />}
+        {this.state.addingNewFile && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} toggleAddingNewFile={this.toggleAddingNewFile} />}
 
         <div className={styles.folderTree}>
           <TreeNode
