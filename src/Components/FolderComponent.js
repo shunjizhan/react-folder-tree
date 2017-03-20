@@ -11,23 +11,24 @@ const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, 
 
     <span className={selected ? [styles.folderText, styles.selected].join(' ') : styles.folderText} onClick={selectMe}>
       <i className={open? styles.foldeOpenIcon : styles.folderIcon} />   
-      <EditableName filename={filename} setMyName={setMyName} />
+      <EditableName filename={filename} setMyName={setMyName} selected={selected} />
     </span>
 
   </div>
 );
 
 FolderComponent.propTypes = {
-  level: React.PropTypes.number.isRequired,
-  checked: React.PropTypes.number.isRequired,
-  handleCheck: React.PropTypes.func.isRequired,
-  filename: React.PropTypes.string.isRequired,
-  toggleFolder: React.PropTypes.func.isRequired,
   open: React.PropTypes.bool.isRequired,
   path: React.PropTypes.array.isRequired, 
-  setMyName: React.PropTypes.func.isRequired,
-  selectMe: React.PropTypes.func.isRequired,
+  level: React.PropTypes.number.isRequired,
+  checked: React.PropTypes.number.isRequired,
+  filename: React.PropTypes.string.isRequired,
   selected: React.PropTypes.number.isRequired,
+
+  selectMe: React.PropTypes.func.isRequired,
+  setMyName: React.PropTypes.func.isRequired,
+  handleCheck: React.PropTypes.func.isRequired,
+  toggleFolder: React.PropTypes.func.isRequired,
 }
 
 function getInden(level) {
