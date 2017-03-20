@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TreeNode from './TreeNode';
-import FolderComponent from './FolderComponent'; 
+import FolderComponent from './FolderComponent';
 import FileComponent from './FileComponent';
 import FolderToolbar from './FolderToolbar';
 import FilePane from './FilePane';
@@ -12,11 +12,13 @@ class FolderTree extends Component {
     fileComponent: React.PropTypes.func,
     folderComponent: React.PropTypes.func,
     onChange: React.PropTypes.func,
+    showToolbar: React.PropTypes.bool,
   };
 
   static defaultProps = {
     folderComponent: FolderComponent,
     fileComponent: FileComponent,
+    showToolbar: false,
   };
 
   constructor(props) {
@@ -46,12 +48,12 @@ class FolderTree extends Component {
   setSelectedPath(path) {
     let newData = this.state.data
     let ref = newData;
-    let i = 0;   
+    let i = 0;
     let currentPath = this.state.selectedPath;
 
     // console.log('currentPath: ' + currentPath);
     while (i < currentPath.length) {
-      ref = ref.children[currentPath[i]];  
+      ref = ref.children[currentPath[i]];
       i++;
     }
     ref.selected = 0;
@@ -59,7 +61,7 @@ class FolderTree extends Component {
     i = 0;
     ref = newData;
     while (i < path.length) {
-      ref = ref.children[path[i]];  
+      ref = ref.children[path[i]];
       i++;
     }
     ref.selected = 1;
@@ -67,11 +69,11 @@ class FolderTree extends Component {
     this.setState({
       data: newData,
       selectedPath: path,
-    }, );                        
+    }, );
   }
 
   onChange() {
-    const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));      
+    const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));
     const selectedTree = JSON.stringify(filterAllSelected(dataDeepClone, true));
     this.props.onChange(selectedTree);
   }
@@ -79,9 +81,9 @@ class FolderTree extends Component {
   setChildName(path, name) {
     let newData = this.state.data;
     let ref = newData;
-    let i = 0;                      
+    let i = 0;
     while (i < path.length) {
-      ref = ref.children[path[i]];  
+      ref = ref.children[path[i]];
       i++;
     }
     ref.filename = name;
@@ -92,10 +94,10 @@ class FolderTree extends Component {
     let selectedPath = this.state.selectedPath;
     let newData = this.state.data;
     let ref = newData;
-    let i = 0;   
+    let i = 0;
 
     while (i < selectedPath.length - 1) {
-      ref = ref.children[selectedPath[i]];  
+      ref = ref.children[selectedPath[i]];
       i++;
     }
 
@@ -121,10 +123,10 @@ class FolderTree extends Component {
   handleCheck(path, status) {
     let newData = this.state.data;
     let ref = newData;
-    let i = 0; 
+    let i = 0;
 
     while (i < path.length - 1) {
-      ref = ref.children[path[i]];  
+      ref = ref.children[path[i]];
       i++;
     }
 
@@ -154,21 +156,21 @@ class FolderTree extends Component {
     let path = this.state.selectedPath;
     let newData = this.state.data;
     let ref = newData;
-    let i = 0;   
+    let i = 0;
     let parentStatus = 0;
 
     while (i < path.length) {
-      ref = ref.children[path[i]];  
+      ref = ref.children[path[i]];
       i++;
     }
 
-    if (ref.status === 1) 
+    if (ref.status === 1)
       parentStatus = 1;
-    else 
+    else
       parentStatus = 0;
-    
+
     const newfile = {
-      id: this.state.numOfFiles + 1,           
+      id: this.state.numOfFiles + 1,
       filename: filename,
       status: parentStatus,
       selected: 0,
@@ -194,9 +196,9 @@ class FolderTree extends Component {
   render() {
     return (
       <div>
-        <FolderToolbar toggleAddingNewFile={this.toggleAddingNewFile} deleteObj={this.deleteSeletedObj} />
+        {this.props.showToolbar && <FolderToolbar toggleAddingNewFile={this.toggleAddingNewFile} deleteObj={this.deleteSeletedObj} />}
 
-        {this.state.showPane && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} addingNewFile={this.state.addingNewFile} toggleAddingNewFile={this.toggleAddingNewFile} />}
+        {this.state.addingNewFile && <FilePane addNewFile={filename => {this.addNewFileInSelectedObj(filename)}} toggleAddingNewFile={this.toggleAddingNewFile} />}
 
         <div className={styles.folderTree}>
           <TreeNode
@@ -208,7 +210,7 @@ class FolderTree extends Component {
             selected={this.state.data.selected}
             filename={this.state.data.filename}
             children={this.state.data.children || []}
-            
+
             fileComponent={this.props.fileComponent}
             folderComponent={this.props.folderComponent}
 
@@ -226,9 +228,9 @@ class FolderTree extends Component {
 function filterAllSelected(node, rootFlag = false) {
   const children = node.children;
   const uncheckedRoot = rootFlag && !node.status;
-  const hasChildren = children && children.length > 0;                       
+  const hasChildren = children && children.length > 0;
 
-  if (uncheckedRoot) {                    
+  if (uncheckedRoot) {
     return {};
   } else if (hasChildren) {
     for (let i = 0; i < children.length; i++) {
@@ -241,8 +243,8 @@ function filterAllSelected(node, rootFlag = false) {
 }
 
 function filterNode(node) {
-  const children = node.children;      
-  const hasChildren = children && children.length > 0; 
+  const children = node.children;
+  const hasChildren = children && children.length > 0;
 
   if (hasChildren) {
     let filteredChildren = [];
@@ -259,7 +261,7 @@ function filterNode(node) {
   }
 }
 
-function initialize(data) {       
+function initialize(data) {
   if (data.children) {
     for (let i = 0; i < data.children.length; i++)
       data.children[i] = initialize(data.children[i]);
@@ -297,7 +299,7 @@ function updateAllCheckStatusUp(data, path) {
     path.splice(0, 1);
 
     const newChildren = updateAllCheckStatusUp(data.children[childrenIndexToBeUpdated], path);
-    data.children[childrenIndexToBeUpdated] = newChildren;  
+    data.children[childrenIndexToBeUpdated] = newChildren;
   }
 
   data.status = getCheckStatus(data);
@@ -329,11 +331,11 @@ function getNumOfFiles(data) {
   if (data.children) {
     data.children.forEach(subData => {
       sum += getNumOfFiles(subData);
-    });     
+    });
   } else {
     return 1;
   }
   return sum + 1;
 }
 
-export default FolderTree; 
+export default FolderTree;
