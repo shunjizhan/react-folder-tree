@@ -6,7 +6,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: [/\.js$/, /\.jsx$/],
+        test: [/\.jsx$/, /\.js$/],
         loader: 'babel',
         exclude: /node_modules/,
         query: {
