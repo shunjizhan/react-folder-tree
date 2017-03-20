@@ -74,7 +74,7 @@ class FolderTree extends Component {
 
   onChange() {
     const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));
-    const selectedTree = JSON.stringify(filterAllSelected(dataDeepClone, true));
+    const selectedTree = filterAllSelected(dataDeepClone, true);
     this.props.onChange(selectedTree);
   }
 
