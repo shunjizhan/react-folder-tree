@@ -55,19 +55,43 @@
 
 
 /*** folder toolbar ***/
-.folderToolbar, .filePane {
-  padding: 5px;
-  margin-top: 50px;
-  width: 200px;
-  height: 100px;
-}
-
 .folderToolbar {
-  border: 1px solid black;
+  padding: 10px;
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* border: 1px solid black; */
 }
 
 .filePane {
-  border: 1px dotted black;
+  padding: 10px;
+  width: 200px;
+  height: 50px;
+  position: absolute;
+  left: 100px;
+  top: 0;
+  /* border: 1px solid black; */
+  font-size: 70%;
+
+}
+
+/*** folder tree ***/
+.folderTree {
+  position: absolute;
+  top: 60px;
+}
+
+.sandboxButton {
+  position: fixed;
+  bottom: 300px;
+  display: none;
+}
+
+.test {
+  position: fixed;
+  bottom: 200px;
 }
 
 
