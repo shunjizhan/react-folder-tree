@@ -266,7 +266,10 @@ function initialize(data) {
     for (let i = 0; i < data.children.length; i++)
       data.children[i] = initialize(data.children[i]);
   }
-  data.status = 0;
+  if (!data.status) {
+    data.status = 0;
+  }
+
   data.selected = 0;
 
   return data;
