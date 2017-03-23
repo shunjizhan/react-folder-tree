@@ -1,7 +1,6 @@
 {
   "name": "react-folder-tree",
   "author": "Shunji Zhan",
-  "github": "https://github.com/shunjizhan/React-Folder-Tree",
   "description": "React Folder Tree",
   "repository" : { "type" : "git" , "url" : "https://github.com/shunjizhan/React-Folder-Tree" },
   "version": "2.11.1",

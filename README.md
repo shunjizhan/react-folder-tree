@@ -18,7 +18,7 @@ We can do:
 
 # Sample Tree:
 
-![](https://github.com/shunjizhan/React-Folder-Tree/blob/add-file-functionality/folder-tree-demo.gif?raw=true)
+![](https://raw.githubusercontent.com/shunjizhan/React-Folder-Tree/master/folder-tree-demo.gif?raw=true)
 
 
 # To Install: 
