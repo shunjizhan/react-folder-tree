@@ -72,10 +72,11 @@ class FolderTree extends Component {
     }, );
   }
 
-  onChange() {
-    const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));
-    const selectedTree = filterAllSelected(dataDeepClone, true);
-    this.props.onChange(selectedTree);
+  onChange(id, status) {
+    // const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));
+    // const selectedTree = filterAllSelected(dataDeepClone, true);
+    // this.props.onChange(dataDeepClone);
+    this.props.onChange(id, status);
   }
 
   setChildName(path, name) {
@@ -137,6 +138,8 @@ class FolderTree extends Component {
       thisNode = ref.children[path[i]];
     }
 
+    const nodeClone = {...thisNode, status: thisNode.status === 1 ? 0 : 1 };
+
     ref.children[path[i]] = updateAllCheckStatusDown(thisNode, status);
 
     let parentCheckStatus = getCheckStatus(ref);
@@ -148,7 +151,7 @@ class FolderTree extends Component {
     this.setState(prevState => ({
       data: newData,
       numOfFiles: getNumOfFiles(newData),
-    }), () => this.onChange());
+    }), () => this.onChange(nodeClone));
 
   }
 
