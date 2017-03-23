@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class TreeNode extends Component {
 	static propTypes = {
     id: React.PropTypes.number.isRequired,
-    path: React.PropTypes.array.isRequired, 
+    path: React.PropTypes.array.isRequired,
   	level: React.PropTypes.number.isRequired,
   	children: React.PropTypes.array.isRequired,
   	checked: React.PropTypes.number.isRequired,
@@ -11,7 +11,7 @@ class TreeNode extends Component {
     selected: React.PropTypes.number.isRequired,
 
   	fileComponent: React.PropTypes.func.isRequired,
-    folderComponent: React.PropTypes.func.isRequired, 
+    folderComponent: React.PropTypes.func.isRequired,
 
   	setName: React.PropTypes.func.isRequired,
   	setPath: React.PropTypes.func.isRequired,
@@ -42,10 +42,10 @@ class TreeNode extends Component {
   }
 
   handleCheck(e) {
-  	if (e.target.checked) 
+  	if (e.target.checked)
   		this.props.handleCheck(this.props.path, 1);
-  	else 
-  		this.props.handleCheck(this.props.path, 0);									
+  	else
+  		this.props.handleCheck(this.props.path, 0);
   }
 
   setMyName(name) {
@@ -62,15 +62,15 @@ class TreeNode extends Component {
  		if (this.state.children.length > 0) {
 	 		return (
 	      <div>
-	      	<FolderComponent  		
+	      	<FolderComponent
             open={this.state.open}
             path={this.props.path}
             level={this.state.level}
             checked={this.props.checked}
             filename={this.props.filename}
             selected={this.props.selected}
-	      		  		
-            selectMe={this.setMyPath}   
+
+            selectMe={this.setMyPath}
             setMyName={this.setMyName}
             handleCheck={this.handleCheck}
 	      		toggleFolder={this.toggleFolder}
@@ -87,16 +87,16 @@ class TreeNode extends Component {
 					        	selected={child.selected}
                     filename={child.filename}
                     level={this.state.level + 1}
-                    path={this.props.path.concat(index)}  
+                    path={this.props.path.concat(index)}
 					        	children={child.children? child.children : []}
-					        	
+
 					        	fileComponent={FileComponent}
 					        	folderComponent={FolderComponent}
 
                     handleCheck={this.props.handleCheck}
                     setPath={ path => { this.props.setPath(path) } }
 					        	setName={(path, name) => { this.props.setName(path, name); } }
-					        			
+
 				        	/>
 				        )
 		        	})
@@ -107,7 +107,7 @@ class TreeNode extends Component {
 	    )
  		} else {
  			return (
-	      <FileComponent 		
+	      <FileComponent
           path={this.props.path}
 	     		level={this.state.level}
           checked={this.props.checked}

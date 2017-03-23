@@ -2,8 +2,8 @@
   "name": "react-folder-tree",
   "author": "Shunji Zhan",
   "description": "React Folder Tree",
-  "repository" : { "type" : "git" , "url" : "https://github.com/procore/React-Folder-Tree" },
-  "version": "2.10.3",
+  "repository" : { "type" : "git" , "url" : "https://github.com/shunjizhan/React-Folder-Tree" },
+  "version": "2.11.1",
   "private": false,
   "main": "build/index.js",
   "devDependencies": {
