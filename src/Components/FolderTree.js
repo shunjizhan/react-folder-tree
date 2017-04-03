@@ -72,11 +72,11 @@ class FolderTree extends Component {
     }, );
   }
 
-  onChange(id, status) {
-    // const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));
-    // const selectedTree = filterAllSelected(dataDeepClone, true);
+  onChange(selectedNode) {
+    const dataDeepClone = JSON.parse(JSON.stringify(this.state.data));
+    const selectedTree = filterAllSelected(dataDeepClone, true);
     // this.props.onChange(dataDeepClone);
-    this.props.onChange(id, status);
+    this.props.onChange(selectedNode, selectedTree);
   }
 
   setChildName(path, name) {
@@ -209,6 +209,7 @@ class FolderTree extends Component {
             level={0}
             id={this.state.data.id}
             key={this.state.data.id}
+            open={this.state.data.open}
             checked={this.state.data.status}
             selected={this.state.data.selected}
             filename={this.state.data.filename}

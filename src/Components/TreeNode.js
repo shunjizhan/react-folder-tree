@@ -27,7 +27,7 @@ class TreeNode extends Component {
 
     this.state = {
     	level: props.level,
-      open: true,
+      open: props.open === undefined ? true : props.open,
       children: this.props.children,
     };
   }
@@ -86,6 +86,7 @@ class TreeNode extends Component {
 					        	checked={child.status}
 					        	selected={child.selected}
                     filename={child.filename}
+                    open={child.open}
                     level={this.state.level + 1}
                     path={this.props.path.concat(index)}
 					        	children={child.children? child.children : []}
