@@ -28,7 +28,8 @@ We can do:
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-Remember to include the above link in your html page. Otherwise the icons won't show up. (Currently working on CSS modules so that in the future we don't need to include this link anymore)
+Remember to include the above link in your html page. Otherwise the icons won't show up. 
+TODO: add CSS modules so that in the future we don't need to include this link anymore
 
 	import React from 'react';
 	import ReactDOM from 'react-dom';
