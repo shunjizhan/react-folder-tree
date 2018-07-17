@@ -29,7 +29,6 @@ We can do:
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 Remember to include the above link in your html page. Otherwise the icons won't show up. 
-TODO: add CSS modules so that in the future we don't need to include this link anymore
 
 	import React from 'react';
 	import ReactDOM from 'react-dom';
@@ -176,6 +175,9 @@ TODO: add CSS modules so that in the future we don't need to include this link a
 Testing data is from [here](http://codepen.io/anon/pen/Ftkln?editors=0010)
 
 Icons are from [here](https://www.npmjs.com/package/react-fontawesome)
+
+# Contribution
+Any contributions are welcomed! Please upload issues or pull requests on the github page, thank you! 
 
 # TODO
 - css modules of font awesome
