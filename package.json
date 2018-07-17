@@ -3,7 +3,7 @@
   "author": "Shunji Zhan",
   "description": "React Folder Tree",
   "repository" : { "type" : "git" , "url" : "https://github.com/shunjizhan/React-Folder-Tree" },
-  "version": "3.0.0",
+  "version": "3.0.1",
   "private": false,
   "main": "build/index.js",
   "devDependencies": {
