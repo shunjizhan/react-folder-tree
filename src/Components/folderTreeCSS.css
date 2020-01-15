@@ -84,3 +84,8 @@
 .test {
   bottom: 200px;
 }
+
+.listElement {
+  padding: 0;
+  margin: 0;
+}

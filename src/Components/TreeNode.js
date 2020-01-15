@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import classnames from 'classnames'
+
+import styles from './folderTreeCSS.css'
 
 class TreeNode extends Component {
 	static propTypes = {
@@ -80,8 +83,11 @@ class TreeNode extends Component {
 				folderTextSelectedClassName={this.props.folderTextSelectedClassName}
 	      	/>
 
-			  <ul style={{ margin: 0 }}
-			  	className={this.props.listClassName}
+			  <ul
+			  	className={classnames(
+					this.props.listClassName,
+					styles.listElement,
+				  )}
 			  >
 		        {this.state.open &&
 		        	this.state.children.map( (child, index) => {
