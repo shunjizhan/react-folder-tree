@@ -7,7 +7,7 @@ import styles from './Components/folderTreeCSS.css';
 
 const testData = {
   "id": 1,
-  "filename": "All Categories",
+  "filename": "Library",
   "children": [
     {
       "id": 2,

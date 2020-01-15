@@ -33,7 +33,7 @@ class TreeNode extends Component {
 
     this.state = {
     	level: props.level,
-      open: props.open === undefined ? true : props.open,
+      open: props.open === undefined ? false : props.open,
       children: this.props.children,
     };
   }
