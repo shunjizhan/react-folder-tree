@@ -43,7 +43,7 @@ module.exports = {
   },
 
   output: {
-    path: './build',
+    path: path.resolve(__dirname+ '/build'),
     filename: 'index.js',
     libraryTarget: 'umd',
   },
