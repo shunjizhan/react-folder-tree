@@ -15,7 +15,9 @@ class TreeNode extends Component {
 
   	setName: React.PropTypes.func.isRequired,
   	setPath: React.PropTypes.func.isRequired,
-    handleCheck: React.PropTypes.func.isRequired,
+	handleCheck: React.PropTypes.func.isRequired,
+	folderTextClassName: React.PropTypes.string.isRequired,
+	folderTextSelectedClassName: React.PropTypes.string.isRequired,
 	};
 
 	constructor(props) {
@@ -63,17 +65,19 @@ class TreeNode extends Component {
 	 		return (
 	      <div>
 	      	<FolderComponent
-            open={this.state.open}
-            path={this.props.path}
-            level={this.state.level}
-            checked={this.props.checked}
-            filename={this.props.filename}
-            selected={this.props.selected}
+				open={this.state.open}
+				path={this.props.path}
+				level={this.state.level}
+				checked={this.props.checked}
+				filename={this.props.filename}
+				selected={this.props.selected}
 
-            selectMe={this.setMyPath}
-            setMyName={this.setMyName}
-            handleCheck={this.handleCheck}
-	      		toggleFolder={this.toggleFolder}
+				selectMe={this.setMyPath}
+				setMyName={this.setMyName}
+				handleCheck={this.handleCheck}
+				toggleFolder={this.toggleFolder}
+				folderTextClassName={this.props.folderTextClassName}
+				folderTextSelectedClassName={this.props.folderTextSelectedClassName}
 	      	/>
 
 		      <ul style={{ margin: 0 }}>

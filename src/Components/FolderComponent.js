@@ -1,10 +1,25 @@
 import React from 'react';
+import classnames from 'classnames'
 import Checkbox from './Checkbox';
 import EditableName from './EditableName';
 import styles from './folderTreeCSS.css';
 
-const FolderComponent = ({ level, checked, handleCheck, filename, toggleFolder, open, setMyName, selectMe, selected }) => (
-  <div className={styles.folder} style={{marginLeft: getInden(level)}}>
+const FolderComponent = ({
+    level,
+    checked,
+    handleCheck,
+    filename,
+    toggleFolder,
+    open,
+    setMyName,
+    selectMe,
+    selected,
+    folderTextClassName
+  }) => (
+  <div className={classnames(
+      styles.folder,
+      folderTextClassName
+  )} style={{marginLeft: getInden(level)}}>
     <Checkbox status={checked} handleCheck={handleCheck} />
 
     <a onClick={toggleFolder}><i className={open? [styles.arrowDown, styles.carat].join(' ')  : [styles.arrowRight, styles.carat].join(' ') } /> </a>
