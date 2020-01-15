@@ -21,6 +21,7 @@ class TreeNode extends Component {
 		folderTextSelectedClassName: React.PropTypes.string.isRequired,
 		showCheckbox: React.PropTypes.bool.isRequired,
 		listClassName: React.PropTypes.string.isRequired,
+		isEditable: React.PropTypes.bool.isRequired,
 	};
 
 	constructor(props) {
@@ -81,6 +82,7 @@ class TreeNode extends Component {
 				toggleFolder={this.toggleFolder}
 				folderTextClassName={this.props.folderTextClassName}
 				folderTextSelectedClassName={this.props.folderTextSelectedClassName}
+				isEditable={this.props.isEditable}
 	      	/>
 
 			  <ul
@@ -108,6 +110,7 @@ class TreeNode extends Component {
 								setPath={ path => { this.props.setPath(path) } }
 								setName={(path, name) => { this.props.setName(path, name); } }
 								listClassName={this.props.listClassName}
+								isEditable={this.props.isEditable}
 				        	/>
 				        )
 		        	})
@@ -119,6 +122,7 @@ class TreeNode extends Component {
  		} else {
  			return (
 	      <FileComponent
+		  	isEditable={this.props.isEditable}
 			showCheckbox={this.props.showCheckbox}
           	path={this.props.path}
 	     	level={this.state.level}

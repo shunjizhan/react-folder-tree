@@ -6,6 +6,7 @@ class EditableName extends React.Component {
 	  filename: React.PropTypes.string.isRequired,
 	  setMyName: React.PropTypes.func.isRequired,
 	  selected: React.PropTypes.number.isRequired,
+	  isEditable: React.PropTypes.bool.isRequired,
 	};
 
 	constructor(props) {
@@ -27,17 +28,18 @@ class EditableName extends React.Component {
   }
 
   toggleEditing() {
-  	this.setState(prevState => ({editing: !prevState.editing}));
-  	if (this.state.editing) {						// TODO: this doesn't work 
-  		this.textInput.focus();
-  	}
+  	if (this.props.isEditable) {
+		this.setState(prevState => ({editing: !prevState.editing}));
+		if (this.state.editing && this.props.isEditable) {						// TODO: this doesn't work 
+			this.textInput.focus();
+		}
+	  }
   }
 
   handleChangeName() {
   	this.props.setMyName(this.textInput.value);
   	this.toggleEditing();
   }
-
 	render() { 
 		const input = (
 			<span>

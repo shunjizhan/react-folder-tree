@@ -15,7 +15,8 @@ const FolderComponent = ({
     selectMe,
     selected,
     folderTextClassName,
-    showCheckbox
+    showCheckbox,
+    isEditable
   }) => (
   <div className={classnames(
       styles.folder,
@@ -28,7 +29,9 @@ const FolderComponent = ({
 
     <span className={selected ? [styles.folderText, styles.selected].join(' ') : styles.folderText} onClick={selectMe}>
       <i className={open? styles.foldeOpenIcon : styles.folderIcon} />   
-      <EditableName filename={filename} setMyName={setMyName} selected={selected} />
+      {
+        <EditableName isEditable={isEditable} filename={filename} setMyName={setMyName} selected={selected} />
+      }
     </span>
 
   </div>

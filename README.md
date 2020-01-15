@@ -10,6 +10,7 @@ This is a forked repository, and modified it to our needs.
 | `folderTextClassName`         | `:string` | false      | adds an extra class to the names of the folders          |
 | `folderTextSelectedClassName` | `:string` | false      | adds an extra class to the selected names of the folders |
 | `listClassName`               | `:string` | false      | adds an extra class to the `ul` dom element              |
+| `isEditable`                  | `:bool`   | false      | allow to disable the editable mode                       |
 
 # Introduction  
 

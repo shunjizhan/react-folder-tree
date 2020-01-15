@@ -19,6 +19,7 @@ class FolderTree extends Component {
     folderTextSelectedClassName: React.PropTypes.string,
     showCheckbox: React.PropTypes.bool,
     listClassName: React.PropTypes.string,
+    isEditable: React.PropTypes.bool,
   };
 
   static defaultProps = {
@@ -30,6 +31,7 @@ class FolderTree extends Component {
     folderTextSelectedClassName: '',
     showCheckbox: false,
     listClassName: '',
+    isEditable: false,
   };
 
   constructor(props) {
@@ -239,6 +241,7 @@ class FolderTree extends Component {
             folderTextSelectedClassName={this.props.folderTextSelectedClassName}
             showCheckbox={this.props.showCheckbox}
             listClassName={this.props.listClassName}
+            isEditable={this.props.isEditable}
           />
         </div>
 

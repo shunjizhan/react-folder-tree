@@ -3,7 +3,7 @@ import Checkbox from './Checkbox';
 import EditableName from './EditableName';
 import styles from './folderTreeCSS.css'
 
-const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selectMe, selected, showCheckbox }) => (
+const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selectMe, selected, showCheckbox, isEditable }) => (
   <div className={styles.file} style={{marginLeft: getInden(level)}}>
     {
       showCheckbox ? <Checkbox status={checked} handleCheck={handleCheck} /> : null
@@ -11,7 +11,7 @@ const FileComponent = ({ level, checked, handleCheck, filename, setMyName, selec
 
     <span className={selected ? [styles.fileText, styles.selected].join(' ') : styles.fileText} onClick={selectMe}>
       <i className={styles.fileIcon} style={{marginLeft: '10px'}} /> 
-      <EditableName filename={filename} setMyName={setMyName} selected={selected} />
+      <EditableName isEditable={isEditable} filename={filename} setMyName={setMyName} selected={selected} />
     </span>
 
   </div>
