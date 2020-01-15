@@ -3,10 +3,9 @@ import styles from './folderTreeCSS';
 
 class Checkbox extends React.Component {
 	static propTypes = {
-  	handleCheck: React.PropTypes.func.isRequired,
-  	status: React.PropTypes.number.isRequired
+		handleCheck: React.PropTypes.func.isRequired,
+		status: React.PropTypes.number.isRequired
 	};
-
 	componentDidUpdate(prevProps, prevState) {
 		if (this.props.status === 0.5)
 			this.checkBox.indeterminate = true;

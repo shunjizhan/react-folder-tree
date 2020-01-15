@@ -14,15 +14,17 @@ const FolderComponent = ({
     setMyName,
     selectMe,
     selected,
-    folderTextClassName
+    folderTextClassName,
+    showCheckbox
   }) => (
   <div className={classnames(
       styles.folder,
       folderTextClassName
   )} style={{marginLeft: getInden(level)}}>
-    <Checkbox status={checked} handleCheck={handleCheck} />
-
-    <a onClick={toggleFolder}><i className={open? [styles.arrowDown, styles.carat].join(' ')  : [styles.arrowRight, styles.carat].join(' ') } /> </a>
+      {
+        showCheckbox ? <Checkbox status={checked} handleCheck={handleCheck} /> : null
+      }
+    <a onClick={toggleFolder}><i className={open ? [styles.arrowDown, styles.carat].join(' ')  : [styles.arrowRight, styles.carat].join(' ') } /> </a>
 
     <span className={selected ? [styles.folderText, styles.selected].join(' ') : styles.folderText} onClick={selectMe}>
       <i className={open? styles.foldeOpenIcon : styles.folderIcon} />   
@@ -39,7 +41,7 @@ FolderComponent.propTypes = {
   checked: React.PropTypes.number.isRequired,
   filename: React.PropTypes.string.isRequired,
   selected: React.PropTypes.number.isRequired,
-
+  showCheckbox: React.PropTypes.bool.isRequired,
   selectMe: React.PropTypes.func.isRequired,
   setMyName: React.PropTypes.func.isRequired,
   handleCheck: React.PropTypes.func.isRequired,
