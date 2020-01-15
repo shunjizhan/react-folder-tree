@@ -1,3 +1,16 @@
+```
+This is a forked repository, and modified it to our needs. 
+```
+
+# Extra props documentation
+
+| prop                          | type      | isRequired | description                                              |
+|-------------------------------|-----------|------------|----------------------------------------------------------|
+| `rootClassName`               | `:string` | false      | adds an extra class to the top level `div` container     |
+| `folderTextClassName`         | `:string` | false      | adds an extra class to the names of the folders          |
+| `folderTextSelectedClassName` | `:string` | false      | adds an extra class to the selected names of the folders |
+| `listClassName`               | `:string` | false      | adds an extra class to the `ul` dom element              |
+
 # Introduction  
 
 This is a folder tree written in ReactJS. 

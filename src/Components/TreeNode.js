@@ -2,23 +2,22 @@ import React, { Component } from 'react';
 
 class TreeNode extends Component {
 	static propTypes = {
-    id: React.PropTypes.number.isRequired,
-    path: React.PropTypes.array.isRequired,
-  	level: React.PropTypes.number.isRequired,
-  	children: React.PropTypes.array.isRequired,
-  	checked: React.PropTypes.number.isRequired,
-    filename: React.PropTypes.string.isRequired,
-    selected: React.PropTypes.number.isRequired,
-
-  	fileComponent: React.PropTypes.func.isRequired,
-    folderComponent: React.PropTypes.func.isRequired,
-
-  	setName: React.PropTypes.func.isRequired,
-  	setPath: React.PropTypes.func.isRequired,
-	handleCheck: React.PropTypes.func.isRequired,
-	folderTextClassName: React.PropTypes.string.isRequired,
-	folderTextSelectedClassName: React.PropTypes.string.isRequired,
-	showCheckbox: React.PropTypes.bool.isRequired,
+		id: React.PropTypes.number.isRequired,
+		path: React.PropTypes.array.isRequired,
+		level: React.PropTypes.number.isRequired,
+		children: React.PropTypes.array.isRequired,
+		checked: React.PropTypes.number.isRequired,
+		filename: React.PropTypes.string.isRequired,
+		selected: React.PropTypes.number.isRequired,
+		fileComponent: React.PropTypes.func.isRequired,
+		folderComponent: React.PropTypes.func.isRequired,
+		setName: React.PropTypes.func.isRequired,
+		setPath: React.PropTypes.func.isRequired,
+		handleCheck: React.PropTypes.func.isRequired,
+		folderTextClassName: React.PropTypes.string.isRequired,
+		folderTextSelectedClassName: React.PropTypes.string.isRequired,
+		showCheckbox: React.PropTypes.bool.isRequired,
+		listClassName: React.PropTypes.string.isRequired,
 	};
 
 	constructor(props) {
@@ -81,7 +80,9 @@ class TreeNode extends Component {
 				folderTextSelectedClassName={this.props.folderTextSelectedClassName}
 	      	/>
 
-		      <ul style={{ margin: 0 }}>
+			  <ul style={{ margin: 0 }}
+			  	className={this.props.listClassName}
+			  >
 		        {this.state.open &&
 		        	this.state.children.map( (child, index) => {
 			        	return (
@@ -99,7 +100,8 @@ class TreeNode extends Component {
 					        	folderComponent={FolderComponent}
 								handleCheck={this.props.handleCheck}
 								setPath={ path => { this.props.setPath(path) } }
-					        	setName={(path, name) => { this.props.setName(path, name); } }
+								setName={(path, name) => { this.props.setName(path, name); } }
+								listClassName={this.props.listClassName}
 				        	/>
 				        )
 		        	})

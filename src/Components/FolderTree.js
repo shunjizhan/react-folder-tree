@@ -18,16 +18,18 @@ class FolderTree extends Component {
     folderTextClassName: React.PropTypes.string,
     folderTextSelectedClassName: React.PropTypes.string,
     showCheckbox: React.PropTypes.bool,
+    listClassName: React.PropTypes.string,
   };
 
   static defaultProps = {
     folderComponent: FolderComponent,
     fileComponent: FileComponent,
     showToolbar: false,
-    rootClassName: null,
-    folderTextClassName: 'bazdmeg',
-    folderTextSelectedClassName: null,
+    rootClassName: '',
+    folderTextClassName: '',
+    folderTextSelectedClassName: '',
     showCheckbox: false,
+    listClassName: '',
   };
 
   constructor(props) {
@@ -236,6 +238,7 @@ class FolderTree extends Component {
             folderTextClassName={this.props.folderTextClassName}
             folderTextSelectedClassName={this.props.folderTextSelectedClassName}
             showCheckbox={this.props.showCheckbox}
+            listClassName={this.props.listClassName}
           />
         </div>
 
