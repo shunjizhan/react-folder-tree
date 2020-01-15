@@ -64,7 +64,7 @@ class TreeNode extends Component {
 
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
-
+		console.debug('hello', this.props)
  		if (this.state.children.length > 0) {
 	 		return (
 	      <div>
@@ -111,6 +111,7 @@ class TreeNode extends Component {
 								setName={(path, name) => { this.props.setName(path, name); } }
 								listClassName={this.props.listClassName}
 								isEditable={this.props.isEditable}
+								folderTextSelectedClassName={this.props.folderTextSelectedClassName}
 				        	/>
 				        )
 		        	})
