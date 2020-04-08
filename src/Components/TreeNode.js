@@ -64,7 +64,6 @@ class TreeNode extends Component {
 
  	render() {
  		const { fileComponent: FileComponent, folderComponent: FolderComponent } = this.props;
-		console.debug('hello', this.props)
  		if (this.state.children.length > 0) {
 	 		return (
 	      <div>
