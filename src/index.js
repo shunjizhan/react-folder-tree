@@ -1,7 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Sandbox from './Sandbox';
-ReactDOM.render(
-  <Sandbox />,
-	document.getElementById('root')
-);
+import React from "react";
+import { render } from "react-dom";
+import Test from './components/Test';
+
+const root = document.getElementById("root");
+render(<Test />, root);
