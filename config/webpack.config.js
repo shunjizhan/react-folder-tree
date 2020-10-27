@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const CleanTerminalPlugin = require('clean-terminal-webpack-plugin');
 
 const devOptions = {
   mode: 'development',
@@ -49,7 +50,9 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: path.resolve(__dirname, '../src/index.html'),
       filename: "index.html"
-    })
+    }),
+    // clear terminal in each build
+    new CleanTerminalPlugin(),
   ],
   ...devOptions,
 };

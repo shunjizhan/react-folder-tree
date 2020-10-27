@@ -7,7 +7,9 @@ const config = require(path.resolve(__dirname, '../config/webpack.config.js'));
 const options = {
   hot: true,          // hot module replacement
   open: true,         // open a new window when starting server
-  stats: true,   // verbose stats
+  stats: {
+    color: true
+  },
 };
 
 webpackDevServer.addDevServerEntrypoints(config, options);
