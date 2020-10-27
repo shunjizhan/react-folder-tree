@@ -15,9 +15,9 @@ const prodOptions = {
 };
 
 module.exports = {
-  entry: './src/index.js',
+  entry: path.resolve(__dirname, '../src/index.js'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: 'react-folder-tree.bundle.js'
   },
   resolve: {
@@ -47,7 +47,7 @@ module.exports = {
   plugins: [
     // generates an HTML file by injecting automatically all our generated bundles.
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: path.resolve(__dirname, '../src/index.html'),
       filename: "index.html"
     })
   ],
