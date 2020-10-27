@@ -3,9 +3,9 @@ const webpack = require('webpack');
 
 const config = require('./webpack.config.js');
 const options = {
-  contentBase: './dist',
-  hot: true,
-  host: 'localhost',
+  hot: true,          // hot module replacement
+  open: true,         // open a new window when starting server
+  stats: 'verbose',   // verbose stats
 };
 
 webpackDevServer.addDevServerEntrypoints(config, options);
