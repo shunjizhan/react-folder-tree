@@ -1,6 +1,19 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
+const devOptions = {
+  mode: 'development',
+  devtool: 'inline-source-map',
+  watchOptions: {
+    aggregateTimeout: 0,
+    ignored: ['node_modules/**'],
+  },
+};
+
+const prodOptions = {
+  mode: 'production',
+};
+
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -35,7 +48,8 @@ module.exports = {
     // generates an HTML file by injecting automatically all our generated bundles.
     new HtmlWebPackPlugin({
       template: "./src/index.html",
-      filename: "folder-tree.html"
+      filename: "index.html"
     })
-  ]
+  ],
+  ...devOptions,
 };
