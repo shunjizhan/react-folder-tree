@@ -48,7 +48,8 @@ module.exports = {
   plugins: [
     // generates an HTML file by injecting automatically all our generated bundles.
     new HtmlWebPackPlugin({
-      template: path.resolve(__dirname, '../src/index.html'),
+      template: path.resolve(__dirname, '../public/index.html'),
+      favicon: path.resolve(__dirname, '../public/pokeball.ico'),
       filename: "index.html"
     }),
     // clear terminal in each build
