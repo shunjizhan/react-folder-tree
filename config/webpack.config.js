@@ -6,7 +6,7 @@ const devOptions = {
   mode: 'development',
   devtool: 'inline-source-map',
   watchOptions: {
-    aggregateTimeout: 0,
+    aggregateTimeout: 0,    // debounce time for re-compile
     ignored: ['node_modules/**'],
   },
 };

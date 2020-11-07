@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   addUniqIds,
   setCheckedStatus,
+  isValidCheckedStatus,
 } from '../../utils/utils';
 
 const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
