@@ -50,7 +50,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: path.resolve(__dirname, '../public/index.html'),
       favicon: path.resolve(__dirname, '../public/pokeball.ico'),
-      filename: "index.html"
+      filename: 'index.html'
     }),
     // clear terminal in each build
     new CleanTerminalPlugin(),
