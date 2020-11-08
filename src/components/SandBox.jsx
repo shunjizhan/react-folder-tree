@@ -1,5 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
 
 import FolderTree from './FolderTree/FolderTree';
 import testData from '../utils/testData';
