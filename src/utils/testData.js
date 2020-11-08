@@ -10,7 +10,7 @@ const testData = {
         { name: 'Bitcoin' },
         { name: 'Litecoin' },
         { name: 'Bitcoin Cash' },
-      ]
+      ],
     },
     {
       name: 'Public Chains',
@@ -23,7 +23,7 @@ const testData = {
             { name: 'Bitcoin' },
             { name: 'Litecoin' },
             { name: 'Bitcoin Cash' },
-          ]
+          ],
         },
         {
           name: 'POS',
@@ -35,13 +35,13 @@ const testData = {
               children: [
                 { name: 'Polkadot' },
                 { name: 'Cosmos' },
-              ]
+              ],
             },
-          ]
+          ],
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 };
 
 export default testData;
