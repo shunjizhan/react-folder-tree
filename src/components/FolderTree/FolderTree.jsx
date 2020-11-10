@@ -12,16 +12,16 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
   switch (initCheckedStatus) {
     case 'unchecked':
       initState = setCheckedStatus(initState, 0);
-      break
+      break;
 
     case 'checked':
       initState = setCheckedStatus(initState, 1);
-      break
+      break;
 
     case 'customed':
     default:
       if (!isValidCheckedStatus(initState)) {
-        console.warn('checked status is not valid! All checked status was reset to unchecked.')
+        console.warn('checked status is not valid! All checked status was reset to unchecked.');
         initState = setCheckedStatus(initState, 0);
       }
   }
@@ -36,10 +36,10 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
   );
 };
 
-FolderTree.protoTypes = {
+FolderTree.propTypes = {
   data: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  initState: PropTypes.oneOf(['unchecked', 'checked', 'customed'])
-}
+  initCheckedStatus: PropTypes.oneOf(['unchecked', 'checked', 'customed']),
+};
 
-export default FolderTree
+export default FolderTree;

@@ -10,7 +10,8 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "start": "NODE_ENV=development node scripts/dev-server.js",
-    "lint": "eslint src/",
+    "lint": "eslint src/ --ext .js,.jsx",
+    "lint-fix": "eslint src/ --ext .js,.jsx --fix",
     "test": "jest"
   },
   "husky": {
@@ -47,6 +48,7 @@
   },
   "dependencies": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "prop-types": "^15.7.2"
   }
 }
