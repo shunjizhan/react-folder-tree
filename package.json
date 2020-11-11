@@ -12,7 +12,7 @@
     "start": "NODE_ENV=development node scripts/dev-server.js",
     "lint": "eslint src/ --ext .js,.jsx",
     "lint-fix": "eslint src/ --ext .js,.jsx --fix",
-    "test": "jest"
+    "test": "jest --collect-coverage"
   },
   "husky": {
     "hooks": {
