@@ -1,4 +1,7 @@
-import testData from './testData';
+import {
+  testData,
+  testDataWithId,
+} from './testData';
 import {
   addUniqIds,
   setCheckedStatus,
@@ -6,7 +9,8 @@ import {
 } from './utils';
 
 test('addUniqIds', () => {
-  expect(addUniqIds(testData)).toEqual(testData);
+  expect(addUniqIds(testData)).toEqual(testDataWithId);
+  expect(addUniqIds({})).toEqual({ id: 0 });
 });
 
 test('setCheckedStatus', () => {

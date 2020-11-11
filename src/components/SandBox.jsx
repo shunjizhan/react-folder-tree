@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FolderTree from './FolderTree/FolderTree';
-import testData from '../utils/testData';
+import { testData } from '../utils/testData';
 
 const onChange = data => console.log(data);
 
