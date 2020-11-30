@@ -36,7 +36,17 @@ export const setCheckedStatus = (data, status) => {
   return _setStatus(rootNode);
 };
 
-// check if the initial customed checked status is valid
-export const isValidCheckedStatus = data => {
-  return true;
+// handle state change when user (un)check a TreeNode
+export const checkNode = (data, path, status) => {
+  const rootNode = deepClone(data);
+  let curNode = rootNode;
+  for (const idx of path) {
+    curNode = curNode.children[idx];
+  }
+  curNode.checked = status;
+
+  return rootNode;
 };
+
+// check if the initial customed checked status is valid
+export const isValidCheckedStatus = data => true;   /* eslint-disable-line */

@@ -5,7 +5,9 @@ import {
   addUniqIds,
   setCheckedStatus,
   isValidCheckedStatus,
+  checkNode,
 } from '../../utils/utils';
+import TreeNode from '../TreeNode/TreeNode';
 
 const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
   const [treeState, setTreeState] = useState(null);
@@ -32,9 +34,33 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
     setTreeState(initState);
   }, [data, initCheckedStatus]);
 
+  const handleTreeStateChange = newState => {
+    setTreeState(newState);
+    onChange(newState);
+  };
+
+  const handleCheck = (path, status) => {
+    const newState = checkNode(treeState, path, status);
+    handleTreeStateChange(newState);
+  };
+
+  if (!treeState) return null;
+
+  const {
+    name,
+    checked,
+    children: childrenData,
+  } = treeState;
+
   return (
     <div id='FolderTree'>
-      data
+      <TreeNode
+        path={ [] }
+        name={ name }
+        checked={ checked }
+        childrenData={ childrenData }
+        handleCheck={ handleCheck }
+      />
     </div>
   );
 };
