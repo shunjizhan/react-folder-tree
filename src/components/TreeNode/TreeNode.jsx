@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CheckBox from '../CheckBox/CheckBox';
+
 import './TreeNode.scss';
 
-const indetPixels = 20;   // TODO: user can pass this to FolderTree and TreeNode can get is from context
+const indetPixels = 30;   // TODO: user can pass this to FolderTree and TreeNode can get is from context
 
 const TreeNode = ({
   path,
   name,
-  checked,
+  checked: checkedStatus,
   childrenData,
   handleCheck,
 }) => {
@@ -16,22 +18,21 @@ const TreeNode = ({
     marginLeft: path.length * indetPixels,
   };
 
-  const onCheck = e => {
-    const status = +(e.target.value === 'on');
-    console.log({ status });
-    handleCheck(path, status);
+  const handleCheckBoxChange = e => {
+    const newStatus = +e.target.checked;
+    handleCheck(path, newStatus);
   };
 
   return (
-    <div className='TreeNode' style={ treeNodeStyle }>
-      <input
-        className='checkbox'
-        type='checkbox'
-        checked={ !!checked }
-        onChange={ onCheck }
-      />
+    <>
+      <div className='TreeNode' style={ treeNodeStyle }>
+        <CheckBox
+          status={ checkedStatus }
+          onChange={ handleCheckBoxChange }
+        />
 
-      { name }
+        { name }
+      </div>
 
       {
         childrenData && childrenData.map((data, idx) => (
@@ -45,7 +46,7 @@ const TreeNode = ({
           />
         ))
       }
-    </div>
+    </>
   );
 };
 
