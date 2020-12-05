@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
   addUniqIds,
-  setCheckedStatus,
+  setAllCheckedStatus,
   isValidCheckedStatus,
   checkNode,
 } from '../../utils/utils';
@@ -16,18 +16,18 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
 
     switch (initCheckedStatus) {
       case 'unchecked':
-        initState = setCheckedStatus(initState, 0);
+        initState = setAllCheckedStatus(initState, 0);
         break;
 
       case 'checked':
-        initState = setCheckedStatus(initState, 1);
+        initState = setAllCheckedStatus(initState, 1);
         break;
 
       case 'customed':
       default:
         if (!isValidCheckedStatus(initState)) {
           console.warn('checked status is not valid! All checked status was reset to unchecked.');
-          initState = setCheckedStatus(initState, 0);
+          initState = setAllCheckedStatus(initState, 0);
         }
     }
 

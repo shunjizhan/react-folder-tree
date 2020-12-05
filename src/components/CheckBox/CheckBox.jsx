@@ -13,10 +13,8 @@ const CheckBox = ({ status, onChange }) => {
   const checkboxRef = useRef(null);
 
   useLayoutEffect(() => {
-    if (isHalfChecked) {
-      const checkboxDOM = checkboxRef?.current;
-      checkboxDOM && (checkboxDOM.indeterminate = isHalfChecked);
-    }
+    const checkboxDOM = checkboxRef?.current;
+    checkboxDOM && (checkboxDOM.indeterminate = isHalfChecked);
   });
 
   return (

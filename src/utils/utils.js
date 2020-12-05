@@ -1,7 +1,7 @@
 const deepClone = x => JSON.parse(JSON.stringify(x));
 
 // assign uniq ids to each node
-export const addUniqIds = data => {
+export const addUniqIds = rootNode => {
   let curId = 0;
   const _addId = node => {
     node.id = curId;  // eslint-disable-line
@@ -16,37 +16,71 @@ export const addUniqIds = data => {
     return node;
   };
 
-  const rootNode = deepClone(data);
-  return _addId(rootNode);
+  return _addId(deepClone(rootNode));
+};
+
+// recursively set status for this node and all children, in place
+const setStatusDown = (node, status) => {
+  node.checked = status;  // eslint-disable-line
+  if (node.children) {
+    for (const child of node.children) {
+      setStatusDown(child, status);
+    }
+  }
+  return node;
+};
+
+// calculate the check status of a node based on the check status of it's children
+export const getNewCheckStatus = node => {
+  const { children } = node;
+  if (!children) return node.checked;
+
+  let sum = 0;
+  for (const c of children) {
+    sum += c.checked;
+  }
+
+  let newCheckStatus = 0.5;   // some checked
+  if (sum === children.length) {
+    newCheckStatus = 1;       // all checked
+  } else if (sum === 0) {
+    newCheckStatus = 0;       // all unchecked
+  }
+
+  return newCheckStatus;
+};
+
+// recursively update check status up
+export const updateStatusUp = (nodes, status) => {
+  if (nodes.length === 0) return;
+
+  const curNode = nodes.pop();
+  curNode.checked = getNewCheckStatus(curNode);
+
+  updateStatusUp(nodes, status);
 };
 
 // set checked status for all nodes
-export const setCheckedStatus = (data, status) => {
-  const _setStatus = (node, _status) => {
-    node.checked = status;  // eslint-disable-line
-    if (node.children) {
-      for (const child of node.children) {
-        _setStatus(child, _status);
-      }
-    }
-    return node;
-  };
-
-  const rootNode = deepClone(data);
-  return _setStatus(rootNode);
-};
+export const setAllCheckedStatus = (rootNode, status) => (
+  setStatusDown(deepClone(rootNode), status)
+);
 
 // handle state change when user (un)check a TreeNode
-export const checkNode = (data, path, status) => {
-  const rootNode = deepClone(data);
-  let curNode = rootNode;
+export const checkNode = (rootNode, path, status) => {
+  const _rootNode = deepClone(rootNode);
+  let curNode = _rootNode;
+  const parentNodes = [curNode];        // parent nodes for getNewCheckStatus() upwards
+
   for (const idx of path) {
     curNode = curNode.children[idx];
+    parentNodes.push(curNode);
   }
-  curNode.checked = status;
 
-  return rootNode;
+  setStatusDown(curNode, status);       // update check status of this node and all childrens, in place
+  updateStatusUp(parentNodes, status);  // update check status up, from this nodes parent, in place
+
+  return _rootNode;
 };
 
 // check if the initial customed checked status is valid
-export const isValidCheckedStatus = data => true;   /* eslint-disable-line */
+export const isValidCheckedStatus = rootNode => true;   /* eslint-disable-line */
