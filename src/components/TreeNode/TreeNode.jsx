@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import CheckBox from '../CheckBox/CheckBox';
+import UtilsContext from '../FolderTree/context';
 
 import './TreeNode.scss';
 
@@ -12,8 +13,9 @@ const TreeNode = ({
   name,
   checked: checkedStatus,
   childrenData,
-  handleCheck,
 }) => {
+  const { handleCheck } = useContext(UtilsContext);
+
   const treeNodeStyle = {
     marginLeft: path.length * indetPixels,
   };
@@ -42,7 +44,6 @@ const TreeNode = ({
             name={ data.name }
             checked={ data.checked }
             childrenData={ data.children }
-            handleCheck={ handleCheck }
           />
         ))
       }
@@ -54,7 +55,6 @@ TreeNode.propTypes = {
   path: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.number.isRequired,
-  handleCheck: PropTypes.func.isRequired,
 
   childrenData: PropTypes.array,
 };

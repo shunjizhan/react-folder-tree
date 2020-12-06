@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,6 +11,7 @@ import {
   checkNode,
 } from '../../utils/utils';
 import TreeNode from '../TreeNode/TreeNode';
+import UtilsContext from './context';
 
 const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
   const [treeState, setTreeState] = useState(null);
@@ -54,13 +58,19 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
 
   return (
     <div id='FolderTree'>
-      <TreeNode
-        path={ [] }
-        name={ name }
-        checked={ checked }
-        childrenData={ childrenData }
-        handleCheck={ handleCheck }
-      />
+      <UtilsContext.Provider
+        value={{
+          handleCheck,
+        }}
+      >
+        <TreeNode
+          path={ [] }
+          name={ name }
+          checked={ checked }
+          childrenData={ childrenData }
+          handleCheck={ handleCheck }
+        />
+      </UtilsContext.Provider>
     </div>
   );
 };
