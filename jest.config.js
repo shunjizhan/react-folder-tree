@@ -38,8 +38,8 @@ module.exports = {
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   slowTestThreshold: 5,
 
-  // The test environment that will be used for testing
-  testEnvironment: 'node',
+  // The test environment that will be used for testing, need jsdom for enzume mounting a component
+  testEnvironment: 'jsdom',
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
@@ -59,4 +59,14 @@ module.exports = {
 
   // Indicates whether each individual test should be reported during the run
   verbose: true,
+
+  // this is needed so we can import scss from jsx
+  moduleNameMapper: {
+    '\\.(css|scss)$': 'identity-obj-proxy',
+  },
+
+  // required to work with React 16
+  setupFiles: [
+    '<rootDir>/test/jest-setup.js',
+  ],
 };
