@@ -18,7 +18,7 @@ const CheckBox = ({ status, onChange }) => {
   });
 
   return (
-    <div className='Checkbox'>
+    <div className='CheckBox'>
       <input
         className='checkboxDOM'
         type='checkbox'
