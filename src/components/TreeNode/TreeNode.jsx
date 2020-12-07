@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import CheckBox from '../CheckBox/CheckBox';
 import UtilsContext from '../FolderTree/context';
+import EditableName from '../EditableName/EditableName';
 
 import './TreeNode.scss';
 
@@ -14,7 +15,10 @@ const TreeNode = ({
   checked: checkedStatus,
   childrenData,
 }) => {
-  const { handleCheck } = useContext(UtilsContext);
+  const {
+    handleCheck,
+    handleRename,
+  } = useContext(UtilsContext);
 
   const treeNodeStyle = {
     marginLeft: path.length * indetPixels,
@@ -25,6 +29,8 @@ const TreeNode = ({
     handleCheck(path, newStatus);
   };
 
+  const onNameChange = newName => handleRename(path, newName);
+
   return (
     <>
       <div className='TreeNode' style={ treeNodeStyle }>
@@ -33,7 +39,10 @@ const TreeNode = ({
           onChange={ handleCheckBoxChange }
         />
 
-        { name }
+        <EditableName
+          name={ name }
+          onNameChange={ onNameChange }
+        />
       </div>
 
       {

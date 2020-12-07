@@ -9,6 +9,7 @@ import {
   setAllCheckedStatus,
   isValidCheckedStatus,
   checkNode,
+  renameNode,
 } from '../../utils/utils';
 import TreeNode from '../TreeNode/TreeNode';
 import UtilsContext from './context';
@@ -48,6 +49,11 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
     handleTreeStateChange(newState);
   };
 
+  const handleRename = (path, newName) => {
+    const newState = renameNode(treeState, path, newName);
+    handleTreeStateChange(newState);
+  };
+
   if (!treeState) return null;
 
   const {
@@ -61,6 +67,7 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
       <UtilsContext.Provider
         value={{
           handleCheck,
+          handleRename,
         }}
       >
         <TreeNode
