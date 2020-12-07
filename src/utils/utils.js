@@ -1,4 +1,4 @@
-const deepClone = x => JSON.parse(JSON.stringify(x));
+export const deepClone = x => JSON.parse(JSON.stringify(x));
 
 // assign uniq ids to each node
 export const addUniqIds = rootNode => {
@@ -78,6 +78,17 @@ export const checkNode = (rootNode, path, status) => {
 
   setStatusDown(curNode, status);       // update check status of this node and all childrens, in place
   updateStatusUp(parentNodes, status);  // update check status up, from this nodes parent, in place
+
+  return _rootNode;
+};
+
+export const renameNode = (rootNode, path, newName) => {
+  const _rootNode = deepClone(rootNode);
+  let curNode = _rootNode;
+  for (const idx of path) {
+    curNode = curNode.children[idx];
+  }
+  curNode.name = newName;
 
   return _rootNode;
 };

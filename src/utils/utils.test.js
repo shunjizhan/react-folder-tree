@@ -4,11 +4,13 @@ import {
   initializedTestData,
 } from './testData';
 import {
+  deepClone,
   addUniqIds,
   setAllCheckedStatus,
   isValidCheckedStatus,
   getNewCheckStatus,
   checkNode,
+  renameNode,
 } from './utils';
 
 describe('addUniqIds', () => {
@@ -161,6 +163,43 @@ describe('checkNode', () => {
 
       expect(checkNode(node, [2], 1)).toEqual(expected);
     });
+  });
+});
+
+describe('renameNode', () => {
+  const node = {
+    name: 'x',
+    children: [
+      { name: 'y' },
+      { name: 'z' },
+      {
+        name: 'a',
+        children: [
+          { name: 'b' },
+          { name: 'c' },
+        ],
+      },
+    ],
+  };
+
+  const newName = 'RR';
+
+  it('rename first level correctly', () => {
+    const newNode = deepClone(node);
+    newNode.name = newName;
+    expect(renameNode(node, [], newName)).toEqual(newNode);
+  });
+
+  it('rename second level correctly', () => {
+    const newNode = deepClone(node);
+    newNode.children[1].name = newName;
+    expect(renameNode(node, [1], newName)).toEqual(newNode);
+  });
+
+  it('rename last level correctly', () => {
+    const newNode = deepClone(node);
+    newNode.children[2].children[0].name = newName;
+    expect(renameNode(node, [2, 0], newName)).toEqual(newNode);
   });
 });
 
