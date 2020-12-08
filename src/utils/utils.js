@@ -51,13 +51,13 @@ export const getNewCheckStatus = node => {
 };
 
 // recursively update check status up
-export const updateStatusUp = (nodes, status) => {
+export const updateStatusUp = nodes => {
   if (nodes.length === 0) return;
 
   const curNode = nodes.pop();
   curNode.checked = getNewCheckStatus(curNode);
 
-  updateStatusUp(nodes, status);
+  updateStatusUp(nodes);
 };
 
 // set checked status for all nodes
@@ -77,7 +77,9 @@ export const checkNode = (rootNode, path, status) => {
   }
 
   setStatusDown(curNode, status);       // update check status of this node and all childrens, in place
-  updateStatusUp(parentNodes, status);  // update check status up, from this nodes parent, in place
+
+  parentNodes.pop();            // don't need to check this node's level
+  updateStatusUp(parentNodes);  // update check status up, from this nodes parent, in place
 
   return _rootNode;
 };
@@ -89,6 +91,23 @@ export const renameNode = (rootNode, path, newName) => {
     curNode = curNode.children[idx];
   }
   curNode.name = newName;
+
+  return _rootNode;
+};
+
+export const deleteNode = (rootNode, path) => {
+  const _rootNode = deepClone(rootNode);
+  let curNode = _rootNode;
+  const parentNodes = [curNode];
+  const lastIdx = path.pop();
+
+  for (const idx of path) {
+    curNode = curNode.children[idx];
+    parentNodes.push(curNode);
+  }
+
+  curNode.children.splice(lastIdx, 1);    // remove target node
+  updateStatusUp(parentNodes);            // update check status up, from this nodes
 
   return _rootNode;
 };
