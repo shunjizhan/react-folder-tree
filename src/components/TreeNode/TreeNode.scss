@@ -1,3 +1,11 @@
 .TreeNode {
-  
+  // padding: 2px 5px;
+
+  .editableNameContainer {
+
+    &:hover {
+      color: #609fff;
+      cursor: pointer;
+    }
+  }
 }

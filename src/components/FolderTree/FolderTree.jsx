@@ -10,6 +10,7 @@ import {
   isValidCheckedStatus,
   checkNode,
   renameNode,
+  deleteNode,
 } from '../../utils/utils';
 import TreeNode from '../TreeNode/TreeNode';
 import UtilsContext from './context';
@@ -54,6 +55,11 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
     handleTreeStateChange(newState);
   };
 
+  const handleDelete = path => {
+    const newState = deleteNode(treeState, path);
+    handleTreeStateChange(newState);
+  };
+
   if (!treeState) return null;
 
   const {
@@ -68,6 +74,7 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
         value={{
           handleCheck,
           handleRename,
+          handleDelete,
         }}
       >
         <TreeNode

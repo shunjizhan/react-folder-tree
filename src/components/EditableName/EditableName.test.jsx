@@ -3,17 +3,20 @@ import { mount } from 'enzyme';
 import EditableName from './EditableName';
 
 const onNameChange = jest.fn;
+const setIsEditing = jest.fn;
 
 describe('EditableName', () => {
   let editableName;
   // let input;
   // let inputDOM;
 
-  const render = name => {
+  const render = (name, isEditing) => {
     editableName = mount((
       <EditableName
         name={ name }
         onNameChange={ onNameChange }
+        isEditing={ isEditing }
+        setIsEditing={ setIsEditing }
       />
     ));
     // input = editableName.find('input.editingName');
@@ -30,7 +33,7 @@ describe('EditableName', () => {
   afterEach(clean);
 
   it('renders', () => {
-    render('bitcoin');
+    render('bitcoin', false);
     expect(editableName.exists()).toEqual(true);
   });
 

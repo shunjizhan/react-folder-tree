@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 
 import './EditableName.scss';
 
-const EditableName = ({ name, onNameChange }) => {
-  const [isEditing, setIsEditing] = useState(false);
+const EditableName = ({
+  name,
+  isEditing,
+  setIsEditing,
+  onNameChange,
+}) => {
   const [inputVal, setInputVal] = useState(name);
 
   const onInputChange = e => setInputVal(e.target.value);
@@ -19,7 +23,7 @@ const EditableName = ({ name, onNameChange }) => {
     setIsEditing(false);
   };
 
-  const input = (
+  const editingName = (
     <span className='editingName'>
       <input
         type='text'
@@ -46,13 +50,15 @@ const EditableName = ({ name, onNameChange }) => {
 
   return (
     <span className='EditableName'>
-      { !isEditing ? input : displayName }
+      { isEditing ? editingName : displayName }
     </span>
   );
 };
 
 EditableName.propTypes = {
   name: PropTypes.string.isRequired,
+  isEditing: PropTypes.bool.isRequired,
+  setIsEditing: PropTypes.func.isRequired,
   onNameChange: PropTypes.func.isRequired,
 };
 

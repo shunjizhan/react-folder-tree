@@ -47,6 +47,8 @@ module.exports = {
     'react/require-default-props': 0,
     'no-underscore-dangle': 0,
     'no-multi-spaces': 0,
+    'jsx-a11y/click-events-have-key-events': 0,                             // allow click handler on <div>
+    'jsx-a11y/no-static-element-interactions': 0,                           // allow click handler on <div>
     'no-unused-expressions': [2, { allowShortCircuit: true }],              // allow x && y()
     'import/no-extraneous-dependencies': [2, { devDependencies: true }],    // so can import enzyme, which is dev dependencies
   },

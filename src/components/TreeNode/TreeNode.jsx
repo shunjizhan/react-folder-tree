@@ -1,4 +1,7 @@
-import React, { useContext } from 'react';
+import React, {
+  useContext,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 
 import CheckBox from '../CheckBox/CheckBox';
@@ -18,7 +21,11 @@ const TreeNode = ({
   const {
     handleCheck,
     handleRename,
+    handleDelete,
   } = useContext(UtilsContext);
+
+  const [isSelected, setIsSelected] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const treeNodeStyle = {
     marginLeft: path.length * indetPixels,
@@ -31,6 +38,24 @@ const TreeNode = ({
 
   const onNameChange = newName => handleRename(path, newName);
 
+  const selectMe = () => (!isEditing && setIsSelected(true));
+  const unSelectMe = () => setIsSelected(false);
+
+  const editMe = () => {
+    setIsEditing(true);
+    setIsSelected(false);
+  };
+
+  const deleteMe = () => handleDelete(path);
+
+  const NodeToolBar = (
+    <>
+      <button type='submit' onClick={ editMe }>edit</button>
+      <button type='submit' onClick={ deleteMe }>delete</button>
+      <button type='submit' onClick={ unSelectMe }>cancel</button>
+    </>
+  );
+
   return (
     <>
       <div className='TreeNode' style={ treeNodeStyle }>
@@ -39,10 +64,19 @@ const TreeNode = ({
           onChange={ handleCheckBoxChange }
         />
 
-        <EditableName
-          name={ name }
-          onNameChange={ onNameChange }
-        />
+        <span
+          className='editableNameContainer'
+          onClick={ selectMe }
+        >
+          <EditableName
+            name={ name }
+            isEditing={ isEditing }
+            setIsEditing={ setIsEditing }
+            onNameChange={ onNameChange }
+          />
+        </span>
+        { isSelected && NodeToolBar }
+
       </div>
 
       {
