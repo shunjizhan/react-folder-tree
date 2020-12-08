@@ -32,8 +32,15 @@ describe('setAllCheckedStatus', () => {
 describe('getNewCheckStatus', () => {
   describe('when node is a leaf', () => {
     it('returns correct state', () => {
-      expect(getNewCheckStatus({ name: 'BTC', checked: 1 })).toEqual(1);
-      expect(getNewCheckStatus({ name: 'BTC', checked: 0 })).toEqual(0);
+      expect(getNewCheckStatus({ checked: 1 })).toEqual(1);
+      expect(getNewCheckStatus({ checked: 0 })).toEqual(0);
+    });
+  });
+
+  describe('when node is a parent with empty children list', () => {
+    it('returns correct state', () => {
+      expect(getNewCheckStatus({ checked: 1, children: [] })).toEqual(1);
+      expect(getNewCheckStatus({ checked: 0, children: [] })).toEqual(0);
     });
   });
 
@@ -220,7 +227,7 @@ describe('renameNode', () => {
 });
 
 describe('deleteNode', () => {
-  describe('when parent state doesn\'t change', () => {
+  describe('when parent state doesn\'t change case 1', () => {
     const node = {
       checked: 1,
       children: [
@@ -275,6 +282,69 @@ describe('deleteNode', () => {
       children: [
         { checked: 1 },
         { checked: 1 },
+      ],
+    };
+
+    it('returns correct state', () => {
+      expect(deleteNode(state2, [2])).toEqual(state3);
+    });
+  });
+
+  describe('when parent state doesn\'t change case 0', () => {
+    const node = {
+      checked: 0,
+      children: [
+        { checked: 0 },
+        { checked: 0 },
+        {
+          checked: 0,
+          children: [
+            { checked: 0 },
+            { checked: 0 },
+          ],
+        },
+      ],
+    };
+
+    const state1 = {
+      checked: 0,
+      children: [
+        { checked: 0 },
+        { checked: 0 },
+        {
+          checked: 0,
+          children: [
+            { checked: 0 },
+          ],
+        },
+      ],
+    };
+
+    it('returns correct state', () => {
+      expect(deleteNode(node, [2, 1])).toEqual(state1);
+    });
+
+    const state2 = {
+      checked: 0,
+      children: [
+        { checked: 0 },
+        { checked: 0 },
+        {
+          checked: 0,
+          children: [],
+        },
+      ],
+    };
+
+    it('returns correct state', () => {
+      expect(deleteNode(state1, [2, 0])).toEqual(state2);
+    });
+
+    const state3 = {
+      checked: 0,
+      children: [
+        { checked: 0 },
+        { checked: 0 },
       ],
     };
 

@@ -33,7 +33,7 @@ const setStatusDown = (node, status) => {
 // calculate the check status of a node based on the check status of it's children
 export const getNewCheckStatus = node => {
   const { children } = node;
-  if (!children) return node.checked;
+  if (!children?.length > 0) return node.checked;
 
   let sum = 0;
   for (const c of children) {
