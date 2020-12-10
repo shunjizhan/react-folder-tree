@@ -3,6 +3,17 @@ import React, {
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
+import {
+  AiOutlineRight,
+  AiOutlineDown,
+  AiOutlineFolder,
+  AiOutlineFolderOpen,
+  AiOutlineFile,
+  AiOutlineClose,
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlineFileAdd,
+} from 'react-icons/ai';
 
 import CheckBox from '../CheckBox/CheckBox';
 import UtilsContext from '../FolderTree/context';
@@ -24,12 +35,32 @@ const TreeNode = ({
     handleDelete,
   } = useContext(UtilsContext);
 
-  const [isSelected, setIsSelected] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const isFolder = !!childrenData;
 
   const treeNodeStyle = {
     marginLeft: path.length * indetPixels,
   };
+
+  const [isSelected, setIsSelected] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const FileIcon = AiOutlineFile;
+  const FolderIcon = AiOutlineFolder;
+  const FolderOpenIcon = AiOutlineFolderOpen;
+  const EditIcon = AiOutlineEdit;
+  const DeleteIcon = AiOutlineDelete;
+  const CancelIcon = AiOutlineClose;
+  const AddIcon = AiOutlineFileAdd;
+
+  let TypeIcon = FileIcon;
+  if (isFolder) {
+    TypeIcon = isOpen
+      ? FolderOpenIcon
+      : FolderIcon;
+  }
+
+  const toggleOpen = () => setIsOpen(!isOpen);
 
   const handleCheckBoxChange = e => {
     const newStatus = +e.target.checked;
@@ -48,12 +79,18 @@ const TreeNode = ({
 
   const deleteMe = () => handleDelete(path);
 
+  const add = () => {};
+
+  const IconContainerClassName = className => `iconContainer ${className}`;
+
   const NodeToolBar = (
-    <>
-      <button type='submit' onClick={ editMe }>edit</button>
-      <button type='submit' onClick={ deleteMe }>delete</button>
-      <button type='submit' onClick={ unSelectMe }>cancel</button>
-    </>
+    <span className={ IconContainerClassName('TreeNodeToolBar') }>
+      <EditIcon onClick={ editMe } />
+      <DeleteIcon onClick={ deleteMe } />
+      { isFolder && <AddIcon onClick={ add } /> }
+
+      <CancelIcon onClick={ unSelectMe } />
+    </span>
   );
 
   return (
@@ -64,8 +101,27 @@ const TreeNode = ({
           onChange={ handleCheckBoxChange }
         />
 
+        {
+          isFolder && (
+            <span
+              className={ IconContainerClassName('arrowContainer') }
+              onClick={ toggleOpen }
+            >
+              {
+                isOpen
+                  ? <AiOutlineDown />
+                  : <AiOutlineRight />
+              }
+            </span>
+          )
+        }
+
+        <span className={ IconContainerClassName('typeIconContainer') }>
+          <TypeIcon />
+        </span>
+
         <span
-          className='editableNameContainer'
+          className={ IconContainerClassName('editableNameContainer') }
           onClick={ selectMe }
         >
           <EditableName
@@ -80,7 +136,7 @@ const TreeNode = ({
       </div>
 
       {
-        childrenData && childrenData.map((data, idx) => (
+        isFolder && isOpen && childrenData.map((data, idx) => (
           <TreeNode
             path={ [...path, idx] }
             key={ data.id }

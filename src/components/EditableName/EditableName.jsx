@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import {
+  AiOutlineCheck,
+  AiOutlineClose,
+} from 'react-icons/ai';
 
 import './EditableName.scss';
 
@@ -9,6 +13,9 @@ const EditableName = ({
   setIsEditing,
   onNameChange,
 }) => {
+  const OKIcon = AiOutlineCheck;
+  const CancelIcon = AiOutlineClose;
+
   const [inputVal, setInputVal] = useState(name);
 
   const onInputChange = e => setInputVal(e.target.value);
@@ -30,23 +37,22 @@ const EditableName = ({
         value={ inputVal }
         onChange={ onInputChange }
       />
-      <button
-        type='submit'
-        onClick={ handleNameChange }
-      >
-        ok
-        { /* TODO: change this to better button */ }
-      </button>
-      <button
-        type='submit'
-        onClick={ cancelEditing }
-      >
-        cancel
-      </button>
+      <span className='editableNameToolbar'>
+        <OKIcon
+          onClick={ handleNameChange }
+        />
+        <CancelIcon
+          onClick={ cancelEditing }
+        />
+      </span>
     </span>
   );
 
-  const displayName = name;
+  const displayName = (
+    <span className='displayName'>
+      { name }
+    </span>
+  );
 
   return (
     <span className='EditableName'>

@@ -1,11 +1,24 @@
+$toolbar-margin-left: 5px;
+$toolbar-icon-padding: 0 2px;
+
 .TreeNode {
-  // padding: 2px 5px;
+  padding: 2px 0;
 
-  .editableNameContainer {
+  // border: 1px solid red;
 
-    &:hover {
-      color: #609fff;
+  .TreeNodeToolBar {
+    margin-left: $toolbar-margin-left;
+    svg {
+      padding: $toolbar-icon-padding
+    }
+  }
+
+  .iconContainer {
+    padding: 0 2px;
+
+    &:not(.typeIconContainer) svg:hover {
       cursor: pointer;
     }
   }
+
 }

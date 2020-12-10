@@ -1,3 +1,18 @@
+$toolbar-margin-left: 5px;
+$toolbar-icon-padding: 0 2px;
+
 .EditableName {
-  
+  .displayName {
+    &:hover {
+      color: #609fff;
+      cursor: pointer;
+    }
+  }
+
+  .editableNameToolbar {
+    margin-left: $toolbar-margin-left;
+    svg {
+      margin: $toolbar-icon-padding;
+    }
+  }
 }
