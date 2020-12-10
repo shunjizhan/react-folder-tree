@@ -4,8 +4,6 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
-import './CheckBox.scss';
-
 const CheckBox = ({ status, onChange }) => {
   const isChecked = status === 1;
   const isHalfChecked = status === 0.5;

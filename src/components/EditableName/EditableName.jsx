@@ -5,17 +5,19 @@ import {
   AiOutlineClose,
 } from 'react-icons/ai';
 
-import './EditableName.scss';
+import {
+  iconContainerClassName,
+  iconClassName,
+} from '../../utils/iconUtils';
 
 const EditableName = ({
   name,
   isEditing,
   setIsEditing,
   onNameChange,
+  OKIcon = AiOutlineCheck,
+  CancelIcon = AiOutlineClose,
 }) => {
-  const OKIcon = AiOutlineCheck;
-  const CancelIcon = AiOutlineClose;
-
   const [inputVal, setInputVal] = useState(name);
 
   const onInputChange = e => setInputVal(e.target.value);
@@ -37,11 +39,13 @@ const EditableName = ({
         value={ inputVal }
         onChange={ onInputChange }
       />
-      <span className='editableNameToolbar'>
+      <span className={ iconContainerClassName('editableNameToolbar') }>
         <OKIcon
+          className={ iconClassName('OKIcon') }
           onClick={ handleNameChange }
         />
         <CancelIcon
+          className={ iconClassName('CancelIcon') }
           onClick={ cancelEditing }
         />
       </span>
@@ -66,6 +70,8 @@ EditableName.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   setIsEditing: PropTypes.func.isRequired,
   onNameChange: PropTypes.func.isRequired,
+  OKIcon: PropTypes.element,
+  CancelIcon: PropTypes.element,
 };
 
 export default EditableName;

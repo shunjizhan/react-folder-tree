@@ -4,8 +4,8 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import {
-  AiOutlineRight,
-  AiOutlineDown,
+  AiFillCaretRight,
+  AiFillCaretDown,
   AiOutlineFolder,
   AiOutlineFolderOpen,
   AiOutlineFile,
@@ -19,8 +19,10 @@ import {
 import CheckBox from '../CheckBox/CheckBox';
 import UtilsContext from '../FolderTree/context';
 import EditableName from '../EditableName/EditableName';
-
-import './TreeNode.scss';
+import {
+  iconContainerClassName,
+  iconClassName,
+} from '../../utils/iconUtils';
 
 const indetPixels = 30;   // TODO: user can pass this to FolderTree and TreeNode can get is from context
 
@@ -55,6 +57,8 @@ const TreeNode = ({
   const CancelIcon = AiOutlineClose;
   const AddFileIcon = AiOutlineFileAdd;
   const AddFolderIcon = AiOutlineFolderAdd;
+  const CaretRight = AiFillCaretRight;
+  const CaretDown = AiFillCaretDown;
 
   let TypeIcon = FileIcon;
   if (isFolder) {
@@ -62,8 +66,6 @@ const TreeNode = ({
       ? FolderOpenIcon
       : FolderIcon;
   }
-
-  const toggleOpen = () => setIsOpen(!isOpen);
 
   const handleCheckBoxChange = e => {
     const newStatus = +e.target.checked;
@@ -75,6 +77,9 @@ const TreeNode = ({
   const selectMe = () => (!isEditing && setIsSelected(true));
   const unSelectMe = () => setIsSelected(false);
 
+  const openMe = () => setIsOpen(true);
+  const closeMe = () => setIsOpen(false);
+
   const editMe = () => {
     setIsEditing(true);
     setIsSelected(false);
@@ -85,16 +90,57 @@ const TreeNode = ({
   const addFile = () => handleAddNode(path, 'file');
   const addFolder = () => handleAddNode(path, 'folder');
 
-  const IconContainerClassName = className => `iconContainer ${className}`;
+  const TreeNodeToolBar = (
+    <span className={ iconContainerClassName('TreeNodeToolBar') }>
+      <EditIcon
+        className={ iconClassName('EditIcon') }
+        onClick={ editMe }
+      />
+      <DeleteIcon
+        className={ iconClassName('DeleteIcon') }
+        onClick={ deleteMe }
+      />
+      {
+        isFolder && (
+          <>
+            <AddFileIcon
+              className={ iconClassName('AddFileIcon') }
+              onClick={ addFile }
+            />
+            <AddFolderIcon
+              className={ iconClassName('AddFolderIcon') }
+              onClick={ addFolder }
+            />
+          </>
+        )
+      }
 
-  const NodeToolBar = (
-    <span className={ IconContainerClassName('TreeNodeToolBar') }>
-      <EditIcon onClick={ editMe } />
-      <DeleteIcon onClick={ deleteMe } />
-      { isFolder && <AddFileIcon onClick={ addFile } /> }
-      { isFolder && <AddFolderIcon onClick={ addFolder } /> }
+      <CancelIcon
+        className={ iconClassName('CancelIcon') }
+        onClick={ unSelectMe }
+      />
+    </span>
+  );
 
-      <CancelIcon onClick={ unSelectMe } />
+  const folderCaret = (
+    <span
+      className={ iconContainerClassName('caretContainer') }
+    >
+      {
+        isOpen
+          ? (
+            <CaretDown
+              className={ iconClassName('CaretDown') }
+              onClick={ closeMe }
+            />
+          )
+          : (
+            <CaretRight
+              className={ iconClassName('CaretRight') }
+              onClick={ openMe }
+            />
+          )
+      }
     </span>
   );
 
@@ -106,27 +152,17 @@ const TreeNode = ({
           onChange={ handleCheckBoxChange }
         />
 
-        {
-          isFolder && (
-            <span
-              className={ IconContainerClassName('arrowContainer') }
-              onClick={ toggleOpen }
-            >
-              {
-                isOpen
-                  ? <AiOutlineDown />
-                  : <AiOutlineRight />
-              }
-            </span>
-          )
-        }
+        { isFolder && folderCaret }
 
-        <span className={ IconContainerClassName('typeIconContainer') }>
-          <TypeIcon />
+        <span className={ iconContainerClassName('typeIconContainer') }>
+          <TypeIcon
+            className={ iconClassName('TypeIcon') }
+            onClick={ selectMe }
+          />
         </span>
 
         <span
-          className={ IconContainerClassName('editableNameContainer') }
+          className={ iconContainerClassName('editableNameContainer') }
           onClick={ selectMe }
         >
           <EditableName
@@ -136,7 +172,7 @@ const TreeNode = ({
             onNameChange={ onNameChange }
           />
         </span>
-        { isSelected && NodeToolBar }
+        { isSelected && TreeNodeToolBar }
 
       </div>
 

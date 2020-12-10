@@ -16,6 +16,8 @@ import {
 import TreeNode from '../TreeNode/TreeNode';
 import UtilsContext from './context';
 
+import './FolderTree.scss';
+
 const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
   const [treeState, setTreeState] = useState(null);
   useEffect(() => {
@@ -75,7 +77,7 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
   } = treeState;
 
   return (
-    <div id='FolderTree'>
+    <div className='FolderTree'>
       <UtilsContext.Provider
         value={{
           handleCheck,
