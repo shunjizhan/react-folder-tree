@@ -1,0 +1,79 @@
+$toolbar-margin-left: 3px;
+$toolbar-icon-padding: 0 2px;
+$checkbox-margin-right: 3px;
+
+$white: rgb(255, 255, 255);
+$blue: rgb(77, 148, 255);
+$purple: rgb(187, 51, 255);
+$green: rgb(92, 214, 92);
+$pink: rgb(255, 102, 179);
+$orange: rgb(255, 133, 51);
+$cyan: rgb(118, 215, 196);
+$grey: rgb(115, 115, 115);
+$red: rgb(255, 51, 51);
+$yellow: rgb(255, 235, 95);
+$bluegreen: rgb(0, 153, 115);
+
+.FolderTree {
+  /* ---------- CheckBox ---------- */
+  .CheckBox {
+    display: inline-block;
+    margin-right: $checkbox-margin-right;
+  }
+  
+  /* ---------- TreeNode ---------- */
+  .TreeNode {
+    padding: 2px 0;
+    
+    // border: 1px solid red;
+
+    .TreeNodeToolBar {
+      margin-left: $toolbar-margin-left;
+
+      svg {
+        padding: $toolbar-icon-padding
+      }
+    }
+
+    .iconContainer {
+      padding: 0 2px;
+
+      svg {
+        padding-top: 1px;
+        vertical-align: text-top;
+      }
+
+      &:not(.typeIconContainer) svg:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  /* ---------- EditableName ---------- */
+  .EditableName {
+    .displayName {
+      &:hover {
+        color: $blue;
+        cursor: pointer;
+      }
+    }
+
+    .editableNameToolbar {
+      margin-left: $toolbar-margin-left;
+
+      svg {
+        margin: $toolbar-icon-padding;
+      }
+    }
+  }
+
+  /* ---------- Icons ---------- */
+  .icon:hover {
+    &.OKIcon { color: $green; };
+    &.CancelIcon { color: $red; };
+    &.EditIcon { color: $purple; };
+    &.DeleteIcon { color: $pink; };
+    &.AddFileIcon { color: $bluegreen; };
+    &.AddFolderIcon { color: $bluegreen; };
+  }
+}
