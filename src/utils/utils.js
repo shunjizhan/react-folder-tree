@@ -112,5 +112,47 @@ export const deleteNode = (rootNode, path) => {
   return _rootNode;
 };
 
+export const findMaxId = rootNode => {
+  const { children } = rootNode;
+  const curId = rootNode.id;
+
+  return children
+    ? Math.max(...[curId, ...children.map(findMaxId)])
+    : curId;
+};
+
+export const addNode = (rootNode, path, type = 'file') => {
+  const id = findMaxId(rootNode) + 1;
+  const isFile = type === 'file';
+
+  const _rootNode = deepClone(rootNode);
+  let curNode = _rootNode;
+  for (const idx of path) {
+    curNode = curNode.children[idx];
+  }
+
+  const { children } = curNode;
+  if (children) {
+    if (isFile) {
+      // files goes to front
+      children.unshift({
+        id,
+        name: 'new file',
+        checked: Math.floor(curNode.checked),
+      });
+    } else {
+      // folder goes to back
+      children.push({
+        id,
+        name: 'new folder',
+        checked: Math.floor(curNode.checked),
+        children: [],
+      });
+    }
+  }
+
+  return _rootNode;
+};
+
 // check if the initial customed checked status is valid
 export const isValidCheckedStatus = rootNode => true;   /* eslint-disable-line */

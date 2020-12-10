@@ -12,6 +12,8 @@ import {
   checkNode,
   renameNode,
   deleteNode,
+  findMaxId,
+  addNode,
 } from './utils';
 
 describe('addUniqIds', () => {
@@ -424,6 +426,287 @@ describe('deleteNode', () => {
     it('returns correct state', () => {
       expect(deleteNode(node, [2, 2])).toEqual(expected);
     });
+  });
+});
+
+describe('findMaxId', () => {
+  it('finds correct max id', () => {
+    const node = {
+      id: 1,
+      children: [
+        { id: 2 },
+        { id: 3 },
+        {
+          id: 4,
+          children: [
+            { id: 5 },
+            { id: 6 },
+            { id: 7 },
+          ],
+        },
+      ],
+    };
+    expect(findMaxId(node)).toEqual(7);
+
+    node.id = 15;
+    expect(findMaxId(node)).toEqual(15);
+
+    node.children[1].id = 18;
+    expect(findMaxId(node)).toEqual(18);
+
+    node.children[2].children[1].id = 27;
+    expect(findMaxId(node)).toEqual(27);
+
+    node.children.push({ id: 30 });
+    expect(findMaxId(node)).toEqual(30);
+
+    node.children.pop();
+    expect(findMaxId(node)).toEqual(27);
+
+    node.children.shift();
+    expect(findMaxId(node)).toEqual(27);
+  });
+});
+
+describe('addNode', () => {
+  describe('when parent folder is checked', () => {
+    const node = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 1,
+          id: 3,
+          children: [
+            { checked: 1, id: 100 },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    const addFileExpected = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 1,
+          id: 3,
+          children: [
+            { checked: 1, id: 101, name: 'new file' },
+            { checked: 1, id: 100 },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    const addFolderExpected = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 1,
+          id: 3,
+          children: [
+            { checked: 1, id: 100 },
+            {
+              checked: 1, id: 101, name: 'new folder', children: [],
+            },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    expect(addNode(node, [1], 'file')).toEqual(addFileExpected);
+    expect(addNode(node, [1], 'folder')).toEqual(addFolderExpected);
+  });
+
+  describe('when parent folder is half-checked', () => {
+    const node = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 0.5,
+          id: 3,
+          children: [
+            { checked: 1, id: 100 },
+            { checked: 0, id: 101 },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    const addFileExpected = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 0.5,
+          id: 3,
+          children: [
+            { checked: 0, id: 102, name: 'new file' },
+            { checked: 1, id: 100 },
+            { checked: 0, id: 101 },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    const addFolderExpected = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 0.5,
+          id: 3,
+          children: [
+            { checked: 1, id: 100 },
+            { checked: 0, id: 101 },
+            {
+              checked: 0, id: 102, name: 'new folder', children: [],
+            },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    expect(addNode(node, [1], 'file')).toEqual(addFileExpected);
+    expect(addNode(node, [1], 'folder')).toEqual(addFolderExpected);
+  });
+
+  describe('when parent folder is unchecked', () => {
+    const node = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 0,
+          id: 3,
+          children: [
+            { checked: 0, id: 100 },
+            { checked: 0, id: 101 },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    const addFileExpected = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 0,
+          id: 3,
+          children: [
+            { checked: 0, id: 102, name: 'new file' },
+            { checked: 0, id: 100 },
+            { checked: 0, id: 101 },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    const addFolderExpected = {
+      checked: 0.5,
+      id: 1,
+      children: [
+        { checked: 0, id: 2 },
+        {
+          checked: 0,
+          id: 3,
+          children: [
+            { checked: 0, id: 100 },
+            { checked: 0, id: 101 },
+            {
+              checked: 0, id: 102, name: 'new folder', children: [],
+            },
+          ],
+        }, {
+          checked: 0.5,
+          id: 9,
+          children: [
+            { checked: 0, id: 11 },
+            { checked: 1, id: 18 },
+            { checked: 0, id: 84 },
+          ],
+        },
+      ],
+    };
+
+    expect(addNode(node, [1], 'file')).toEqual(addFileExpected);
+    expect(addNode(node, [1], 'folder')).toEqual(addFolderExpected);
   });
 });
 
