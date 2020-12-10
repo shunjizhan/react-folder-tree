@@ -13,6 +13,7 @@ import {
   AiOutlineDelete,
   AiOutlineEdit,
   AiOutlineFileAdd,
+  AiOutlineFolderAdd,
 } from 'react-icons/ai';
 
 import CheckBox from '../CheckBox/CheckBox';
@@ -26,13 +27,14 @@ const indetPixels = 30;   // TODO: user can pass this to FolderTree and TreeNode
 const TreeNode = ({
   path,
   name,
-  checked: checkedStatus,
+  checked,
   childrenData,
 }) => {
   const {
     handleCheck,
     handleRename,
     handleDelete,
+    handleAddNode,
   } = useContext(UtilsContext);
 
   const isFolder = !!childrenData;
@@ -51,7 +53,8 @@ const TreeNode = ({
   const EditIcon = AiOutlineEdit;
   const DeleteIcon = AiOutlineDelete;
   const CancelIcon = AiOutlineClose;
-  const AddIcon = AiOutlineFileAdd;
+  const AddFileIcon = AiOutlineFileAdd;
+  const AddFolderIcon = AiOutlineFolderAdd;
 
   let TypeIcon = FileIcon;
   if (isFolder) {
@@ -79,7 +82,8 @@ const TreeNode = ({
 
   const deleteMe = () => handleDelete(path);
 
-  const add = () => {};
+  const addFile = () => handleAddNode(path, 'file');
+  const addFolder = () => handleAddNode(path, 'folder');
 
   const IconContainerClassName = className => `iconContainer ${className}`;
 
@@ -87,7 +91,8 @@ const TreeNode = ({
     <span className={ IconContainerClassName('TreeNodeToolBar') }>
       <EditIcon onClick={ editMe } />
       <DeleteIcon onClick={ deleteMe } />
-      { isFolder && <AddIcon onClick={ add } /> }
+      { isFolder && <AddFileIcon onClick={ addFile } /> }
+      { isFolder && <AddFolderIcon onClick={ addFolder } /> }
 
       <CancelIcon onClick={ unSelectMe } />
     </span>
@@ -97,7 +102,7 @@ const TreeNode = ({
     <>
       <div className='TreeNode' style={ treeNodeStyle }>
         <CheckBox
-          status={ checkedStatus }
+          status={ checked }
           onChange={ handleCheckBoxChange }
         />
 

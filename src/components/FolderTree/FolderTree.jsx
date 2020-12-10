@@ -11,6 +11,7 @@ import {
   checkNode,
   renameNode,
   deleteNode,
+  addNode,
 } from '../../utils/utils';
 import TreeNode from '../TreeNode/TreeNode';
 import UtilsContext from './context';
@@ -60,6 +61,11 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
     handleTreeStateChange(newState);
   };
 
+  const handleAddNode = (path, type = 'file') => {
+    const newState = addNode(treeState, path, type);
+    handleTreeStateChange(newState);
+  };
+
   if (!treeState) return null;
 
   const {
@@ -75,6 +81,7 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
           handleCheck,
           handleRename,
           handleDelete,
+          handleAddNode,
         }}
       >
         <TreeNode
