@@ -97,6 +97,16 @@ export const renameNode = (rootNode, path, newName) => {
 
 export const deleteNode = (rootNode, path) => {
   const _rootNode = deepClone(rootNode);
+
+  if (path.length === 0) {
+    // this is root node
+    // just remove every children and reset check status to 0
+    _rootNode.children = [];
+    _rootNode.checked = 0;
+
+    return _rootNode;
+  }
+
   let curNode = _rootNode;
   const parentNodes = [curNode];
   const lastIdx = path.pop();

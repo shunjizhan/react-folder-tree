@@ -229,6 +229,80 @@ describe('renameNode', () => {
 });
 
 describe('deleteNode', () => {
+  describe('when deleting root node', () => {
+    it('remove all it\'s children and reset checked status to 0', () => {
+      const node = {
+        checked: 1,
+        children: [
+          { checked: 1 },
+          { checked: 1 },
+          {
+            checked: 1,
+            children: [
+              { checked: 1 },
+              { checked: 1 },
+            ],
+          },
+        ],
+      };
+
+      const expected = {
+        checked: 0,
+        children: [],
+      };
+
+      expect(deleteNode(node, [])).toEqual(expected);
+    });
+
+    it('remove all it\'s children and reset checked status to 0', () => {
+      const node = {
+        checked: 0,
+        children: [
+          { checked: 0 },
+          { checked: 0 },
+          {
+            checked: 0,
+            children: [
+              { checked: 0 },
+              { checked: 0 },
+            ],
+          },
+        ],
+      };
+
+      const expected = {
+        checked: 0,
+        children: [],
+      };
+
+      expect(deleteNode(node, [])).toEqual(expected);
+    });
+
+    it('remove all it\'s children and reset checked status to 0', () => {
+      const node = {
+        checked: 0.5,
+        children: [
+          { checked: 1 },
+          { checked: 0 },
+          {
+            checked: 0.5,
+            children: [
+              { checked: 1 },
+              { checked: 0 },
+            ],
+          },
+        ],
+      };
+
+      const expected = {
+        checked: 0,
+        children: [],
+      };
+
+      expect(deleteNode(node, [])).toEqual(expected);
+    });
+  });
+
   describe('when parent state doesn\'t change case 1', () => {
     const node = {
       checked: 1,

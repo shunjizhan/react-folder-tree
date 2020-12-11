@@ -20,6 +20,12 @@ import './FolderTree.scss';
 
 const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
   const [treeState, setTreeState] = useState(null);
+
+  const handleTreeStateChange = newState => {
+    setTreeState(newState);
+    onChange(newState);
+  };
+
   useEffect(() => {
     let initState = addUniqIds(data);
 
@@ -40,13 +46,8 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
         }
     }
 
-    setTreeState(initState);
+    handleTreeStateChange(initState);
   }, [data, initCheckedStatus]);
-
-  const handleTreeStateChange = newState => {
-    setTreeState(newState);
-    onChange(newState);
-  };
 
   const handleCheck = (path, status) => {
     const newState = checkNode(treeState, path, status);
