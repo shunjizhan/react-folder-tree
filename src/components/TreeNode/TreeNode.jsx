@@ -14,6 +14,7 @@ import {
   AiOutlineEdit,
   AiOutlineFileAdd,
   AiOutlineFolderAdd,
+  AiOutlineCheck,
 } from 'react-icons/ai';
 
 import CheckBox from '../CheckBox/CheckBox';
@@ -37,6 +38,7 @@ const TreeNode = ({
     handleRename,
     handleDelete,
     handleAddNode,
+    iconComponents,
   } = useContext(UtilsContext);
 
   const isFolder = !!childrenData;
@@ -49,16 +51,19 @@ const TreeNode = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
 
-  const FileIcon = AiOutlineFile;
-  const FolderIcon = AiOutlineFolder;
-  const FolderOpenIcon = AiOutlineFolderOpen;
-  const EditIcon = AiOutlineEdit;
-  const DeleteIcon = AiOutlineDelete;
-  const CancelIcon = AiOutlineClose;
-  const AddFileIcon = AiOutlineFileAdd;
-  const AddFolderIcon = AiOutlineFolderAdd;
-  const CaretRight = AiFillCaretRight;
-  const CaretDown = AiFillCaretDown;
+  const {
+    FileIcon = AiOutlineFile,
+    FolderIcon = AiOutlineFolder,
+    FolderOpenIcon = AiOutlineFolderOpen,
+    EditIcon = AiOutlineEdit,
+    DeleteIcon = AiOutlineDelete,
+    CancelIcon = AiOutlineClose,
+    AddFileIcon = AiOutlineFileAdd,
+    AddFolderIcon = AiOutlineFolderAdd,
+    CaretRightIcon = AiFillCaretRight,
+    CaretDownIcon = AiFillCaretDown,
+    OKIcon = AiOutlineCheck,
+  } = iconComponents;
 
   let TypeIcon = FileIcon;
   if (isFolder) {
@@ -129,14 +134,14 @@ const TreeNode = ({
       {
         isOpen
           ? (
-            <CaretDown
-              className={ iconClassName('CaretDown') }
+            <CaretDownIcon
+              className={ iconClassName('CaretDownIcon') }
               onClick={ closeMe }
             />
           )
           : (
-            <CaretRight
-              className={ iconClassName('CaretRight') }
+            <CaretRightIcon
+              className={ iconClassName('CaretRightIcon') }
               onClick={ openMe }
             />
           )
@@ -170,6 +175,8 @@ const TreeNode = ({
             isEditing={ isEditing }
             setIsEditing={ setIsEditing }
             onNameChange={ onNameChange }
+            OKIcon={ OKIcon }
+            CancelIcon={ CancelIcon }
           />
         </span>
         { isSelected && TreeNodeToolBar }

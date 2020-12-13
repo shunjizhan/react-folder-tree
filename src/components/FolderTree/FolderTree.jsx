@@ -18,7 +18,12 @@ import UtilsContext from './context';
 
 import './FolderTree.scss';
 
-const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
+const FolderTree = ({
+  data,
+  onChange,
+  initCheckedStatus = 'unchecked',
+  iconComponents = {},
+}) => {
   const [treeState, setTreeState] = useState(null);
 
   const handleTreeStateChange = newState => {
@@ -85,6 +90,7 @@ const FolderTree = ({ data, onChange, initCheckedStatus = 'unchecked' }) => {
           handleRename,
           handleDelete,
           handleAddNode,
+          iconComponents,
         }}
       >
         <TreeNode
@@ -103,6 +109,18 @@ FolderTree.propTypes = {
   data: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   initCheckedStatus: PropTypes.oneOf(['unchecked', 'checked', 'customed']),
+  iconComponents: PropTypes.shape({
+    FileIcon: PropTypes.func,
+    FolderIcon: PropTypes.func,
+    FolderOpenIcon: PropTypes.func,
+    EditIcon: PropTypes.func,
+    DeleteIcon: PropTypes.func,
+    CancelIcon: PropTypes.func,
+    AddFileIcon: PropTypes.func,
+    AddFolderIcon: PropTypes.func,
+    CaretRightIcon: PropTypes.func,
+    CaretDownIcon: PropTypes.func,
+  }),
 };
 
 export default FolderTree;

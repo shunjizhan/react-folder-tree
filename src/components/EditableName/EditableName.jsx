@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  AiOutlineCheck,
-  AiOutlineClose,
-} from 'react-icons/ai';
 
 import {
   iconContainerClassName,
@@ -15,8 +11,8 @@ const EditableName = ({
   isEditing,
   setIsEditing,
   onNameChange,
-  OKIcon = AiOutlineCheck,
-  CancelIcon = AiOutlineClose,
+  OKIcon,
+  CancelIcon,
 }) => {
   const [inputVal, setInputVal] = useState(name);
 
@@ -70,8 +66,8 @@ EditableName.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   setIsEditing: PropTypes.func.isRequired,
   onNameChange: PropTypes.func.isRequired,
-  OKIcon: PropTypes.element,
-  CancelIcon: PropTypes.element,
+  OKIcon: PropTypes.func.isRequired,
+  CancelIcon: PropTypes.func.isRequired,
 };
 
 export default EditableName;
