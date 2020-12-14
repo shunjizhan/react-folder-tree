@@ -6,9 +6,12 @@ import PropTypes from 'prop-types';
 
 import {
   addUniqIds,
+  checkNode,
   setAllCheckedStatus,
   isValidCheckedStatus,
-  checkNode,
+  toggleOpen,
+  setAllOpenStatus,
+  isValidOpenStatus,
   renameNode,
   deleteNode,
   addNode,
@@ -22,6 +25,7 @@ const FolderTree = ({
   data,
   onChange,
   initCheckedStatus = 'unchecked',
+  initOpenStatus = 'open',
   iconComponents = {},
 }) => {
   const [treeState, setTreeState] = useState(null);
@@ -43,10 +47,25 @@ const FolderTree = ({
         initState = setAllCheckedStatus(initState, 1);
         break;
 
-      case 'customed':
       default:
         if (!isValidCheckedStatus(initState)) {
-          console.warn('checked status is not valid! All checked status was reset to unchecked.');
+          console.warn('checked status is not provided! Fell back to all unchecked.');
+          initState = setAllCheckedStatus(initState, 0);
+        }
+    }
+
+    switch (initOpenStatus) {
+      case 'open':
+        initState = setAllOpenStatus(initState, true);
+        break;
+
+      case 'close':
+        initState = setAllOpenStatus(initState, false);
+        break;
+
+      default:
+        if (!isValidOpenStatus(initState)) {
+          console.warn('open status is not provided! Fell back to all opened.');
           initState = setAllCheckedStatus(initState, 0);
         }
     }
@@ -74,12 +93,18 @@ const FolderTree = ({
     handleTreeStateChange(newState);
   };
 
+  const handleToggleOpen = (path, isOpen) => {
+    const newState = toggleOpen(treeState, path, isOpen);
+    handleTreeStateChange(newState);
+  };
+
   if (!treeState) return null;
 
   const {
     name,
     checked,
-    children: childrenData,
+    children,
+    isOpen,
   } = treeState;
 
   return (
@@ -90,6 +115,7 @@ const FolderTree = ({
           handleRename,
           handleDelete,
           handleAddNode,
+          handleToggleOpen,
           iconComponents,
         }}
       >
@@ -97,7 +123,8 @@ const FolderTree = ({
           path={ [] }
           name={ name }
           checked={ checked }
-          childrenData={ childrenData }
+          isOpen={ isOpen }
+          childrenData={ children }
           handleCheck={ handleCheck }
         />
       </UtilsContext.Provider>
@@ -108,7 +135,9 @@ const FolderTree = ({
 FolderTree.propTypes = {
   data: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  initCheckedStatus: PropTypes.oneOf(['unchecked', 'checked', 'customed']),
+
+  initCheckedStatus: PropTypes.string,
+  initOpenStatus: PropTypes.string,
   iconComponents: PropTypes.shape({
     FileIcon: PropTypes.func,
     FolderIcon: PropTypes.func,

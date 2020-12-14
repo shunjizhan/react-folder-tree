@@ -31,6 +31,7 @@ const TreeNode = ({
   path,
   name,
   checked,
+  isOpen,
   childrenData,
 }) => {
   const {
@@ -38,6 +39,7 @@ const TreeNode = ({
     handleRename,
     handleDelete,
     handleAddNode,
+    handleToggleOpen,
     iconComponents,
   } = useContext(UtilsContext);
 
@@ -49,7 +51,6 @@ const TreeNode = ({
 
   const [isSelected, setIsSelected] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
 
   const {
     FileIcon = AiOutlineFile,
@@ -82,8 +83,8 @@ const TreeNode = ({
   const selectMe = () => (!isEditing && setIsSelected(true));
   const unSelectMe = () => setIsSelected(false);
 
-  const openMe = () => setIsOpen(true);
-  const closeMe = () => setIsOpen(false);
+  const openMe = () => handleToggleOpen(path, true);
+  const closeMe = () => handleToggleOpen(path, false);
 
   const editMe = () => {
     setIsEditing(true);
@@ -189,6 +190,7 @@ const TreeNode = ({
             path={ [...path, idx] }
             key={ data.id }
             name={ data.name }
+            isOpen={ data.isOpen }
             checked={ data.checked }
             childrenData={ data.children }
           />
@@ -202,6 +204,7 @@ TreeNode.propTypes = {
   path: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.number.isRequired,
+  isOpen: PropTypes.bool,
 
   childrenData: PropTypes.array,
 };
