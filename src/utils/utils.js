@@ -1,5 +1,9 @@
 export const deepClone = x => JSON.parse(JSON.stringify(x));
 
+// TODO: add description on the top of all functions
+// TODO: replace deepclone with { ...rootnode } and make sure it still works
+// TODO: implement isValidCheckedStatus()
+
 // assign uniq ids to each node
 export const addUniqIds = rootNode => {
   let curId = 0;
@@ -7,8 +11,9 @@ export const addUniqIds = rootNode => {
     node.id = curId;  // eslint-disable-line
     curId += 1;
 
-    if (node.children) {
-      for (const child of node.children) {
+    const { children } = node;
+    if (children) {
+      for (const child of children) {
         _addId(child);
       }
     }
@@ -22,8 +27,9 @@ export const addUniqIds = rootNode => {
 // recursively set status for this node and all children, in place
 const setStatusDown = (node, status) => {
   node.checked = status;  // eslint-disable-line
-  if (node.children) {
-    for (const child of node.children) {
+  const { children } = node;
+  if (children) {
+    for (const child of children) {
       setStatusDown(child, status);
     }
   }
@@ -164,5 +170,50 @@ export const addNode = (rootNode, path, type = 'file') => {
   return _rootNode;
 };
 
-// check if the initial customed checked status is valid
+export const toggleOpen = (rootNode, path, isOpen) => {
+  const _rootNode = deepClone(rootNode);
+  let curNode = _rootNode;
+  for (const idx of path) {
+    curNode = curNode.children[idx];
+  }
+
+  if (curNode.children) {
+    // only parent node can have isOpen property
+    curNode.isOpen = isOpen;
+  }
+
+  return _rootNode;
+};
+
+export const setAllOpenStatus = (node, isOpen) => {
+  const newNode = { ...node };
+  const { children } = newNode;
+
+  if (children) {
+    newNode.isOpen = isOpen;
+    newNode.children = children.map(child => setAllOpenStatus(child, isOpen));
+  }
+
+  return newNode;
+};
+
+export const isValidOpenStatus = node => {
+  const {
+    children,
+    isOpen,
+  } = node;
+
+  if (children && isOpen === undefined) return false;
+  if (!children && isOpen !== undefined) return false;
+
+  if (children) {
+    for (const child of children) {
+      if (!isValidOpenStatus(child)) return false;
+    }
+  }
+
+  return true;
+};
+
+// check if the initial custom checked status is valid
 export const isValidCheckedStatus = rootNode => true;   /* eslint-disable-line */

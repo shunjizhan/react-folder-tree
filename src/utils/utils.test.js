@@ -6,10 +6,13 @@ import {
 import {
   deepClone,
   addUniqIds,
+  checkNode,
   setAllCheckedStatus,
   isValidCheckedStatus,
   getNewCheckStatus,
-  checkNode,
+  toggleOpen,
+  setAllOpenStatus,
+  isValidOpenStatus,
   renameNode,
   deleteNode,
   findMaxId,
@@ -187,6 +190,243 @@ describe('checkNode', () => {
       it('returns correct state', () => {
         expect(checkNode(node, [2], 1)).toEqual(expected);
       });
+    });
+  });
+});
+
+describe('toggleOpen', () => {
+  const node = {
+    name: 'root',
+    isOpen: false,
+    children: [
+      { name: 'x' },
+      { name: 'y' },
+      {
+        name: 'z',
+        isOpen: true,
+        children: [
+          { name: 'a', isOpen: true, children: [] },
+          { name: 'b' },
+        ],
+      },
+    ],
+  };
+
+  it('don\'t do anything for file component', () => {
+    const expected = node;
+
+    expect(toggleOpen(node, [0], true)).toEqual(expected);
+    expect(toggleOpen(node, [0], false)).toEqual(expected);
+    expect(toggleOpen(node, [1], true)).toEqual(expected);
+    expect(toggleOpen(node, [1], false)).toEqual(expected);
+    expect(toggleOpen(node, [2, 1], true)).toEqual(expected);
+    expect(toggleOpen(node, [2, 1], false)).toEqual(expected);
+  });
+
+  it('correctly toggle first layer', () => {
+    const expected = {
+      name: 'root',
+      isOpen: true,
+      children: [
+        { name: 'x' },
+        { name: 'y' },
+        {
+          name: 'z',
+          isOpen: true,
+          children: [
+            { name: 'a', isOpen: true, children: [] },
+            { name: 'b' },
+          ],
+        },
+      ],
+    };
+
+    expect(toggleOpen(node, [], true)).toEqual(expected);
+    expect(toggleOpen(expected, [], false)).toEqual(node);
+  });
+
+  it('correctly toggle second layer', () => {
+    const expected = {
+      name: 'root',
+      isOpen: false,
+      children: [
+        { name: 'x' },
+        { name: 'y' },
+        {
+          name: 'z',
+          isOpen: false,
+          children: [
+            { name: 'a', isOpen: true, children: [] },
+            { name: 'b' },
+          ],
+        },
+      ],
+    };
+
+    expect(toggleOpen(node, [2], false)).toEqual(expected);
+    expect(toggleOpen(expected, [2], true)).toEqual(node);
+  });
+
+  it('correctly toggle last layer', () => {
+    const expected = {
+      name: 'root',
+      isOpen: false,
+      children: [
+        { name: 'x' },
+        { name: 'y' },
+        {
+          name: 'z',
+          isOpen: true,
+          children: [
+            { name: 'a', isOpen: false, children: [] },
+            { name: 'b' },
+          ],
+        },
+      ],
+    };
+
+    expect(toggleOpen(node, [2, 0], false)).toEqual(expected);
+    expect(toggleOpen(expected, [2, 0], true)).toEqual(node);
+  });
+});
+
+describe('setAllOpenStatus', () => {
+  const nodeWithIsOpen = {
+    name: 'root',
+    isOpen: false,
+    children: [
+      { name: 'x' },
+      { name: 'y' },
+      {
+        name: 'z',
+        isOpen: true,
+        children: [
+          { name: 'a', isOpen: false, children: [] },
+          { name: 'b' },
+        ],
+      },
+    ],
+  };
+
+  const nodeWithOutIsOpen = {
+    name: 'root',
+    children: [
+      { name: 'x' },
+      { name: 'y' },
+      {
+        name: 'z',
+        children: [
+          { name: 'a', children: [] },
+          { name: 'b' },
+        ],
+      },
+    ],
+  };
+
+  it('set isOpen = true for all nodes', () => {
+    const expected = {
+      name: 'root',
+      isOpen: true,
+      children: [
+        { name: 'x' },
+        { name: 'y' },
+        {
+          name: 'z',
+          isOpen: true,
+          children: [
+            { name: 'a', isOpen: true, children: [] },
+            { name: 'b' },
+          ],
+        },
+      ],
+    };
+
+    expect(setAllOpenStatus(nodeWithIsOpen, true)).toEqual(expected);
+    expect(setAllOpenStatus(nodeWithOutIsOpen, true)).toEqual(expected);
+  });
+});
+
+describe('isValidOpenStatus', () => {
+  describe('when open status is valid', () => {
+    it('returns true', () => {
+      const valid1 = {
+        isOpen: false,
+        children: [],
+      };
+
+      const valid2 = {
+        isOpen: false,
+        children: [
+          {
+            isOpen: true,
+            children: [
+              {},
+              {},
+            ],
+          },
+        ],
+      };
+
+      const valid3 = {
+        isOpen: false,
+        children: [
+          {},
+          {},
+          {
+            isOpen: true,
+            children: [
+              { isOpen: true, children: [] },
+              {},
+            ],
+          },
+        ],
+      };
+
+      expect(isValidOpenStatus(valid1)).toEqual(true);
+      expect(isValidOpenStatus(valid2)).toEqual(true);
+      expect(isValidOpenStatus(valid3)).toEqual(true);
+    });
+  });
+
+  describe('when open status is not valid', () => {
+    it('returns false', () => {
+      const inValid1 = {
+        children: [],
+      };
+
+      const inValid2 = {
+        isOpen: false,
+      };
+
+      const inValid3 = {
+        isOpen: false,
+        children: [
+          {
+            isOpen: true,
+            children: [
+              { children: [] },
+              {},
+            ],
+          },
+        ],
+      };
+      const inValid4 = {
+        isOpen: false,
+        children: [
+          {
+            isOpen: true,
+            children: [
+              { isOpen: false },
+              {},
+            ],
+          },
+        ],
+      };
+
+      expect(isValidOpenStatus(inValid1)).toEqual(false);
+      expect(isValidOpenStatus(inValid2)).toEqual(false);
+      expect(isValidOpenStatus(inValid3)).toEqual(false);
+      expect(isValidOpenStatus(inValid4)).toEqual(false);
     });
   });
 });
