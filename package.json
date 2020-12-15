@@ -1,8 +1,8 @@
 {
   "name": "react-folder-tree",
   "version": "4.0.0",
-  "description": "folder tree library with React + Hooks",
-  "main": "src/index.js",
+  "description": "customizable react folder tree library",
+  "main": "dist/react-folder-tree.bundle.js",
   "repository": "git@github.com:shunjizhan/React-Folder-Tree.git",
   "author": "Shunji Zhan <shunhahaha@live.com>",
   "license": "MIT",
