@@ -8,10 +8,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "webpack --config config/webpack.config.js",
+    "prebuild": "rm -rf dist/",
+    "build": "webpack --config config/webpack.prod.config.js",
     "start": "NODE_ENV=development node scripts/dev-server.js",
     "lint": "eslint src/ --ext .js,.jsx",
-    "lint-fix": "eslint src/ --ext .js,.jsx --fix",
     "test": "jest --collect-coverage"
   },
   "husky": {

@@ -1,21 +1,15 @@
 const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin');
 
-const devOptions = {
+module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
-  watchOptions: {
-    aggregateTimeout: 0, // debounce time for re-compile
-    ignored: ['node_modules/**'],
-  },
-};
-
-module.exports = {
-  entry: path.resolve(__dirname, '../src/index.js'),
+  entry: path.resolve(__dirname, '../src/components/FolderTree/FolderTree.jsx'),
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'react-folder-tree.dev.bundle.js',
+    filename: 'react-folder-tree.bundle.js',
+    library: 'FolderTree',    // to be available in global scope
+    libraryTarget: 'umd',
   },
   resolve: {
     // our code can resolve 'xxx' instead of writing 'xxx.jsx'
@@ -32,14 +26,6 @@ module.exports = {
         },
       },
       {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-        ],
-      },
-      {
         test: /\.scss$/,
         use: [
           'style-loader',   // creates style nodes from JS strings
@@ -50,14 +36,10 @@ module.exports = {
     ],
   },
   plugins: [
-    // generates an HTML file by injecting automatically all our generated bundles.
-    new HtmlWebPackPlugin({
-      template: path.resolve(__dirname, '../public/index.html'),
-      favicon: path.resolve(__dirname, '../public/pokeball.ico'),
-      filename: 'index.html',
-    }),
     // clear terminal in each build
     new CleanTerminalPlugin(),
   ],
-  ...devOptions,
+  externals: {
+    react: 'umd react',   // this is needed for react to resolve to a single react
+  },
 };
