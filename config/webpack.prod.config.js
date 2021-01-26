@@ -1,8 +1,10 @@
 const path = require('path');
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin');
 
+// TODO: code split the react icons library
+
 module.exports = {
-  mode: 'development',
+  mode: 'development',  // TODO: change to prod when finished
   devtool: 'inline-source-map',
   entry: path.resolve(__dirname, '../src/components/FolderTree/FolderTree.jsx'),
   output: {
@@ -40,6 +42,8 @@ module.exports = {
     new CleanTerminalPlugin(),
   ],
   externals: {
-    react: 'umd react',   // this is needed for react to resolve to a single react
+    // this is needed for react to resolve to a single react
+    react: 'umd react',
+    'react-dom': 'umd react-dom',
   },
 };
