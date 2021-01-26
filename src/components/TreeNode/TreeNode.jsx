@@ -188,7 +188,7 @@ const TreeNode = ({
         isFolder && isOpen && childrenData.map((data, idx) => (
           <TreeNode
             path={ [...path, idx] }
-            key={ data.id }
+            key={ data._id }
             name={ data.name }
             isOpen={ data.isOpen }
             checked={ data.checked }

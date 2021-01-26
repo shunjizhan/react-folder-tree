@@ -8,7 +8,7 @@ export const deepClone = x => JSON.parse(JSON.stringify(x));
 export const addUniqIds = rootNode => {
   let curId = 0;
   const _addId = node => {
-    node.id = curId;  // eslint-disable-line
+    node._id = curId;  // eslint-disable-line
     curId += 1;
 
     const { children } = node;

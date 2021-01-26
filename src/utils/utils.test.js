@@ -22,7 +22,7 @@ import {
 describe('addUniqIds', () => {
   it('add uniq ids to all nodes', () => {
     expect(addUniqIds(testData)).toEqual(testDataWithId);
-    expect(addUniqIds({})).toEqual({ id: 0 });
+    expect(addUniqIds({})).toEqual({ _id: 0 });
   });
 });
 
