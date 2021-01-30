@@ -1,3 +1,6 @@
+dist/
+notes.md
+
 yarn-error.log
 npm-debug.log
 build
