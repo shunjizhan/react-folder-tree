@@ -746,32 +746,32 @@ describe('deleteNode', () => {
 describe('findMaxId', () => {
   it('finds correct max id', () => {
     const node = {
-      id: 1,
+      _id: 1,
       children: [
-        { id: 2 },
-        { id: 3 },
+        { _id: 2 },
+        { _id: 3 },
         {
-          id: 4,
+          _id: 4,
           children: [
-            { id: 5 },
-            { id: 6 },
-            { id: 7 },
+            { _id: 5 },
+            { _id: 6 },
+            { _id: 7 },
           ],
         },
       ],
     };
     expect(findMaxId(node)).toEqual(7);
 
-    node.id = 15;
+    node._id = 15;
     expect(findMaxId(node)).toEqual(15);
 
-    node.children[1].id = 18;
+    node.children[1]._id = 18;
     expect(findMaxId(node)).toEqual(18);
 
-    node.children[2].children[1].id = 27;
+    node.children[2].children[1]._id = 27;
     expect(findMaxId(node)).toEqual(27);
 
-    node.children.push({ id: 30 });
+    node.children.push({ _id: 30 });
     expect(findMaxId(node)).toEqual(30);
 
     node.children.pop();
@@ -786,22 +786,22 @@ describe('addNode', () => {
   describe('when parent folder is checked', () => {
     const node = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 1,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 1, id: 100 },
+            { checked: 1, _id: 100 },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],
@@ -809,23 +809,23 @@ describe('addNode', () => {
 
     const addFileExpected = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 1,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 1, id: 101, name: 'new file' },
-            { checked: 1, id: 100 },
+            { checked: 1, _id: 101, name: 'new file' },
+            { checked: 1, _id: 100 },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],
@@ -833,25 +833,25 @@ describe('addNode', () => {
 
     const addFolderExpected = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 1,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 1, id: 100 },
+            { checked: 1, _id: 100 },
             {
-              checked: 1, id: 101, name: 'new folder', children: [],
+              checked: 1, _id: 101, name: 'new folder', children: [],
             },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],
@@ -864,23 +864,23 @@ describe('addNode', () => {
   describe('when parent folder is half-checked', () => {
     const node = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 0.5,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 1, id: 100 },
-            { checked: 0, id: 101 },
+            { checked: 1, _id: 100 },
+            { checked: 0, _id: 101 },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],
@@ -888,24 +888,24 @@ describe('addNode', () => {
 
     const addFileExpected = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 0.5,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 0, id: 102, name: 'new file' },
-            { checked: 1, id: 100 },
-            { checked: 0, id: 101 },
+            { checked: 0, _id: 102, name: 'new file' },
+            { checked: 1, _id: 100 },
+            { checked: 0, _id: 101 },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],
@@ -913,26 +913,26 @@ describe('addNode', () => {
 
     const addFolderExpected = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 0.5,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 1, id: 100 },
-            { checked: 0, id: 101 },
+            { checked: 1, _id: 100 },
+            { checked: 0, _id: 101 },
             {
-              checked: 0, id: 102, name: 'new folder', children: [],
+              checked: 0, _id: 102, name: 'new folder', children: [],
             },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],
@@ -945,23 +945,23 @@ describe('addNode', () => {
   describe('when parent folder is unchecked', () => {
     const node = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 0,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 0, id: 100 },
-            { checked: 0, id: 101 },
+            { checked: 0, _id: 100 },
+            { checked: 0, _id: 101 },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],
@@ -969,24 +969,24 @@ describe('addNode', () => {
 
     const addFileExpected = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 0,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 0, id: 102, name: 'new file' },
-            { checked: 0, id: 100 },
-            { checked: 0, id: 101 },
+            { checked: 0, _id: 102, name: 'new file' },
+            { checked: 0, _id: 100 },
+            { checked: 0, _id: 101 },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],
@@ -994,26 +994,26 @@ describe('addNode', () => {
 
     const addFolderExpected = {
       checked: 0.5,
-      id: 1,
+      _id: 1,
       children: [
-        { checked: 0, id: 2 },
+        { checked: 0, _id: 2 },
         {
           checked: 0,
-          id: 3,
+          _id: 3,
           children: [
-            { checked: 0, id: 100 },
-            { checked: 0, id: 101 },
+            { checked: 0, _id: 100 },
+            { checked: 0, _id: 101 },
             {
-              checked: 0, id: 102, name: 'new folder', children: [],
+              checked: 0, _id: 102, name: 'new folder', children: [],
             },
           ],
         }, {
           checked: 0.5,
-          id: 9,
+          _id: 9,
           children: [
-            { checked: 0, id: 11 },
-            { checked: 1, id: 18 },
-            { checked: 0, id: 84 },
+            { checked: 0, _id: 11 },
+            { checked: 1, _id: 18 },
+            { checked: 0, _id: 84 },
           ],
         },
       ],

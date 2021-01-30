@@ -130,7 +130,7 @@ export const deleteNode = (rootNode, path) => {
 
 export const findMaxId = rootNode => {
   const { children } = rootNode;
-  const curId = rootNode.id;
+  const curId = rootNode._id;
 
   return children
     ? Math.max(...[curId, ...children.map(findMaxId)])
