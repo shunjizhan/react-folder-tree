@@ -1,6 +1,6 @@
 {
   "name": "react-folder-tree",
-  "version": "4.0.2",
+  "version": "4.0.4",
   "description": "customizable react folder tree library",
   "main": "dist/react-folder-tree.bundle.js",
   "files": [
@@ -15,7 +15,8 @@
     "build": "webpack --config config/webpack.prod.config.js",
     "start": "NODE_ENV=development node scripts/dev-server.js",
     "lint": "eslint src/ --ext .js,.jsx",
-    "test": "jest --collect-coverage"
+    "test": "jest --collect-coverage",
+    "prepublish": "yarn build"
   },
   "husky": {
     "hooks": {
@@ -55,13 +56,16 @@
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.1.0",
+    "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^4.0.0",
     "webpack-dev-server": "^3.11.0"
   },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-icons": "^4.1.0"
   }
 }
