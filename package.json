@@ -1,6 +1,6 @@
 {
   "name": "react-folder-tree",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "customizable react folder tree library",
   "main": "dist/react-folder-tree.bundle.js",
   "files": [
@@ -29,7 +29,7 @@
     "recursion-tree-visualizer",
     "recursions"
   ],
-  "homepage": "https://github.com/shunjizhan/React-Folder-Tree",
+  "homepage": "https://shunjizhan.github.io/react-folder-tree-demos/",
   "repository": {
     "type": "git",
     "url": "https://github.com/shunjizhan/React-Folder-Tree.git"
