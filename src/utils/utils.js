@@ -152,14 +152,14 @@ export const addNode = (rootNode, path, type = 'file') => {
     if (isFile) {
       // files goes to front
       children.unshift({
-        id,
+        _id: id,
         name: 'new file',
         checked: Math.floor(curNode.checked),
       });
     } else {
       // folder goes to back
       children.push({
-        id,
+        _id: id,
         name: 'new folder',
         checked: Math.floor(curNode.checked),
         children: [],

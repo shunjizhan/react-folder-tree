@@ -18,15 +18,19 @@ import {
 } from '../../utils/utils';
 import TreeNode from '../TreeNode/TreeNode';
 import UtilsContext from './context';
+import { testData } from '../../utils/testData';
 
 import './FolderTree.scss';
 
+// TODO: webapck optimization, now the build files are too big, mayebe try to eliminate extra files imported from libraries, and remove sandboxs, which is not needed anymore.
+
 const FolderTree = ({
   data,
-  onChange,
+  onChange = console.log,
   initCheckedStatus = 'unchecked',
   initOpenStatus = 'open',
   iconComponents = {},
+  indentPixels = 30,
 }) => {
   const [treeState, setTreeState] = useState(null);
 
@@ -117,6 +121,7 @@ const FolderTree = ({
           handleAddNode,
           handleToggleOpen,
           iconComponents,
+          indentPixels,
         }}
       >
         <TreeNode
@@ -134,7 +139,7 @@ const FolderTree = ({
 
 FolderTree.propTypes = {
   data: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 
   initCheckedStatus: PropTypes.string,
   initOpenStatus: PropTypes.string,
@@ -150,6 +155,8 @@ FolderTree.propTypes = {
     CaretRightIcon: PropTypes.func,
     CaretDownIcon: PropTypes.func,
   }),
+  indentPixels: PropTypes.number,
 };
 
+export { testData };
 export default FolderTree;

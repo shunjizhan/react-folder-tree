@@ -25,8 +25,6 @@ import {
   iconClassName,
 } from '../../utils/iconUtils';
 
-const indetPixels = 30;   // TODO: user can pass this to FolderTree and TreeNode can get is from context
-
 const TreeNode = ({
   path,
   name,
@@ -41,12 +39,13 @@ const TreeNode = ({
     handleAddNode,
     handleToggleOpen,
     iconComponents,
+    indentPixels,
   } = useContext(UtilsContext);
 
   const isFolder = !!childrenData;
 
   const treeNodeStyle = {
-    marginLeft: path.length * indetPixels,
+    marginLeft: path.length * indentPixels,
   };
 
   const [isSelected, setIsSelected] = useState(false);
