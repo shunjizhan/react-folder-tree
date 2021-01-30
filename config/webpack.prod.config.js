@@ -1,8 +1,6 @@
 const path = require('path');
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
-// TODO: code split the react icons library
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   mode: 'production',
@@ -16,6 +14,10 @@ module.exports = {
   resolve: {
     // our code can resolve 'xxx' instead of writing 'xxx.jsx'
     extensions: ['*', '.js', '.jsx', '.mjs'],
+    alias: {      // to prevent the multiple react problem
+      react: path.resolve('./node_modules/react'),
+      'react-dom': path.resolve('./node_modules/react-dom'),
+    },
   },
   module: {
     // For every file that match regex in 'test', webpack pipes the code through to loaders
