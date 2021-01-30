@@ -1,13 +1,42 @@
 {
   "name": "react-folder-tree",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "customizable react folder tree library",
   "main": "dist/react-folder-tree.bundle.js",
   "files": [
     "dist/react-folder-tree.bundle.js"
   ],
-  "repository": "git@github.com:shunjizhan/React-Folder-Tree.git",
   "author": "Shunji Zhan <shunhahaha@live.com>",
+  "keywords": [
+    "react",
+    "npm",
+    "reactjs",
+    "npm-package",
+    "folder",
+    "recursion",
+    "npm-module",
+    "folders",
+    "tree-structure",
+    "treeview",
+    "folder-picker",
+    "folder-viewer",
+    "recursion-problem",
+    "folder-structure",
+    "folder-tooling",
+    "folder-tree",
+    "recursion-tree",
+    "recursion-tree-visualiser",
+    "recursion-tree-visualizer",
+    "recursions"
+  ],
+  "homepage": "https://github.com/shunjizhan/React-Folder-Tree",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shunjizhan/React-Folder-Tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shunjizhan/React-Folder-Tree/issues"
+  },
   "license": "MIT",
   "private": false,
   "scripts": {
