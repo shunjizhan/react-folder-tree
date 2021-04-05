@@ -13,6 +13,7 @@ const EditableName = ({
   onNameChange,
   OKIcon,
   CancelIcon,
+  path,
 }) => {
   const [inputVal, setInputVal] = useState(name);
 
@@ -39,10 +40,14 @@ const EditableName = ({
         <OKIcon
           className={ iconClassName('OKIcon') }
           onClick={ handleNameChange }
+          path={ path }
+          name={ name }
         />
         <CancelIcon
           className={ iconClassName('CancelIcon') }
           onClick={ cancelEditing }
+          path={ path }
+          name={ name }
         />
       </span>
     </span>
@@ -68,6 +73,7 @@ EditableName.propTypes = {
   onNameChange: PropTypes.func.isRequired,
   OKIcon: PropTypes.func.isRequired,
   CancelIcon: PropTypes.func.isRequired,
+  path: PropTypes.array.isRequired,
 };
 
 export default EditableName;

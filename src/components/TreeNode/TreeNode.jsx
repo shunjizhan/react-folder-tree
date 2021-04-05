@@ -66,10 +66,15 @@ const TreeNode = ({
   } = iconComponents;
 
   let TypeIcon = FileIcon;
+  let TypeIconType = 'FileIcon';
   if (isFolder) {
     TypeIcon = isOpen
       ? FolderOpenIcon
       : FolderIcon;
+
+    TypeIconType = isOpen
+      ? 'FolderOpenIcon'
+      : 'FolderIcon';
   }
 
   const handleCheckBoxChange = e => {
@@ -100,10 +105,14 @@ const TreeNode = ({
       <EditIcon
         className={ iconClassName('EditIcon') }
         onClick={ editMe }
+        path={ path }
+        name={ name }
       />
       <DeleteIcon
         className={ iconClassName('DeleteIcon') }
         onClick={ deleteMe }
+        path={ path }
+        name={ name }
       />
       {
         isFolder && (
@@ -111,10 +120,14 @@ const TreeNode = ({
             <AddFileIcon
               className={ iconClassName('AddFileIcon') }
               onClick={ addFile }
+              path={ path }
+              name={ name }
             />
             <AddFolderIcon
               className={ iconClassName('AddFolderIcon') }
               onClick={ addFolder }
+              path={ path }
+              name={ name }
             />
           </>
         )
@@ -123,6 +136,8 @@ const TreeNode = ({
       <CancelIcon
         className={ iconClassName('CancelIcon') }
         onClick={ unSelectMe }
+        path={ path }
+        name={ name }
       />
     </span>
   );
@@ -137,12 +152,16 @@ const TreeNode = ({
             <CaretDownIcon
               className={ iconClassName('CaretDownIcon') }
               onClick={ closeMe }
+              path={ path }
+              name={ name }
             />
           )
           : (
             <CaretRightIcon
               className={ iconClassName('CaretRightIcon') }
               onClick={ openMe }
+              path={ path }
+              name={ name }
             />
           )
       }
@@ -161,8 +180,10 @@ const TreeNode = ({
 
         <span className={ iconContainerClassName('typeIconContainer') }>
           <TypeIcon
-            className={ iconClassName('TypeIcon') }
+            className={ iconClassName(TypeIconType) }
             onClick={ selectMe }
+            path={ path }
+            name={ name }
           />
         </span>
 
@@ -177,6 +198,7 @@ const TreeNode = ({
             onNameChange={ onNameChange }
             OKIcon={ OKIcon }
             CancelIcon={ CancelIcon }
+            path={ path }
           />
         </span>
         { isSelected && TreeNodeToolBar }
