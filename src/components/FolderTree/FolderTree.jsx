@@ -22,8 +22,6 @@ import { testData } from '../../utils/testData';
 
 import './FolderTree.scss';
 
-// TODO: webapck optimization, now the build files are too big, mayebe try to eliminate extra files imported from libraries, and remove sandboxs, which is not needed anymore.
-
 const FolderTree = ({
   data,
   onChange = console.log,
