@@ -9,6 +9,7 @@ const SandBox = () => {
       <FolderTree
         data={ testData }
         onChange={ onTreeStateChange }
+        showCheckbox={ false }
       />
     </div>
   );

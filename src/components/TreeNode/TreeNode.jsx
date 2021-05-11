@@ -18,7 +18,7 @@ import {
 } from 'react-icons/ai';
 
 import CheckBox from '../CheckBox/CheckBox';
-import UtilsContext from '../FolderTree/context';
+import ConfigContext from '../FolderTree/context';
 import EditableName from '../EditableName/EditableName';
 import {
   iconContainerClassName,
@@ -40,7 +40,8 @@ const TreeNode = ({
     handleToggleOpen,
     iconComponents,
     indentPixels,
-  } = useContext(UtilsContext);
+    showCheckbox,
+  } = useContext(ConfigContext);
 
   const isFolder = !!childrenData;
 
@@ -171,10 +172,12 @@ const TreeNode = ({
   return (
     <>
       <div className='TreeNode' style={ treeNodeStyle }>
-        <CheckBox
-          status={ checked }
-          onChange={ handleCheckBoxChange }
-        />
+        { showCheckbox && (
+          <CheckBox
+            status={ checked }
+            onChange={ handleCheckBoxChange }
+          />
+        )}
 
         { isFolder && folderCaret }
 

@@ -34,14 +34,15 @@ const BasicTree = () => {
 
 ```
 
-| prop name         | description                             | type     | options                                        |
+| prop              | description                             | type     | options                                        |
 |-------------------|-----------------------------------------|----------|------------------------------------------------|
 | data              | initial tree state data (required)      | object   | N/A                                            |
 | onChange          | callback when tree state changes        | function | console.log (default)                          |
 | initCheckedStatus | initial check status of all nodes       | string   | 'unchecked' (default) \| 'checked' \| 'custom' |
-| initOpenStatus    | initial open status of all folder nodes | string   | 'open' (default) \| 'close' \| 'custom'        |
+| initOpenStatus    | initial open status of all treenodes    | string   | 'open' (default) \| 'close' \| 'custom'        |
 | iconComponents    | custom icon components                  | object   | N/A                                            |
-| indentPixels      | ident pixels                            | number   | 30 (default)                                   |
+| indentPixels      | ident pixels of 1x level treenode       | number   | 30 (default)                                   |
+| showCheckbox      | show check box?                         | bool     | true (default) | false                         |
 
 ## Note
 After upgrading to `v4.0`, old versions are no compatible anymore, please try out new version or specify old version when installing!

@@ -17,7 +17,7 @@ import {
   addNode,
 } from '../../utils/utils';
 import TreeNode from '../TreeNode/TreeNode';
-import UtilsContext from './context';
+import ConfigContext from './context';
 import { testData } from '../../utils/testData';
 
 import './FolderTree.scss';
@@ -28,6 +28,7 @@ const FolderTree = ({
   initCheckedStatus = 'unchecked',
   initOpenStatus = 'open',
   iconComponents = {},
+  showCheckbox = true,
   indentPixels = 30,
 }) => {
   const [treeState, setTreeState] = useState(null);
@@ -109,18 +110,26 @@ const FolderTree = ({
     isOpen,
   } = treeState;
 
+  const configs = {
+    handleCheck,
+    handleRename,
+    handleDelete,
+    handleAddNode,
+    handleToggleOpen,
+
+    iconComponents,
+    indentPixels,
+    showCheckbox,
+  };
+
+  /* ----------
+    - custom configs are passed down in context, which is same for each tree node
+    - tree node specific data is passed recursively to each node, which is different for each node
+                                                                                        ---------- */
   return (
     <div className='FolderTree'>
-      <UtilsContext.Provider
-        value={{
-          handleCheck,
-          handleRename,
-          handleDelete,
-          handleAddNode,
-          handleToggleOpen,
-          iconComponents,
-          indentPixels,
-        }}
+      <ConfigContext.Provider
+        value={ configs }
       >
         <TreeNode
           path={ [] }
@@ -130,7 +139,7 @@ const FolderTree = ({
           childrenData={ children }
           handleCheck={ handleCheck }
         />
-      </UtilsContext.Provider>
+      </ConfigContext.Provider>
     </div>
   );
 };
@@ -154,6 +163,7 @@ FolderTree.propTypes = {
     CaretDownIcon: PropTypes.func,
   }),
   indentPixels: PropTypes.number,
+  showCheckbox: PropTypes.bool,
 };
 
 export { testData };
