@@ -39,7 +39,7 @@ const BasicTree = () => {
 | data              | initial tree state data (required)      | object   | N/A                                            |
 | onChange          | callback when tree state changes        | function | console.log (default)                          |
 | initCheckedStatus | initial check status of all nodes       | string   | 'unchecked' (default) \| 'checked' \| 'custom' |
-| initOpenStatus    | initial open status of all folder nodes | string   | 'close' (default) \| 'open' \| 'custom'        |
+| initOpenStatus    | initial open status of all folder nodes | string   | 'open' (default) \| 'close' \| 'custom'        |
 | iconComponents    | custom icon components                  | object   | N/A                                            |
 | indentPixels      | ident pixels                            | number   | 30 (default)                                   |
 
