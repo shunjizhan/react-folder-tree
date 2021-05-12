@@ -1,13 +1,14 @@
 # React Folder Tree
-A powerful and customizable react treeview library. It supports:
-- ✅ customizable icons
-- ✅ customizable callbacks
-- ✅ inline add, modify, and delete operations
-- ✅ checkbox with half check (indeterminate check) support
-## Quick Preview
+A versatile and customizable react treeview library. It supports:
+- ✅ customize icons
+- ✅ customize event handlers
+- ✅ inline add, modify, and delete tree nodes
+- ✅ checkbox with half check (indeterminate check)
+### Quick Preview
 ![folder-tree-demo](/assets/folder-tree-demo.gif)
 
-live demos and code examples can be found [HERE](https://shunjizhan.github.io/react-folder-tree-demos/)
+### Live Demos
+live demos and code examples can be found [here](https://shunjizhan.github.io/react-folder-tree-demos/)
 
 ---
 ## Basic Usage
@@ -47,6 +48,7 @@ tree state is an object that looks like:
   url (optional): 'url of this node for example',
 }
 ```
+This example shows how to render a tree with custom initial state
 ```tsx
 const treeState = {
   name: 'root [half checked and opened]',
@@ -93,11 +95,11 @@ const CustomInitState = () => (
 
 ---
 ## Advanced Usage
-### 🌀 sync tree state
-in order to perform more complex operations, we can sync and keep track of the current tree state outside.
+### 🔥 sync tree state
+In order to perform more complex operations, we can sync and keep track of the current tree state outside.
 
+This example shows how to download all selected files.
 ```jsx
-// this example shows how to download all selected files
 const SuperApp = () => {
   const [treeState, setTreeState] = useState(initState);
   const onTreeStateChange = state => setTreeState(state);
@@ -116,8 +118,8 @@ const SuperApp = () => {
 };
 ```
 
-### 🌀 custom icons 
-there are 9 icons and all of them are customizable.
+### 🔥 custom icons 
+There are 9 icons and all of them are customizable.
 - FileIcon
 - FolderIcon
 - FolderOpenIcon
@@ -128,20 +130,28 @@ there are 9 icons and all of them are customizable.
 - CaretDownIcon
 - OKIcon
 
+This example shows how to customize the FileIcon (same interface for all other icons).
 ```jsx
-// this example shows how to customize the FileIcon
-// all other icons have same interface
 import { FaBitcoin } from 'react-icons/fa';
 
 const BitcoinApp = () => {
   const FileIcon = ({ onClick: defaultOnClick, nodeData }) => {
-    const { path, name, ...restData } = nodeData;
+    const {
+      path,
+      name,
+      checked,
+      isOpen,
+      ...restData
+    } = nodeData;
 
+    // custom event handler
     const handleClick = () => {   
-      doSthBad({ path, name });
+      doSthBad({ path, name, checked, isOpen, ...restData });
+
       defaultOnClick();
     };
 
+    // custom Style
     return <FaBitcoin onClick={ handleClick } />;
   };
 
@@ -157,16 +167,15 @@ const BitcoinApp = () => {
 };
 ```
 
-### 🌀 disable icons
-this usage is a subset of custom icons. For example, to hide `FileIcon` we can simply pass in a dummy custom icon
+### 🔥 disable icons
+This usage is a subset of custom icons. For example, to hide `FileIcon` we can simply pass in a dummy custom icon, so nothing will be rendered.
 ```tsx
 const FileIcon = (...args) => null;
 ```
 
-### 🌀 custom `onClick` for node names
+### 🔥 custom `onClick` for node names
+This example shows how to download the file when click on the node name.
 ```tsx
-// this example shows how to download the file when click on the name
-
 const dataWithUrl = {
   name: 'secret crypto file',
   url: 'polkadot.network',      // wew can provide any custom data to the FolderTree!
@@ -174,7 +183,7 @@ const dataWithUrl = {
 };
 
 const onNameClick = (defaultOnClick, nodeData) => {
-  // defaultOnClick();    // don't need to call the default behavior
+  defaultOnClick();
 
   const {
     // internal data
@@ -206,7 +215,7 @@ const Downloader = () => (
 | iconComponents    | custom icon components                  | object   | ant design icons (default)                     |
 | indentPixels      | ident pixels of 1x level treenode       | number   | 30 (default)                                   |
 | showCheckbox      | show check box?                         | bool     | true (default) | false                         |
-| onNameClick       | call back when click treenode text      | function | open treenode inline toolbox (default)         |
+| onNameClick       | callback when click treenode name      | function | open treenode inline toolbox (default)         |
 
 ---
 ## Bugs? Questions? Contributions?
