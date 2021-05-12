@@ -7,8 +7,7 @@ A powerful and customizable react treeview library. It supports:
 ## Quick Preview
 ![folder-tree-demo](/assets/folder-tree-demo.gif)
 
-## Demos & Code Examples
-[HERE](https://shunjizhan.github.io/react-folder-tree-demos/)
+live demos and code examples can be found [HERE](https://shunjizhan.github.io/react-folder-tree-demos/)
 
 ---
 ## Basic Usage
@@ -34,7 +33,7 @@ const BasicTree = () => {
 ```
 
 ### 🌀 custom initial state
-tree state is an object that look like:
+tree state is an object that looks like:
 ```jsx
 {
   // reserved keys
@@ -135,13 +134,11 @@ there are 9 icons and all of them are customizable.
 import { FaBitcoin } from 'react-icons/fa';
 
 const BitcoinApp = () => {
-  const FileIcon = ({ onClick: defaultOnClick, className, path, name }) => {
-    /* 
-      `path` is an array of indexes from root to the node that was clicked.
-      It can be used with the synced tree state outside to find all data about the clicked node.
-    */
+  const FileIcon = ({ onClick: defaultOnClick, nodeData }) => {
+    const { path, name, ...restData } = nodeData;
+
     const handleClick = () => {   
-      doSthBad({ className, path, name });
+      doSthBad({ path, name });
       defaultOnClick();
     };
 

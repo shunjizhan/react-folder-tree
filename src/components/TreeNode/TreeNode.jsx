@@ -23,6 +23,7 @@ import EditableName from '../EditableName/EditableName';
 import {
   iconContainerClassName,
   iconClassName,
+  getDefaultIcon,
 } from '../../utils/iconUtils';
 
 const TreeNode = ({
@@ -33,6 +34,10 @@ const TreeNode = ({
   children,
   ...restData
 }) => {
+  const nodeData = {
+    path, name, checked, isOpen, ...restData,
+  };
+
   const {
     handleCheck,
     handleRename,
@@ -56,17 +61,17 @@ const TreeNode = ({
   const [isEditing, setIsEditing] = useState(false);
 
   const {
-    FileIcon = AiOutlineFile,
-    FolderIcon = AiOutlineFolder,
-    FolderOpenIcon = AiOutlineFolderOpen,
-    EditIcon = AiOutlineEdit,
-    DeleteIcon = AiOutlineDelete,
-    CancelIcon = AiOutlineClose,
-    AddFileIcon = AiOutlineFileAdd,
-    AddFolderIcon = AiOutlineFolderAdd,
-    CaretRightIcon = AiFillCaretRight,
-    CaretDownIcon = AiFillCaretDown,
-    OKIcon = AiOutlineCheck,
+    FileIcon = getDefaultIcon(AiOutlineFile),
+    FolderIcon = getDefaultIcon(AiOutlineFolder),
+    FolderOpenIcon = getDefaultIcon(AiOutlineFolderOpen),
+    EditIcon = getDefaultIcon(AiOutlineEdit),
+    DeleteIcon = getDefaultIcon(AiOutlineDelete),
+    CancelIcon = getDefaultIcon(AiOutlineClose),
+    AddFileIcon = getDefaultIcon(AiOutlineFileAdd),
+    AddFolderIcon = getDefaultIcon(AiOutlineFolderAdd),
+    CaretRightIcon = getDefaultIcon(AiFillCaretRight),
+    CaretDownIcon = getDefaultIcon(AiFillCaretDown),
+    OKIcon = getDefaultIcon(AiOutlineCheck),
   } = iconComponents;
 
   let TypeIcon = FileIcon;
@@ -107,9 +112,6 @@ const TreeNode = ({
   const handleNameClick = () => {
     const defaultOnClick = selectMe;
     if (onNameClick && typeof onNameClick === 'function') {
-      const nodeData = {
-        path, name, checked, isOpen, ...restData,
-      };
       !isEditing && onNameClick(defaultOnClick, nodeData);
     } else {
       defaultOnClick();
@@ -121,14 +123,12 @@ const TreeNode = ({
       <EditIcon
         className={ iconClassName('EditIcon') }
         onClick={ editMe }
-        path={ path }
-        name={ name }
+        nodeData={ nodeData }
       />
       <DeleteIcon
         className={ iconClassName('DeleteIcon') }
         onClick={ deleteMe }
-        path={ path }
-        name={ name }
+        nodeData={ nodeData }
       />
       {
         isFolder && (
@@ -136,14 +136,12 @@ const TreeNode = ({
             <AddFileIcon
               className={ iconClassName('AddFileIcon') }
               onClick={ addFile }
-              path={ path }
-              name={ name }
+              nodeData={ nodeData }
             />
             <AddFolderIcon
               className={ iconClassName('AddFolderIcon') }
               onClick={ addFolder }
-              path={ path }
-              name={ name }
+              nodeData={ nodeData }
             />
           </>
         )
@@ -152,8 +150,7 @@ const TreeNode = ({
       <CancelIcon
         className={ iconClassName('CancelIcon') }
         onClick={ unSelectMe }
-        path={ path }
-        name={ name }
+        nodeData={ nodeData }
       />
     </span>
   );
@@ -168,16 +165,14 @@ const TreeNode = ({
             <CaretDownIcon
               className={ iconClassName('CaretDownIcon') }
               onClick={ closeMe }
-              path={ path }
-              name={ name }
+              nodeData={ nodeData }
             />
           )
           : (
             <CaretRightIcon
               className={ iconClassName('CaretRightIcon') }
               onClick={ openMe }
-              path={ path }
-              name={ name }
+              nodeData={ nodeData }
             />
           )
       }
@@ -200,8 +195,7 @@ const TreeNode = ({
           <TypeIcon
             className={ iconClassName(TypeIconType) }
             onClick={ selectMe }
-            path={ path }
-            name={ name }
+            nodeData={ nodeData }
           />
         </span>
 
@@ -210,13 +204,12 @@ const TreeNode = ({
           onClick={ handleNameClick }
         >
           <EditableName
-            name={ name }
             isEditing={ isEditing }
             setIsEditing={ setIsEditing }
             onNameChange={ onNameChange }
             OKIcon={ OKIcon }
             CancelIcon={ CancelIcon }
-            path={ path }
+            nodeData={ nodeData }
           />
         </span>
         { isSelected && TreeNodeToolBar }

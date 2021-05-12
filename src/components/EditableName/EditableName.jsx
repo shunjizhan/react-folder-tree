@@ -7,14 +7,14 @@ import {
 } from '../../utils/iconUtils';
 
 const EditableName = ({
-  name,
   isEditing,
   setIsEditing,
   onNameChange,
   OKIcon,
   CancelIcon,
-  path,
+  nodeData,
 }) => {
+  const { name } = nodeData;
   const [inputVal, setInputVal] = useState(name);
 
   const onInputChange = e => setInputVal(e.target.value);
@@ -40,14 +40,12 @@ const EditableName = ({
         <OKIcon
           className={ iconClassName('OKIcon') }
           onClick={ handleNameChange }
-          path={ path }
-          name={ name }
+          nodeData={ nodeData }
         />
         <CancelIcon
           className={ iconClassName('CancelIcon') }
           onClick={ cancelEditing }
-          path={ path }
-          name={ name }
+          nodeData={ nodeData }
         />
       </span>
     </span>
@@ -67,13 +65,12 @@ const EditableName = ({
 };
 
 EditableName.propTypes = {
-  name: PropTypes.string.isRequired,
   isEditing: PropTypes.bool.isRequired,
   setIsEditing: PropTypes.func.isRequired,
   onNameChange: PropTypes.func.isRequired,
   OKIcon: PropTypes.func.isRequired,
   CancelIcon: PropTypes.func.isRequired,
-  path: PropTypes.array.isRequired,
+  nodeData: PropTypes.object.isRequired,
 };
 
 export default EditableName;
