@@ -1,17 +1,14 @@
 # React Folder Tree
 A powerful and customizable react treeview library. It supports:
-- ✅ inline CRUD operations
 - ✅ customizable icons
 - ✅ customizable callbacks
-- ✅ half check (indeterminate checkboxes)
+- ✅ inline add, modify, and delete operations
+- ✅ checkbox with half check (indeterminate check) support
 ## Quick Preview
 ![folder-tree-demo](/assets/folder-tree-demo.gif)
 
-
 ## Demos & Code Examples
-[===== HERE =====](https://shunjizhan.github.io/react-folder-tree-demos/)
-[===== HERE =====](https://shunjizhan.github.io/react-folder-tree-demos/)
-[===== HERE =====](https://shunjizhan.github.io/react-folder-tree-demos/)
+[HERE](https://shunjizhan.github.io/react-folder-tree-demos/)
 
 ---
 ## Basic Usage
@@ -40,17 +37,15 @@ const BasicTree = () => {
 tree state is an object that look like:
 ```jsx
 {
+  // reserved keys
   name: 'Goku',   
   checked (optional): 0 (unchecked, default) | 0.5 (half checked) | 1(checked),
   isOpen (optional): false (default) | true,
   children (optional): [array of treenode],
 
-  // WIP
-  clickable (optional): true (default) | false,
-  editable (optional): true (default) | false, 
-  deletable (optional): true (default) | false,
-  canAddFile (optional): true (default) | false,
-  canAddFolder (optional): true (default) | false,
+  // not reserved
+  key1 (optional): 'what ever data you need',
+  url (optional): 'url of this node for example',
 }
 ```
 ```tsx
@@ -167,12 +162,40 @@ const BitcoinApp = () => {
 
 ### 🌀 disable icons
 this usage is a subset of custom icons. For example, to hide `FileIcon` we can simply pass in a dummy custom icon
-```jsx
+```tsx
 const FileIcon = (...args) => null;
 ```
 
 ### 🌀 custom `onClick` for node names
-WIP
+```tsx
+// this example shows how to download the file when click on the name
+
+const dataWithUrl = {
+  name: 'secret crypto file',
+  url: 'polkadot.network',      // wew can provide any custom data to the FolderTree!
+  // ...
+};
+
+const onNameClick = (defaultOnClick, nodeData) => {
+  // defaultOnClick();    // don't need to call the default behavior
+
+  const {
+    // internal data
+    path, name, checked, isOpen, 
+    // custom data
+    url, ...whateverRest
+  } = nodeData;
+
+  download(url);
+};
+
+const Downloader = () => (
+  <FolderTree
+    data={ dataWithUrl }
+    onNameClick={ onNameClick }
+  />
+);
+```
 
 ---
 ## APIs Summary
@@ -183,9 +206,10 @@ WIP
 | onChange          | callback when tree state changes        | function | console.log (default)                          |
 | initCheckedStatus | initial check status of all nodes       | string   | 'unchecked' (default) \| 'checked' \| 'custom' |
 | initOpenStatus    | initial open status of all treenodes    | string   | 'open' (default) \| 'close' \| 'custom'        |
-| iconComponents    | custom icon components                  | object   | N/A                                            |
+| iconComponents    | custom icon components                  | object   | ant design icons (default)                     |
 | indentPixels      | ident pixels of 1x level treenode       | number   | 30 (default)                                   |
 | showCheckbox      | show check box?                         | bool     | true (default) | false                         |
+| onNameClick       | call back when click treenode text      | function | open treenode inline toolbox (default)         |
 
 ---
 ## Bugs? Questions? Contributions?

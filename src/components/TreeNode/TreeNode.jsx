@@ -30,7 +30,8 @@ const TreeNode = ({
   name,
   checked,
   isOpen,
-  childrenData,
+  children,
+  ...restData
 }) => {
   const {
     handleCheck,
@@ -38,12 +39,14 @@ const TreeNode = ({
     handleDelete,
     handleAddNode,
     handleToggleOpen,
+
     iconComponents,
     indentPixels,
     showCheckbox,
+    onNameClick,
   } = useContext(ConfigContext);
 
-  const isFolder = !!childrenData;
+  const isFolder = !!children;
 
   const treeNodeStyle = {
     marginLeft: path.length * indentPixels,
@@ -100,6 +103,18 @@ const TreeNode = ({
 
   const addFile = () => handleAddNode(path, 'file');
   const addFolder = () => handleAddNode(path, 'folder');
+
+  const handleNameClick = () => {
+    const defaultOnClick = selectMe;
+    if (onNameClick && typeof onNameClick === 'function') {
+      const nodeData = {
+        path, name, checked, isOpen, ...restData,
+      };
+      !isEditing && onNameClick(defaultOnClick, nodeData);
+    } else {
+      defaultOnClick();
+    }
+  };
 
   const TreeNodeToolBar = (
     <span className={ iconContainerClassName('TreeNodeToolBar') }>
@@ -192,7 +207,7 @@ const TreeNode = ({
 
         <span
           className={ iconContainerClassName('editableNameContainer') }
-          onClick={ selectMe }
+          onClick={ handleNameClick }
         >
           <EditableName
             name={ name }
@@ -209,14 +224,11 @@ const TreeNode = ({
       </div>
 
       {
-        isFolder && isOpen && childrenData.map((data, idx) => (
+        isFolder && isOpen && children.map((data, idx) => (
           <TreeNode
-            path={ [...path, idx] }
             key={ data._id }
-            name={ data.name }
-            isOpen={ data.isOpen }
-            checked={ data.checked }
-            childrenData={ data.children }
+            path={ [...path, idx] }
+            { ...data }
           />
         ))
       }
@@ -230,7 +242,7 @@ TreeNode.propTypes = {
   checked: PropTypes.number.isRequired,
   isOpen: PropTypes.bool,
 
-  childrenData: PropTypes.array,
+  children: PropTypes.array,
 };
 
 export default TreeNode;

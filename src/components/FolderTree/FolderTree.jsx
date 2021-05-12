@@ -30,6 +30,7 @@ const FolderTree = ({
   iconComponents = {},
   showCheckbox = true,
   indentPixels = 30,
+  onNameClick = null,
 }) => {
   const [treeState, setTreeState] = useState(null);
 
@@ -103,19 +104,13 @@ const FolderTree = ({
 
   if (!treeState) return null;
 
-  const {
-    name,
-    checked,
-    children,
-    isOpen,
-  } = treeState;
-
   const configs = {
     handleCheck,
     handleRename,
     handleDelete,
     handleAddNode,
     handleToggleOpen,
+    onNameClick,
 
     iconComponents,
     indentPixels,
@@ -132,12 +127,9 @@ const FolderTree = ({
         value={ configs }
       >
         <TreeNode
+          key={ treeState._id }
           path={ [] }
-          name={ name }
-          checked={ checked }
-          isOpen={ isOpen }
-          childrenData={ children }
-          handleCheck={ handleCheck }
+          { ...treeState }
         />
       </ConfigContext.Provider>
     </div>
@@ -164,6 +156,7 @@ FolderTree.propTypes = {
   }),
   indentPixels: PropTypes.number,
   showCheckbox: PropTypes.bool,
+  onNameClick: PropTypes.func,
 };
 
 export { testData };
