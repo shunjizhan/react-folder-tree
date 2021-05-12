@@ -219,4 +219,4 @@ const Downloader = () => (
 
 ---
 ## Bugs? Questions? Contributions?
-Feel free to [open an issue](https://github.com/shunjizhan/React-Folder-Tree/issues), or create a pull request!
+Feel free to [open an issue](https://github.com/shunjizhan/react-folder-tree/issues), or create a pull request!

@@ -32,10 +32,10 @@
   "homepage": "https://shunjizhan.github.io/react-folder-tree-demos/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shunjizhan/React-Folder-Tree.git"
+    "url": "https://github.com/shunjizhan/react-folder-tree.git"
   },
   "bugs": {
-    "url": "https://github.com/shunjizhan/React-Folder-Tree/issues"
+    "url": "https://github.com/shunjizhan/react-folder-tree/issues"
   },
   "license": "MIT",
   "private": false,
