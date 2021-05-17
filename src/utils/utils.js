@@ -1,11 +1,8 @@
 export const deepClone = x => JSON.parse(JSON.stringify(x));
 
-// TODO: add description on the top of all functions
-// TODO: replace deepclone with { ...rootnode } and make sure it still works
-// TODO: implement isValidCheckedStatus()
-
-// assign uniq ids to each node
-export const addUniqIds = rootNode => {
+// deepclone the initial data for internal use, and assign uniq ids to each node
+// deepclone only happens once at initialization, other operations will be in-place
+export const initStateWithUniqIds = rootNode => {
   let curId = 0;
   const _addId = node => {
     node._id = curId;  // eslint-disable-line
@@ -33,8 +30,13 @@ const setStatusDown = (node, status) => {
       setStatusDown(child, status);
     }
   }
-  return node;
+  return { ...node };
 };
+
+// set checked status for all nodes
+export const setAllCheckedStatus = (rootNode, status) => (
+  setStatusDown(rootNode, status)
+);
 
 // calculate the check status of a node based on the check status of it's children
 export const getNewCheckStatus = node => {
@@ -66,15 +68,9 @@ export const updateStatusUp = nodes => {
   updateStatusUp(nodes);
 };
 
-// set checked status for all nodes
-export const setAllCheckedStatus = (rootNode, status) => (
-  setStatusDown(deepClone(rootNode), status)
-);
-
 // handle state change when user (un)check a TreeNode
 export const checkNode = (rootNode, path, status) => {
-  const _rootNode = deepClone(rootNode);
-  let curNode = _rootNode;
+  let curNode = rootNode;
   const parentNodes = [curNode];        // parent nodes for getNewCheckStatus() upwards
 
   for (const idx of path) {
@@ -87,33 +83,30 @@ export const checkNode = (rootNode, path, status) => {
   parentNodes.pop();            // don't need to check this node's level
   updateStatusUp(parentNodes);  // update check status up, from this nodes parent, in place
 
-  return _rootNode;
+  return { ...rootNode };
 };
 
 export const renameNode = (rootNode, path, newName) => {
-  const _rootNode = deepClone(rootNode);
-  let curNode = _rootNode;
+  let curNode = rootNode;
   for (const idx of path) {
     curNode = curNode.children[idx];
   }
   curNode.name = newName;
 
-  return _rootNode;
+  return { ...rootNode };
 };
 
 export const deleteNode = (rootNode, path) => {
-  const _rootNode = deepClone(rootNode);
-
+  let curNode = rootNode;
   if (path.length === 0) {
     // this is root node
     // just remove every children and reset check status to 0
-    _rootNode.children = [];
-    _rootNode.checked = 0;
+    curNode.children = [];
+    curNode.checked = 0;
 
-    return _rootNode;
+    return curNode;
   }
 
-  let curNode = _rootNode;
   const parentNodes = [curNode];
   const lastIdx = path.pop();
 
@@ -125,7 +118,7 @@ export const deleteNode = (rootNode, path) => {
   curNode.children.splice(lastIdx, 1);    // remove target node
   updateStatusUp(parentNodes);            // update check status up, from this nodes
 
-  return _rootNode;
+  return { ...rootNode };
 };
 
 export const findMaxId = rootNode => {
@@ -141,8 +134,7 @@ export const addNode = (rootNode, path, type = 'file') => {
   const id = findMaxId(rootNode) + 1;
   const isFile = type === 'file';
 
-  const _rootNode = deepClone(rootNode);
-  let curNode = _rootNode;
+  let curNode = rootNode;
   for (const idx of path) {
     curNode = curNode.children[idx];
   }
@@ -167,12 +159,11 @@ export const addNode = (rootNode, path, type = 'file') => {
     }
   }
 
-  return _rootNode;
+  return { ...rootNode };
 };
 
 export const toggleOpen = (rootNode, path, isOpen) => {
-  const _rootNode = deepClone(rootNode);
-  let curNode = _rootNode;
+  let curNode = rootNode;
   for (const idx of path) {
     curNode = curNode.children[idx];
   }
@@ -182,7 +173,7 @@ export const toggleOpen = (rootNode, path, isOpen) => {
     curNode.isOpen = isOpen;
   }
 
-  return _rootNode;
+  return { ...rootNode };
 };
 
 export const setAllOpenStatus = (node, isOpen) => {
@@ -216,4 +207,5 @@ export const isValidOpenStatus = node => {
 };
 
 // check if the initial custom checked status is valid
+// TODO: implement isValidCheckedStatus()
 export const isValidCheckedStatus = rootNode => true;   /* eslint-disable-line */

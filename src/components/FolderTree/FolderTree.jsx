@@ -5,7 +5,7 @@ import React, {
 import PropTypes from 'prop-types';
 
 import {
-  addUniqIds,
+  initStateWithUniqIds,
   checkNode,
   setAllCheckedStatus,
   isValidCheckedStatus,
@@ -40,7 +40,7 @@ const FolderTree = ({
   };
 
   useEffect(() => {
-    let initState = addUniqIds(data);
+    let initState = initStateWithUniqIds(data);
 
     switch (initCheckedStatus) {
       case 'unchecked':

@@ -5,7 +5,7 @@ import {
 } from './testData';
 import {
   deepClone,
-  addUniqIds,
+  initStateWithUniqIds,
   checkNode,
   setAllCheckedStatus,
   isValidCheckedStatus,
@@ -19,15 +19,15 @@ import {
   addNode,
 } from './utils';
 
-describe('addUniqIds', () => {
+describe('initStateWithUniqIds', () => {
   it('add uniq ids to all nodes', () => {
-    expect(addUniqIds(testData)).toEqual(testDataWithId);
-    expect(addUniqIds({})).toEqual({ _id: 0 });
+    expect(initStateWithUniqIds(testData)).toEqual(testDataWithId);
+    expect(initStateWithUniqIds({})).toEqual({ _id: 0 });
   });
 });
 
 describe('setAllCheckedStatus', () => {
-  const initData = setAllCheckedStatus(addUniqIds(testData), 0);
+  const initData = setAllCheckedStatus(initStateWithUniqIds(testData), 0);
 
   it('set checked status to 0 for all nodes', () => {
     expect(initData).toEqual(initializedTestData);
@@ -93,7 +93,7 @@ describe('getNewCheckStatus', () => {
 });
 
 describe('checkNode', () => {
-  const initData = setAllCheckedStatus(addUniqIds(testData), 0);
+  const initData = setAllCheckedStatus(initStateWithUniqIds(testData), 0);
 
   describe('when check root node', () => {
     it('returns correct state', () => {
@@ -241,8 +241,8 @@ describe('toggleOpen', () => {
       ],
     };
 
-    expect(toggleOpen(node, [], true)).toEqual(expected);
-    expect(toggleOpen(expected, [], false)).toEqual(node);
+    expect(toggleOpen(deepClone(node), [], true)).toEqual(expected);
+    expect(toggleOpen(deepClone(expected), [], false)).toEqual(node);
   });
 
   it('correctly toggle second layer', () => {
@@ -263,8 +263,8 @@ describe('toggleOpen', () => {
       ],
     };
 
-    expect(toggleOpen(node, [2], false)).toEqual(expected);
-    expect(toggleOpen(expected, [2], true)).toEqual(node);
+    expect(toggleOpen(deepClone(node), [2], false)).toEqual(expected);
+    expect(toggleOpen(deepClone(expected), [2], true)).toEqual(node);
   });
 
   it('correctly toggle last layer', () => {
@@ -285,8 +285,8 @@ describe('toggleOpen', () => {
       ],
     };
 
-    expect(toggleOpen(node, [2, 0], false)).toEqual(expected);
-    expect(toggleOpen(expected, [2, 0], true)).toEqual(node);
+    expect(toggleOpen(deepClone(node), [2, 0], false)).toEqual(expected);
+    expect(toggleOpen(deepClone(expected), [2, 0], true)).toEqual(node);
   });
 });
 
@@ -857,8 +857,8 @@ describe('addNode', () => {
       ],
     };
 
-    expect(addNode(node, [1], 'file')).toEqual(addFileExpected);
-    expect(addNode(node, [1], 'folder')).toEqual(addFolderExpected);
+    expect(addNode(deepClone(node), [1], 'file')).toEqual(addFileExpected);
+    expect(addNode(deepClone(node), [1], 'folder')).toEqual(addFolderExpected);
   });
 
   describe('when parent folder is half-checked', () => {
@@ -938,8 +938,8 @@ describe('addNode', () => {
       ],
     };
 
-    expect(addNode(node, [1], 'file')).toEqual(addFileExpected);
-    expect(addNode(node, [1], 'folder')).toEqual(addFolderExpected);
+    expect(addNode(deepClone(node), [1], 'file')).toEqual(addFileExpected);
+    expect(addNode(deepClone(node), [1], 'folder')).toEqual(addFolderExpected);
   });
 
   describe('when parent folder is unchecked', () => {
@@ -1019,8 +1019,8 @@ describe('addNode', () => {
       ],
     };
 
-    expect(addNode(node, [1], 'file')).toEqual(addFileExpected);
-    expect(addNode(node, [1], 'folder')).toEqual(addFolderExpected);
+    expect(addNode(deepClone(node), [1], 'file')).toEqual(addFileExpected);
+    expect(addNode(deepClone(node), [1], 'folder')).toEqual(addFolderExpected);
   });
 });
 
