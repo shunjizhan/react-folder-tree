@@ -1,24 +1,14 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import useTreeState, {
+  testData,
+  findTargetNode,
+  findAllTargetPathByProp,
+  findTargetPathByProp,
+} from 'use-tree-state';
 
-import {
-  initStateWithUniqIds,
-  checkNode,
-  setAllCheckedStatus,
-  isValidCheckedStatus,
-  toggleOpen,
-  setAllOpenStatus,
-  isValidOpenStatus,
-  renameNode,
-  deleteNode,
-  addNode,
-} from '../../utils/utils';
 import TreeNode from '../TreeNode/TreeNode';
 import ConfigContext from './context';
-import { testData } from '../../utils/testData';
 
 import './FolderTree.scss';
 
@@ -32,84 +22,27 @@ const FolderTree = ({
   indentPixels = 30,
   onNameClick = null,
 }) => {
-  const [treeState, setTreeState] = useState(null);
-
-  const handleTreeStateChange = newState => {
-    setTreeState(newState);
-    onChange(newState);
+  const options = {
+    initCheckedStatus,
+    initOpenStatus,
   };
-
-  useEffect(() => {
-    let initState = initStateWithUniqIds(data);
-
-    switch (initCheckedStatus) {
-      case 'unchecked':
-        initState = setAllCheckedStatus(initState, 0);
-        break;
-
-      case 'checked':
-        initState = setAllCheckedStatus(initState, 1);
-        break;
-
-      default:
-        if (!isValidCheckedStatus(initState)) {
-          console.warn('checked status is not provided! Fell back to all unchecked.');
-          initState = setAllCheckedStatus(initState, 0);
-        }
-    }
-
-    switch (initOpenStatus) {
-      case 'open':
-        initState = setAllOpenStatus(initState, true);
-        break;
-
-      case 'close':
-        initState = setAllOpenStatus(initState, false);
-        break;
-
-      default:
-        if (!isValidOpenStatus(initState)) {
-          console.warn('open status is not provided! Fell back to all opened.');
-          initState = setAllCheckedStatus(initState, 0);
-        }
-    }
-
-    handleTreeStateChange(initState);
-  }, [data, initCheckedStatus]);
-
-  const handleCheck = (path, status) => {
-    const newState = checkNode(treeState, path, status);
-    handleTreeStateChange(newState);
-  };
-
-  const handleRename = (path, newName) => {
-    const newState = renameNode(treeState, path, newName);
-    handleTreeStateChange(newState);
-  };
-
-  const handleDelete = path => {
-    const newState = deleteNode(treeState, path);
-    handleTreeStateChange(newState);
-  };
-
-  const handleAddNode = (path, type = 'file') => {
-    const newState = addNode(treeState, path, type);
-    handleTreeStateChange(newState);
-  };
-
-  const handleToggleOpen = (path, isOpen) => {
-    const newState = toggleOpen(treeState, path, isOpen);
-    handleTreeStateChange(newState);
-  };
+  const { treeState, reducers } = useTreeState({ data, options, onChange });
+  const {
+    checkNode,
+    renameNode,
+    deleteNode,
+    addNode,
+    toggleOpen,
+  } = reducers;
 
   if (!treeState) return null;
 
   const configs = {
-    handleCheck,
-    handleRename,
-    handleDelete,
-    handleAddNode,
-    handleToggleOpen,
+    handleCheck: checkNode,
+    handleRename: renameNode,
+    handleDelete: deleteNode,
+    handleAddNode: addNode,
+    handleToggleOpen: toggleOpen,
     onNameClick,
 
     iconComponents,
@@ -159,5 +92,10 @@ FolderTree.propTypes = {
   onNameClick: PropTypes.func,
 };
 
-export { testData };
+export {
+  testData,
+  findTargetNode,
+  findAllTargetPathByProp,
+  findTargetPathByProp,
+};
 export default FolderTree;

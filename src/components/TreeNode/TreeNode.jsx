@@ -106,8 +106,8 @@ const TreeNode = ({
 
   const deleteMe = () => handleDelete(path);
 
-  const addFile = () => handleAddNode(path, 'file');
-  const addFolder = () => handleAddNode(path, 'folder');
+  const addFile = () => handleAddNode(path, false);
+  const addFolder = () => handleAddNode(path, true);
 
   const handleNameClick = () => {
     const defaultOnClick = selectMe;
