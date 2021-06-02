@@ -14,13 +14,14 @@ import './FolderTree.scss';
 
 const FolderTree = ({
   data,
-  onChange = console.log,
+  onChange = console.log,   // eslint-disable-line
   initCheckedStatus = 'unchecked',
   initOpenStatus = 'open',
   iconComponents = {},
   showCheckbox = true,
   indentPixels = 30,
   onNameClick = null,
+  readOnly = false,
 }) => {
   const options = {
     initCheckedStatus,
@@ -48,6 +49,7 @@ const FolderTree = ({
     iconComponents,
     indentPixels,
     showCheckbox,
+    readOnly,
   };
 
   /* ----------
@@ -88,8 +90,9 @@ FolderTree.propTypes = {
     CaretDownIcon: PropTypes.func,
   }),
   indentPixels: PropTypes.number,
-  showCheckbox: PropTypes.bool,
   onNameClick: PropTypes.func,
+  showCheckbox: PropTypes.bool,
+  readOnly: PropTypes.bool,
 };
 
 export {

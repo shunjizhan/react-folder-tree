@@ -47,8 +47,9 @@ const TreeNode = ({
 
     iconComponents,
     indentPixels,
-    showCheckbox,
     onNameClick,
+    showCheckbox,
+    readOnly,
   } = useContext(ConfigContext);
 
   const isFolder = !!children;
@@ -87,13 +88,15 @@ const TreeNode = ({
   }
 
   const handleCheckBoxChange = e => {
+    if (readOnly) return;
+
     const newStatus = +e.target.checked;
     handleCheck(path, newStatus);
   };
 
   const onNameChange = newName => handleRename(path, newName);
 
-  const selectMe = () => (!isEditing && setIsSelected(true));
+  const selectMe = () => (!isEditing && !readOnly && setIsSelected(true));
   const unSelectMe = () => setIsSelected(false);
 
   const openMe = () => handleToggleOpen(path, true);

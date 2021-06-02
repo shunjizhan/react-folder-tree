@@ -1,5 +1,6 @@
 const path = require('path');
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
@@ -32,9 +33,9 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',   // creates style nodes from JS strings
-          'css-loader',     // translates CSS into CommonJS
-          'sass-loader',    // compiles Sass to CSS, using Node Sass by default
+          MiniCssExtractPlugin.loader,  // generate a separate style.css
+          'css-loader',                 // translates CSS into CommonJS
+          'sass-loader',                // compiles Sass to CSS, using Node Sass by default
         ],
       },
     ],
@@ -42,6 +43,7 @@ module.exports = {
   plugins: [
     // clear terminal in each build
     new CleanTerminalPlugin(),
+    new MiniCssExtractPlugin({ filename: 'style.css' }),
     // new BundleAnalyzerPlugin(),
   ],
   externals: {
