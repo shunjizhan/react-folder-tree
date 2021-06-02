@@ -1,9 +1,12 @@
 # React Folder Tree
 A versatile and customizable react treeview library. It supports:
-- ✅ customize icons
-- ✅ customize event handlers
-- ✅ inline add, modify, and delete tree nodes
-- ✅ checkbox with half check (indeterminate check)
+✅ custom icons  
+✅ custom event handlers  
+✅ inline add, modify, and delete tree nodes  
+✅ checkbox with half check (indeterminate check)  
+✅ read-only mode
+
+It uses [use-tree-state]() hook internally for convenient state management.
 ### Quick Preview
 ![folder-tree-demo](/assets/folder-tree-demo.gif)
 
@@ -20,9 +23,10 @@ $ npm install react-folder-tree --save
 ### 🌀 basic tree
 ```tsx
 import FolderTree, { testData } from 'react-folder-tree';
+import 'react-folder-tree/dist/style.css';
 
 const BasicTree = () => {
-  const onTreeStateChange = state => console.log('tree state: ', state);
+  const onTreeStateChange = (state, event) => console.log(state, event);
 
   return (
     <FolderTree
@@ -34,20 +38,26 @@ const BasicTree = () => {
 ```
 
 ### 🌀 custom initial state
-tree state is an object that looks like:
+Initial tree state is an object that describes a nested tree node structure, which looks like:
 ```jsx
 {
-  // reserved keys
-  name: 'Goku',   
+  // reserved keys, can customize initial value
+  name: 'root node',  
   checked (optional): 0 (unchecked, default) | 0.5 (half checked) | 1(checked),
-  isOpen (optional): false (default) | true,
+  isOpen (optional): true (default) | false,
   children (optional): [array of treenode],
 
-  // not reserved
-  key1 (optional): 'what ever data you need',
-  url (optional): 'url of this node for example',
+  // internal keys, don't customize plz
+  path: [],    // path is an array of indexes to this node from root node
+  _id: 0,
+
+  // not reserved, can carry any extra info about this node
+  nickname (optional): 'pikachu',
+  url (optional): 'url of this node',
 }
 ```
+`checked` and `isOpen` status could be auto initialized by props `initCheckedStatus` and `initOpenStatus`. We can also provide data with custom `checked` and `isOpen` status, and set `initCheckedStatus` and `initOpenStatus` to `'custom'`.
+
 This example shows how to render a tree with custom initial state
 ```tsx
 const treeState = {
@@ -93,6 +103,15 @@ const CustomInitState = () => (
 />
 ```
 
+### 🌀 read only?
+we can use it as a classical view-only tree
+```jsx
+<FolderTree
+  data={ treeState }
+  showCheckbox={ false }    // hiding checkbox is not required but recommended for better UX
+  readOnly                  // <== here!!
+/>
+```
 ---
 ## Advanced Usage
 ### 🔥 sync tree state
@@ -102,7 +121,7 @@ This example shows how to download all selected files.
 ```jsx
 const SuperApp = () => {
   const [treeState, setTreeState] = useState(initState);
-  const onTreeStateChange = state => setTreeState(state);
+  const onTreeStateChange = (state, event) => setTreeState(state);
 
   const onDownload = () => downloadAllSelected(treeState);
 
@@ -167,10 +186,25 @@ const BitcoinApp = () => {
 };
 ```
 
-### 🔥 disable icons
-This usage is a subset of custom icons. For example, to hide `FileIcon` we can simply pass in a dummy custom icon, so nothing will be rendered.
+### 🔥 hide icons / disable interaction
+This usage is a subset of custom icons.
+
+For example, if we want to disable editing, we can hide `EditIcon` by passing in a dummy custom icon, so nothing will be rendered.
 ```tsx
-const FileIcon = (...args) => null;
+const EditIcon = (...args) => null;
+```
+
+A little more complex but more flexible way is to have extra node data, say `editable`, then build a custom icon that utilize this data
+```ts
+const EditIcon = ({ onClick: defaultOnClick, nodeData }) => {
+  const { editable } = nodeData;
+
+  // if this node is editable, render an EditIcon, otherwise render air
+  return editable ? (<FaEdit onClick={ defaultOnClick } />) : null;
+
+  // or render a 'not editable' icon
+  return editable ? (<FaEdit onClick={ defaultOnClick } />) : (<DontEdit />));
+};
 ```
 
 ### 🔥 custom `onClick` for node names
@@ -209,13 +243,14 @@ const Downloader = () => (
 | prop              | description                             | type     | options                                        |
 |-------------------|-----------------------------------------|----------|------------------------------------------------|
 | data              | initial tree state data (required)      | object   | N/A                                            |
-| onChange          | callback when tree state changes        | function | console.log (default)                          |
 | initCheckedStatus | initial check status of all nodes       | string   | 'unchecked' (default) \| 'checked' \| 'custom' |
-| initOpenStatus    | initial open status of all treenodes    | string   | 'open' (default) \| 'close' \| 'custom'        |
+| initOpenStatus    | initial open status of all treenodes    | string   | 'open' (default) \| 'closed' \| 'custom'        |
 | iconComponents    | custom icon components                  | object   | ant design icons (default)                     |
+| onChange          | callback when tree state changes        | function | console.log (default)                          |
+| onNameClick       | callback when click treenode name       | function | open treenode inline toolbox (default)         |
 | indentPixels      | ident pixels of 1x level treenode       | number   | 30 (default)                                   |
 | showCheckbox      | show check box?                         | bool     | true (default) | false                         |
-| onNameClick       | callback when click treenode name      | function | open treenode inline toolbox (default)         |
+| readOnly          | readOnly mode? can't click/check node   | bool     | false (default) | true                       |
 
 ---
 ## Bugs? Questions? Contributions?
