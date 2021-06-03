@@ -115,7 +115,7 @@ const TreeNode = ({
   const handleNameClick = () => {
     const defaultOnClick = selectMe;
     if (onNameClick && typeof onNameClick === 'function') {
-      !isEditing && onNameClick(defaultOnClick, nodeData);
+      !isEditing && onNameClick({ defaultOnClick, nodeData });
     } else {
       defaultOnClick();
     }
