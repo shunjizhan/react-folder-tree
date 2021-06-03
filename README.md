@@ -1,12 +1,12 @@
 # React Folder Tree
-A versatile and customizable react treeview library. It supports:
+A versatile and customizable react treeview library. Features:
 ✅ custom icons  
 ✅ custom event handlers  
 ✅ inline add, modify, and delete tree nodes  
 ✅ checkbox with half check (indeterminate check)  
 ✅ read-only mode
 
-It uses [use-tree-state]() hook internally for convenient state management.
+It uses [use-tree-state](https://www.npmjs.com/package/use-tree-state) hook internally for convenient state management.
 ### Quick Preview
 ![folder-tree-demo](/assets/folder-tree-demo.gif)
 
@@ -216,7 +216,7 @@ const dataWithUrl = {
   // ...
 };
 
-const onNameClick = (defaultOnClick, nodeData) => {
+const onNameClick = ({ defaultOnClick, nodeData }) => {
   defaultOnClick();
 
   const {

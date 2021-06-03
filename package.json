@@ -100,6 +100,7 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react-icons": "^4.1.0"
+    "react-icons": "^4.1.0",
+    "use-tree-state": "^1.0.0"
   }
 }
