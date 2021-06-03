@@ -1,6 +1,6 @@
 {
   "name": "react-folder-tree",
-  "version": "4.2.0",
+  "version": "5.0.1",
   "description": "customizable react folder tree library",
   "main": "dist/react-folder-tree.bundle.js",
   "files": [

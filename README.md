@@ -1,5 +1,5 @@
 # React Folder Tree
-A versatile and customizable react treeview library. Features:
+A versatile and customizable react treeview library. Features:  
 ✅ custom icons  
 ✅ custom event handlers  
 ✅ inline add, modify, and delete tree nodes  

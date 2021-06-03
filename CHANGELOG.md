@@ -2,3 +2,4 @@
 - restruct internal state management using `use-tree-state` hook
 - separate css file
 - interface change: `onNameClick(defaultOnClick, nodeData)` => `onNameClick({ defaultOnClick, nodeData })`
+- interface change: `onChange(newState)` => `onChange(newState, event)`
