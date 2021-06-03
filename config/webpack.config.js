@@ -32,14 +32,6 @@ module.exports = {
         },
       },
       {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-        ],
-      },
-      {
         test: /\.scss$/,
         use: [
           'style-loader',   // creates style nodes from JS strings
@@ -51,6 +43,7 @@ module.exports = {
   },
   plugins: [
     // generates an HTML file by injecting automatically all our generated bundles.
+    // any css result will be automagically included as a <link>
     new HtmlWebPackPlugin({
       template: path.resolve(__dirname, '../public/index.html'),
       favicon: path.resolve(__dirname, '../public/pokeball.ico'),
