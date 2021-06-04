@@ -47,8 +47,7 @@ Initial tree state is an object that describes a nested tree node structure, whi
   isOpen (optional): true (default) | false,
   children (optional): [array of treenode],
 
-  // internal keys, don't customize plz
-  path: [],    // path is an array of indexes to this node from root node
+  // internal key (auto generated), don't customize plz
   _id: 0,
 
   // not reserved, can carry any extra info about this node
