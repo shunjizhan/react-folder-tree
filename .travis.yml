@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - 16
+
+# installing required items for build
+install:
+  - npm install -g yarn
+  - yarn
+
+ # testing script
+script:
+  - yarn test
+
+ # notify codecov and deploy to cloud
+after_success:
+  bash <(curl -s https://codecov.io/bash);
+
+branches:
+  only:
+    - master
+    - main

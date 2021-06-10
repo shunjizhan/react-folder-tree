@@ -1,4 +1,7 @@
 # React Folder Tree
+[![travis build](https://img.shields.io/travis/com/shunjizhan/react-folder-tree?logo=travis)](https://travis-ci.com/shunjizhan/react-folder-tree) [![codecov](https://codecov.io/gh/shunjizhan/react-folder-tree/branch/main/graph/badge.svg?token=R15MSCTFHN)](https://codecov.io/gh/shunjizhan/react-folder-tree) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-folder-tree?color=light%20green&label=zipped%20only&logo=webpack)  
+[![npm](https://img.shields.io/npm/v/react-folder-tree?logo=npm)](https://www.npmjs.com/package/react-folder-tree) [![npm](https://img.shields.io/npm/dm/react-folder-tree?logo=DocuSign&color=blue)](https://www.npmjs.com/package/react-folder-tree) ![GitHub top language](https://img.shields.io/github/languages/top/shunjizhan/react-folder-tree?logo=react)
+
 A versatile and customizable react treeview library. Features:  
 ✅ custom icons  
 ✅ custom event handlers  
