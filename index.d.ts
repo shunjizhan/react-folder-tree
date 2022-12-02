@@ -36,14 +36,11 @@ export interface IconProps {
 }
 
 export interface NodeData {
-  _id?: number;
   checked?: Checked;
   children?: Array<NodeData>;
   isOpen?: boolean;
   name: string;
-  nickname?: string;
-  path?: Array<string>;
-  url?: string;
+  [key: string]: any;
 }
 
 type OnChange = (state: NodeData, event: unknown) => void;
