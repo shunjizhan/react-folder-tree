@@ -3,9 +3,11 @@
   "version": "5.0.3",
   "description": "customizable react folder tree library",
   "main": "dist/react-folder-tree.bundle.js",
+  "typings": "index.d.ts",
   "files": [
     "dist/react-folder-tree.bundle.js",
-    "dist/style.css"
+    "dist/style.css",
+    "index.d.ts"
   ],
   "author": "Shunji Zhan <shunhahaha@live.com>",
   "keywords": [
