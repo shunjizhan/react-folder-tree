@@ -25,8 +25,8 @@ export interface IconComponents {
   DeleteIcon?: Icon;
   EditIcon?: Icon;
   FileIcon?: Icon;
-  AddFileIcon: Icon,
-  AddFolderIcon: Icon,
+  AddFileIcon?: Icon,
+  AddFolderIcon?: Icon,
   FolderIcon?: Icon;
   FolderOpenIcon?: Icon;
   OKIcon?: Icon;
